@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
-import { SectionProps } from '../../utils/SectionProps';
-import ButtonGroup from '../elements/ButtonGroup';
-import Button from '../elements/Button';
-import Image from '../elements/Image';
-import Modal from '../elements/Modal';
+import { SectionProps } from '../../../utils/SectionProps';
+import ButtonGroup from '../../elements/ButtonGroup';
+import Button from '../../elements/Button';
+import Image from '../../elements/Image';
+import Modal from '../../elements/Modal';
 
 const propTypes = {
   ...SectionProps.types
@@ -14,7 +14,7 @@ const defaultProps = {
   ...SectionProps.defaults
 }
 
-const Hero = ({
+const Homepage = ({
   className,
   topOuterDivider,
   bottomOuterDivider,
@@ -83,7 +83,7 @@ const Hero = ({
 
               <Image
                 className="has-shadow"
-                src={require('./../../assets/images/PsyboticLogo.PNG')}
+                src={require('../../../assets/images/PsyboticLogo.PNG')}
                 alt="Hero"
                 width={696}
                 height={504} />
@@ -101,7 +101,7 @@ const Hero = ({
   );
 }
 
-Hero.propTypes = propTypes;
-Hero.defaultProps = defaultProps;
+Homepage.propTypes = propTypes;
+Homepage.defaultProps = defaultProps;
 
-export default Hero;
+export default Homepage;
