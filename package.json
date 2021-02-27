@@ -12,7 +12,6 @@
     "react-ga": "^2.7.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.4",
-    "react-string-format": "^0.1.0",
     "react-table": "^7.6.3"
   },
   "repository": {
@@ -40,5 +39,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "prop-types": "^15.7.2"
+  }
 }
