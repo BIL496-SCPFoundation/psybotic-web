@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Checkbox from "./Checkbox";
+import { useTable } from "react-table";
 
 const propTypes = {
     title: PropTypes.String,
@@ -18,27 +19,20 @@ const defaultProps = {
 }
 
 
-const DataTable = ({
-    tableProps,
-    tableBodyProps,
-    title,
-    service,
-    columns,
-    headerGroups,
-    prepareRow,
-    ...props
-}) => {
-    const tableClasses = classNames(
-        tableProps,
-    );
-    const tableBodyClasses = classNames(
-        tableProps,
-    );
-
-    let rows = getData();
+function DataTable({ columns, data }) {
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow
+    } = useTable({
+        columns,
+        data
+    });
 
     return (
-        <table {...tableClasses}>
+        <table {...getTableProps()}>
             <thead>
             {headerGroups.map(headerGroup => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
@@ -48,7 +42,7 @@ const DataTable = ({
                 </tr>
             ))}
             </thead>
-            <tbody {...tableBodyClasses}>
+            <tbody {...getTableBodyProps()}>
             {rows.map((row, i) => {
                 prepareRow(row);
                 return (
@@ -62,10 +56,6 @@ const DataTable = ({
             </tbody>
         </table>
     );
-}
-
-function getData() {
-    return []
 }
 
 Checkbox.propTypes = propTypes;
