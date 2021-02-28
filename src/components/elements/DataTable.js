@@ -31,7 +31,7 @@ function DataTable({ columns, data }) {
         data
     });
     columns.unshift({Header: 'Action', Cell: ({ row }) => (
-            <Button className="float-left">
+            <Button onClick={e => handleDelete(row)}>
                 Remove
             </Button>
         )})
@@ -60,6 +60,10 @@ function DataTable({ columns, data }) {
             </tbody>
         </table>
     );
+}
+
+function handleDelete(row){
+    console.log(row)
 }
 
 Checkbox.propTypes = propTypes;
