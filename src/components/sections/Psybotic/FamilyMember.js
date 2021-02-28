@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import {SectionProps} from '../../../utils/SectionProps';
 import DataTable from "../../elements/DataTable";
@@ -41,8 +41,11 @@ const Homepage = ({
         firstName: "Mert",
         lastName: "Onur",
         mail: "gmail",
-        phone: "123",
-    }]
+        phone: "123",}, {
+        firstName: "Epic",
+        lastName: "Gamer",
+        mail: "yahoo",
+        phone: "345",}]
     return (
         <section
             {...props}

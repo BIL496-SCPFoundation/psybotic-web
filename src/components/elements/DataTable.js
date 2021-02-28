@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import Checkbox from "./Checkbox";
 import { useTable } from "react-table";
+import Button from "./Button";
 
 const propTypes = {
     title: PropTypes.String,
@@ -30,7 +30,11 @@ function DataTable({ columns, data }) {
         columns,
         data
     });
-
+    columns.unshift({Header: 'Action', Cell: ({ row }) => (
+            <Button className="float-left">
+                Remove
+            </Button>
+        )})
     return (
         <table {...getTableProps()}>
             <thead>

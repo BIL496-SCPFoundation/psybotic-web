@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import { SectionTilesProps } from '../../../utils/SectionProps';
-import { format } from 'react-string-format';
 import SectionHeader from '../partials/SectionHeader';
 
 const propTypes = {
