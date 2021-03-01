@@ -4,6 +4,8 @@ import {SectionProps} from '../../../../utils/SectionProps';
 import DataTable from "../../../elements/DataTable";
 import {FAMILY_MEMBER} from "../../../../dataFormats/dataFormats";
 import Button from "../../../elements/Button";
+import ButtonGroup from "../../../elements/ButtonGroup";
+import { useHistory } from 'react-router-dom';
 
 const propTypes = {
     ...SectionProps.types
@@ -38,6 +40,7 @@ const FamilyMemberSubmit = ({
         topDivider && 'has-top-divider',
         bottomDivider && 'has-bottom-divider'
     );
+    const history = useHistory();
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -83,7 +86,12 @@ const FamilyMemberSubmit = ({
                                 }} />
                             <br/>
                             <br/>
+                             <ButtonGroup>
                             <Button type="submit" className="button-secondary">Add</Button>
+                            <Button type="button" className="button-dark"  onClick={() => {
+                                history.push("/table/familyMember/");
+                            }}>Return</Button>
+                             </ButtonGroup>
                         </form>
                     </div>
                 </div>

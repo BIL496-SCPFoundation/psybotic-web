@@ -4,6 +4,7 @@ import Checkbox from "./Checkbox";
 import {useTable} from "react-table";
 import Button from "./Button";
 import ButtonGroup from "./ButtonGroup";
+import {useHistory} from "react-router-dom";
 
 
 const propTypes = {
@@ -21,7 +22,11 @@ const defaultProps = {
 }
 
 
+
 function DataTable({columns, data_rows}) {
+
+    const history = useHistory();
+
     const [data, changeData] = useState(data_rows);
 
     if (columns[0].Header !== "Action") {
@@ -68,6 +73,7 @@ function DataTable({columns, data_rows}) {
 
 
     return (
+        <div>
         <table {...getTableProps()}>
             <thead>
             {headerGroups.map(headerGroup => (
@@ -91,6 +97,10 @@ function DataTable({columns, data_rows}) {
             })}
             </tbody>
         </table>
+            <Button className="button-secondary"  onClick={() => {
+                history.push("/table/familyMember/submit");
+            }}>Add</Button>
+        </div>
     );
 }
 

@@ -64,7 +64,6 @@ const Homepage = ({
                             mail: "gmail",
                             phone: "890",
                         }]}/>
-                        <Button className="button-secondary">Add</Button>
                     </div>
                 </div>
             </div>
