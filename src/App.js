@@ -10,6 +10,7 @@ import LayoutDefault from './layouts/LayoutDefault';
 import Home from './views/Home';
 import Profile from './views/Profile';
 import FamilyMemberDisplay from './views/FamilyMemberDisplay.js';
+import FamilyMemberSubmit from './components/sections/Psybotic/submitForms/FamilyMemberSubmit';
 
 
 // Initialize Google Analytics
@@ -41,6 +42,8 @@ const App = () => {
           <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
           <AppRoute exact path="/profile" component={Profile} layout={LayoutDefault} />
           <AppRoute exact path="/table/familyMember" component={FamilyMemberDisplay}  layout={LayoutDefault}/>
+          <AppRoute exact path="/table/familyMember/submit" component={FamilyMemberSubmit}  layout={LayoutDefault}/>
+
         </Switch>
       )} />
   );
