@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classNames from 'classnames';
 import {SectionProps} from '../../../utils/SectionProps';
 import DataTable from "../../elements/DataTable";
 import {FAMILY_MEMBER} from "../../../dataFormats/dataFormats";
+import Button from "../../elements/Button";
 const propTypes = {
     ...SectionProps.types
 }
@@ -37,15 +38,6 @@ const Homepage = ({
         bottomDivider && 'has-bottom-divider'
     );
 
-    const dummyData =[{
-        firstName: "Mert",
-        lastName: "Onur",
-        mail: "gmail",
-        phone: "123",}, {
-        firstName: "Epic",
-        lastName: "Gamer",
-        mail: "yahoo",
-        phone: "345",}]
     return (
         <section
             {...props}
@@ -53,7 +45,26 @@ const Homepage = ({
             <div className="container-sm">
                 <div className={innerClasses}>
                     <div className="hero-content">
-                        <DataTable columns={FAMILY_MEMBER} data={dummyData}/>
+                        <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
+                            Edit Family Members
+                        </h1>
+                        <DataTable columns={FAMILY_MEMBER} data_rows={[{
+                            firstName: "name1",
+                            lastName: "lastname1",
+                            mail: "gmail",
+                            phone: "123",
+                        }, {
+                            firstName: "name2",
+                            lastName: "lastname2",
+                            mail: "yahoo",
+                            phone: "345",
+                        }, {
+                            firstName: "name3",
+                            lastName: "lastname3",
+                            mail: "gmail",
+                            phone: "890",
+                        }]}/>
+                        <Button className="button-secondary">Add</Button>
                     </div>
                 </div>
             </div>

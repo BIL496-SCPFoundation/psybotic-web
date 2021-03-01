@@ -1,4 +1,8 @@
-export const FAMILY_MEMBER = [
+export const FAMILY_MEMBER = [{
+    Header: 'Action', columns: [{
+        Header: ' '
+    }]
+},
     {
         Header: 'Name',
         columns: [

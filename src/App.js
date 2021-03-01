@@ -40,7 +40,7 @@ const App = () => {
         <Switch>
           <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
           <AppRoute exact path="/profile" component={Profile} layout={LayoutDefault} />
-          <AppRoute exact path="/table/familyMember" component={FamilyMemberDisplay} />
+          <AppRoute exact path="/table/familyMember" component={FamilyMemberDisplay}  layout={LayoutDefault}/>
         </Switch>
       )} />
   );

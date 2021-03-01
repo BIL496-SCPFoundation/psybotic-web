@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from "./Checkbox";
-import { useTable } from "react-table";
+import {useTable} from "react-table";
 import Button from "./Button";
+import ButtonGroup from "./ButtonGroup";
+
 
 const propTypes = {
     title: PropTypes.String,
@@ -19,7 +21,40 @@ const defaultProps = {
 }
 
 
-function DataTable({ columns, data }) {
+function DataTable({columns, data_rows}) {
+    const [data, changeData] = useState(data_rows);
+
+    if (columns[0].Header !== "Action") {
+        columns.unshift({
+            Header: 'Action'
+        });
+    }
+    columns[0]['columns'] = [{
+        Header: ' ', Cell: ({row}) => (
+            <ButtonGroup>
+                <Button className="button-primary button-sm" onClick={() => {
+
+                    changeData((preVal) => {
+                        const dataCopy = [...preVal];
+                        dataCopy.splice(row.index, 1);
+                        return dataCopy;
+                    });
+                }}>
+                    Edit
+                </Button>
+                <Button className="button-dark button-sm" onClick={() => {
+
+                    changeData((preVal) => {
+                        preVal.splice(row.index, 1);
+                        console.log(preVal, "pre")
+                        return preVal;
+                    })
+                }}>
+                    Remove
+                </Button>
+            </ButtonGroup>
+        )
+    }]
     const {
         getTableProps,
         getTableBodyProps,
@@ -30,11 +65,8 @@ function DataTable({ columns, data }) {
         columns,
         data
     });
-    columns.unshift({Header: 'Action', Cell: ({ row }) => (
-            <Button onClick={e => handleDelete(row)}>
-                Remove
-            </Button>
-        )})
+
+
     return (
         <table {...getTableProps()}>
             <thead>
@@ -62,9 +94,6 @@ function DataTable({ columns, data }) {
     );
 }
 
-function handleDelete(row){
-    console.log(row)
-}
 
 Checkbox.propTypes = propTypes;
 Checkbox.defaultProps = defaultProps;
