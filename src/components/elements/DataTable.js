@@ -22,7 +22,6 @@ const defaultProps = {
 }
 
 
-
 function DataTable({columns, data_rows}) {
 
     const history = useHistory();
@@ -36,25 +35,27 @@ function DataTable({columns, data_rows}) {
     }
     columns[0]['columns'] = [{
         Header: ' ', Cell: ({row}) => (
-            <ButtonGroup>
-                <Button className="button-primary button-sm" onClick={() => {
-                    history.push("/table/familyMember/submit", {
-                        type: "edit",
-                        row: row.original
-                    });
-                }}>
-                    Edit
-                </Button>
-                <Button className="button-dark button-sm" onClick={() => {
-                    changeData((preVal) => {
-                        const dataCopy = [...preVal];
-                        dataCopy.splice(row.index, 1);
-                        return dataCopy;
-                    });
-                }}>
-                    Remove
-                </Button>
-            </ButtonGroup>
+            <div style={{width: "205px"}}>
+                <ButtonGroup>
+                    <Button className="button-primary button-sm" onClick={() => {
+                        history.push("/table/familyMember/submit", {
+                            type: "edit",
+                            row: row.original
+                        });
+                    }}>
+                        Edit
+                    </Button>
+                    <Button className="button-dark button-sm" onClick={() => {
+                        changeData((preVal) => {
+                            const dataCopy = [...preVal];
+                            dataCopy.splice(row.index, 1);
+                            return dataCopy;
+                        });
+                    }}>
+                        Remove
+                    </Button>
+                </ButtonGroup>
+            </div>
         )
     }]
     const {
@@ -71,30 +72,33 @@ function DataTable({columns, data_rows}) {
 
     return (
         <div>
-        <table {...getTableProps()}>
-            <thead>
-            {headerGroups.map(headerGroup => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map(column => (
-                        <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+            <div style={{flex: 1, overflowX: "auto"}}>
+                <table {...getTableProps()}>
+                    <thead>
+                    {headerGroups.map(headerGroup => (
+                        <tr {...headerGroup.getHeaderGroupProps()}>
+                            {headerGroup.headers.map(column => (
+                                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+                            ))}
+                        </tr>
                     ))}
-                </tr>
-            ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-            {rows.map((row, i) => {
-                prepareRow(row);
-                return (
-                    <tr {...row.getRowProps()}>
-                        {row.cells.map(cell => {
-                            return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
-                        })}
-                    </tr>
-                );
-            })}
-            </tbody>
-        </table>
-            <Button className="button-secondary"  onClick={() => {
+                    </thead>
+                    <tbody {...getTableBodyProps()}>
+                    {rows.map((row, i) => { 
+                        prepareRow(row);
+                        return (
+                            <tr {...row.getRowProps()}>
+                                {row.cells.map(cell => {
+                                    return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+                                })}
+                            </tr>
+                        );
+                    })}
+                    </tbody>
+                </table>
+            </div>
+            <br/>
+            <Button className="button-secondary" onClick={() => {
                 history.push("/table/familyMember/submit", {type: "new"});
             }}>Add</Button>
         </div>
