@@ -38,22 +38,19 @@ function DataTable({columns, data_rows}) {
         Header: ' ', Cell: ({row}) => (
             <ButtonGroup>
                 <Button className="button-primary button-sm" onClick={() => {
-
-                    changeData((preVal) => {
-                        const dataCopy = [...preVal];
-                        dataCopy.splice(row.index, 1);
-                        return dataCopy;
+                    history.push("/table/familyMember/submit", {
+                        type: "edit",
+                        row: row.original
                     });
                 }}>
                     Edit
                 </Button>
                 <Button className="button-dark button-sm" onClick={() => {
-
                     changeData((preVal) => {
-                        preVal.splice(row.index, 1);
-                        console.log(preVal, "pre")
-                        return preVal;
-                    })
+                        const dataCopy = [...preVal];
+                        dataCopy.splice(row.index, 1);
+                        return dataCopy;
+                    });
                 }}>
                     Remove
                 </Button>
@@ -98,7 +95,7 @@ function DataTable({columns, data_rows}) {
             </tbody>
         </table>
             <Button className="button-secondary"  onClick={() => {
-                history.push("/table/familyMember/submit");
+                history.push("/table/familyMember/submit", {type: "new"});
             }}>Add</Button>
         </div>
     );
