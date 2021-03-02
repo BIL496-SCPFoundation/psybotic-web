@@ -9,7 +9,7 @@ import LayoutDefault from './layouts/LayoutDefault';
 // Views 
 import Home from './views/Home';
 import Profile from './views/Profile';
-import FamilyMemberDisplay from './views/FamilyMemberDisplay.js';
+import ProfileTableDisplay from './views/ProfileTableDisplay.js';
 import FamilyMemberSubmit from './components/sections/Psybotic/submitForms/FamilyMemberSubmit';
 
 
@@ -41,9 +41,11 @@ const App = () => {
         <Switch>
           <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
           <AppRoute exact path="/profile" component={Profile} layout={LayoutDefault} />
-          <AppRoute exact path="/table/familyMember" component={FamilyMemberDisplay}  layout={LayoutDefault}/>
+
+          <AppRoute exact path="/table/familyMember" component={ProfileTableDisplay} layout={LayoutDefault}/>
           <AppRoute exact path="/table/familyMember/submit" component={FamilyMemberSubmit}  layout={LayoutDefault}/>
 
+          <AppRoute exact path="/table/emergencyContact" component={ProfileTableDisplay}  layout={LayoutDefault}/>
         </Switch>
       )} />
   );

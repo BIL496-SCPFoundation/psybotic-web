@@ -2,8 +2,7 @@ import React, {useState} from 'react';
 import classNames from 'classnames';
 import {SectionProps} from '../../../utils/SectionProps';
 import DataTable from "../../elements/DataTable";
-import {FAMILY_MEMBER} from "../../../utils/data/DataFormats";
-import FamilyMemberService from "../../../utils/data/axios/services/FamilyMemberService"
+import {EMERGENCY_CONTACT} from "../../../utils/data/DataFormats";
 const propTypes = {
     ...SectionProps.types
 }
@@ -12,16 +11,16 @@ const defaultProps = {
     ...SectionProps.defaults
 }
 
-const FamilyMember = ({
-                      className,
-                      topOuterDivider,
-                      bottomOuterDivider,
-                      topDivider,
-                      bottomDivider,
-                      hasBgColor,
-                      invertColor,
-                      ...props
-                  }) => {
+const EmergencyContact = ({
+                          className,
+                          topOuterDivider,
+                          bottomOuterDivider,
+                          topDivider,
+                          bottomDivider,
+                          hasBgColor,
+                          invertColor,
+                          ...props
+                      }) => {
 
     const outerClasses = classNames(
         'hero section center-content',
@@ -37,8 +36,7 @@ const FamilyMember = ({
         topDivider && 'has-top-divider',
         bottomDivider && 'has-bottom-divider'
     );
-    const service = new FamilyMemberService();
-    //service.findById("1");
+
     return (
         <section
             {...props}
@@ -47,21 +45,24 @@ const FamilyMember = ({
                 <div className={innerClasses}>
                     <div className="hero-content">
                         <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
-                            Edit Family Members
+                            Edit Emergency Contacts
                         </h1>
-                        <DataTable columns={FAMILY_MEMBER} data_rows={[{
+                        <DataTable columns={EMERGENCY_CONTACT} data_rows={[{
                             firstName: "Mert Onur",
                             lastName: "Cakiroglu",
+                            type: "brother",
                             mail: "cakiroglu.mert@gmail.com",
                             phone: "0530282823",
                         }, {
                             firstName: "name2",
                             lastName: "lastname2",
+                            type: "sister",
                             mail: "yahoo",
                             phone: "345",
                         }, {
                             firstName: "name3",
                             lastName: "lastname3",
+                            type: "uncle",
                             mail: "gmail",
                             phone: "890",
                         }]}/>
@@ -73,7 +74,7 @@ const FamilyMember = ({
     );
 }
 
-FamilyMember.propTypes = propTypes;
-FamilyMember.defaultProps = defaultProps;
+EmergencyContact.propTypes = propTypes;
+EmergencyContact.defaultProps = defaultProps;
 
-export default FamilyMember;
+export default EmergencyContact;
