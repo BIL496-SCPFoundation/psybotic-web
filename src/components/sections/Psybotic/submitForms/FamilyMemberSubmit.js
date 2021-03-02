@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import classNames from 'classnames';
 import {SectionProps} from '../../../../utils/SectionProps';
-import DataTable from "../../../elements/DataTable";
-import {FAMILY_MEMBER} from "../../../../dataFormats/dataFormats";
 import Button from "../../../elements/Button";
 import ButtonGroup from "../../../elements/ButtonGroup";
 import {useHistory} from 'react-router-dom';

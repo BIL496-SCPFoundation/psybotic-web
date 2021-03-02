@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import classNames from 'classnames';
 import {SectionProps} from '../../../utils/SectionProps';
 import DataTable from "../../elements/DataTable";
-import {FAMILY_MEMBER} from "../../../dataFormats/dataFormats";
-import Button from "../../elements/Button";
+import {FAMILY_MEMBER} from "../../../utils/data/DataFormats";
+import AxiosConfig from "../../../utils/data/axios/AxiosConfig"
 const propTypes = {
     ...SectionProps.types
 }
@@ -37,6 +37,7 @@ const Homepage = ({
         topDivider && 'has-top-divider',
         bottomDivider && 'has-bottom-divider'
     );
+    const axios = new AxiosConfig();
 
     return (
         <section
