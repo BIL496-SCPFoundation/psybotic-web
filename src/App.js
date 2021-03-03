@@ -13,6 +13,7 @@ import ProfileFamilyMember from './views/ProfileFamilyMember.js';
 import FamilyMemberSubmit from './components/sections/Psybotic/submitForms/FamilyMemberSubmit';
 import ProfileEmergencyContact from './views/ProfileEmergencyContact.js';
 import EmergencyContactSubmit from './components/sections/Psybotic/submitForms/EmergencyContactSubmit';
+import ProfileSubmit from './components/sections/Psybotic/submitForms/ProfileSubmit';
 
 
 // Initialize Google Analytics
@@ -48,8 +49,12 @@ const App = () => {
                     <AppRoute exact path="/table/familyMember/submit" component={FamilyMemberSubmit}
                               layout={LayoutDefault}/>
 
-                    <AppRoute exact path="/table/emergencyContact" component={ProfileEmergencyContact} layout={LayoutDefault}/>
+                    <AppRoute exact path="/table/emergencyContact" component={ProfileEmergencyContact}
+                              layout={LayoutDefault}/>
                     <AppRoute exact path="/table/emergencyContact/submit" component={EmergencyContactSubmit}
+                              layout={LayoutDefault}/>
+
+                    <AppRoute exact path="/table/profileData/submit" component={ProfileSubmit}
                               layout={LayoutDefault}/>
                 </Switch>
             )}/>
