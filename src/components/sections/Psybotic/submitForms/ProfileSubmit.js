@@ -116,7 +116,10 @@ const ProfileSubmit = ({
                             <br/>
                             <br/>
                             <ButtonGroup>
-                                <Button type="submit" className="button-secondary">Edit</Button>
+                                <Button type="submit" className="button-secondary reveal-from-bottom">Edit</Button>
+                                <Button type="submit" className="button-dark reveal-from-bottom" onClick={() =>{
+                                    history.push("/profile")
+                                }}>Return</Button>
                             </ButtonGroup>
                         </form>
                     </div>

@@ -38,7 +38,7 @@ function DataTable({location, columns, data_rows}) {
             <div style={{width: "205px"}} className="reveal-from-left">
                 <ButtonGroup>
                     <Button className="button-primary button-sm" onClick={() => {
-                        history.push(location+"submit", {
+                        history.push(location + "submit", {
                             type: "edit",
                             row: row.original,
                         });
@@ -84,7 +84,7 @@ function DataTable({location, columns, data_rows}) {
                     ))}
                     </thead>
                     <tbody {...getTableBodyProps()}>
-                    {rows.map((row, i) => { 
+                    {rows.map((row, i) => {
                         prepareRow(row);
                         return (
                             <tr {...row.getRowProps()}>
@@ -98,9 +98,14 @@ function DataTable({location, columns, data_rows}) {
                 </table>
             </div>
             <br/>
-            <Button className="button-secondary reveal-from-bottom" onClick={() => {
-                history.push(location + "submit", {type: "new"});
-            }}>Add</Button>
+            <ButtonGroup>
+                <Button className="button-secondary reveal-from-bottom" onClick={() => {
+                    history.push(location + "submit", {type: "new"});
+                }}>Add</Button>
+                <Button type="submit" className="button-dark reveal-from-bottom" onClick={() => {
+                    history.push("/profile")
+                }}>Return</Button>
+            </ButtonGroup>
         </div>
     );
 }

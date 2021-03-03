@@ -2,6 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import { SectionTilesProps } from '../../../utils/SectionProps';
 import SectionHeader from '../partials/SectionHeader';
+import {useHistory} from "react-router-dom";
+
 
 const propTypes = {
   ...SectionTilesProps.types
@@ -49,6 +51,7 @@ const ProfileInfo = ({
     paragraph: 'Welcome to your profile ' + userName + '.Here, you can check your info saved about you and edit it if you want.',
   };
 
+  const history = useHistory();
 
   return (
     <section
@@ -72,12 +75,11 @@ const ProfileInfo = ({
                     <b className="text-color-high">City: </b> <br/>
                     <b className="text-color-high">Martial Status: </b> <br/>
                     <b className="text-color-high">Jobs: </b> <br/>
-
                   </p>
                 </div>
                 <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
                   <span className="testimonial-item-link">
-                    <a href="#0">Edit</a>
+                    <a href="#0" onClick={(() => {history.push("/table/profileData/submit")})}>Edit</a>
                   </span>
                 </div>
               </div>
@@ -93,7 +95,7 @@ const ProfileInfo = ({
                 </div>
                 <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
                   <span className="testimonial-item-link">
-                    <a href="#0">Edit</a>
+                    <a href="#0" onClick={(() => {history.push("/table/familyMember")})}>Edit</a>
                   </span>
                 </div>
               </div>
@@ -109,12 +111,11 @@ const ProfileInfo = ({
                 </div>
                 <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
                   <span className="testimonial-item-link">
-                    <a href="#0">Edit</a>
+                    <a href="#0" onClick={(() => {history.push("/table/emergencyContact")})}>Edit</a>
                   </span>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
