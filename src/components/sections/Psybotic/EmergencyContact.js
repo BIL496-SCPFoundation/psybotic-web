@@ -3,6 +3,8 @@ import classNames from 'classnames';
 import {SectionProps} from '../../../utils/SectionProps';
 import DataTable from "../../elements/DataTable";
 import {EMERGENCY_CONTACT} from "../../../utils/data/DataFormats";
+import EmergencyContactService from "../../../utils/data/axios/services/EmergencyContactService"
+import FamilyMemberService from "../../../utils/data/axios/services/FamilyMemberService";
 
 const propTypes = {
     ...SectionProps.types
@@ -38,6 +40,9 @@ const EmergencyContact = ({
         topDivider && 'has-top-divider',
         bottomDivider && 'has-bottom-divider'
     );
+
+    const service = new EmergencyContactService();
+    //service.findById("1");
 
     return (
         <section
