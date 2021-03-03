@@ -4,6 +4,7 @@ import {SectionProps} from '../../../utils/SectionProps';
 import DataTable from "../../elements/DataTable";
 import {FAMILY_MEMBER} from "../../../utils/data/DataFormats";
 import FamilyMemberService from "../../../utils/data/axios/services/FamilyMemberService"
+
 const propTypes = {
     ...SectionProps.types
 }
@@ -13,15 +14,16 @@ const defaultProps = {
 }
 
 const FamilyMember = ({
-                      className,
-                      topOuterDivider,
-                      bottomOuterDivider,
-                      topDivider,
-                      bottomDivider,
-                      hasBgColor,
-                      invertColor,
-                      ...props
-                  }) => {
+                          className,
+                          topOuterDivider,
+                          bottomOuterDivider,
+                          topDivider,
+                          bottomDivider,
+                          hasBgColor,
+                          invertColor,
+                          location,
+                          ...props
+                      }) => {
 
     const outerClasses = classNames(
         'hero section center-content',
@@ -49,7 +51,7 @@ const FamilyMember = ({
                         <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
                             Edit Family Members
                         </h1>
-                        <DataTable columns={FAMILY_MEMBER} data_rows={[{
+                        <DataTable location={location} columns={FAMILY_MEMBER} data_rows={[{
                             firstName: "Mert Onur",
                             lastName: "Cakiroglu",
                             mail: "cakiroglu.mert@gmail.com",

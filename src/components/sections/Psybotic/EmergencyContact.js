@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import {SectionProps} from '../../../utils/SectionProps';
 import DataTable from "../../elements/DataTable";
 import {EMERGENCY_CONTACT} from "../../../utils/data/DataFormats";
+
 const propTypes = {
     ...SectionProps.types
 }
@@ -12,15 +13,16 @@ const defaultProps = {
 }
 
 const EmergencyContact = ({
-                          className,
-                          topOuterDivider,
-                          bottomOuterDivider,
-                          topDivider,
-                          bottomDivider,
-                          hasBgColor,
-                          invertColor,
-                          ...props
-                      }) => {
+                              className,
+                              topOuterDivider,
+                              bottomOuterDivider,
+                              topDivider,
+                              bottomDivider,
+                              hasBgColor,
+                              invertColor,
+                              location,
+                              ...props
+                          }) => {
 
     const outerClasses = classNames(
         'hero section center-content',
@@ -47,7 +49,7 @@ const EmergencyContact = ({
                         <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
                             Edit Emergency Contacts
                         </h1>
-                        <DataTable columns={EMERGENCY_CONTACT} data_rows={[{
+                        <DataTable location={location} columns={EMERGENCY_CONTACT} data_rows={[{
                             firstName: "Mert Onur",
                             lastName: "Cakiroglu",
                             type: "brother",

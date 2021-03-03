@@ -22,8 +22,8 @@ const defaultProps = {
 }
 
 
-function DataTable({columns, data_rows}) {
-
+function DataTable({location, columns, data_rows}) {
+    console.log(location)
     const history = useHistory();
 
     const [data, changeData] = useState(data_rows);
@@ -35,12 +35,12 @@ function DataTable({columns, data_rows}) {
     }
     columns[0]['columns'] = [{
         Header: ' ', Cell: ({row}) => (
-            <div style={{width: "205px"}}>
+            <div style={{width: "205px"}} className="reveal-from-left">
                 <ButtonGroup>
                     <Button className="button-primary button-sm" onClick={() => {
-                        history.push("/table/familyMember/submit", {
+                        history.push(location+"submit", {
                             type: "edit",
-                            row: row.original
+                            row: row.original,
                         });
                     }}>
                         Edit
@@ -98,8 +98,8 @@ function DataTable({columns, data_rows}) {
                 </table>
             </div>
             <br/>
-            <Button className="button-secondary" onClick={() => {
-                history.push("/table/familyMember/submit", {type: "new"});
+            <Button className="button-secondary reveal-from-bottom" onClick={() => {
+                history.push(location + "submit", {type: "new"});
             }}>Add</Button>
         </div>
     );

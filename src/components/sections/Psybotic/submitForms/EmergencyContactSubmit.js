@@ -14,17 +14,17 @@ const defaultProps = {
     ...SectionProps.defaults
 }
 
-const FamilyMemberSubmit = ({
-                                className,
-                                topOuterDivider,
-                                bottomOuterDivider,
-                                topDivider,
-                                bottomDivider,
-                                hasBgColor,
-                                invertColor,
-                                location,
-                                ...props
-                            }) => {
+const EmergencyContactSubmit = ({
+                                    className,
+                                    topOuterDivider,
+                                    bottomOuterDivider,
+                                    topDivider,
+                                    bottomDivider,
+                                    hasBgColor,
+                                    invertColor,
+                                    location,
+                                    ...props
+                                }) => {
 
     const outerClasses = classNames(
         'hero section center-content',
@@ -45,8 +45,11 @@ const FamilyMemberSubmit = ({
 
     const [firstName, setFirstName] = useState(typeof row === "undefined" ? "" : row.firstName);
     const [lastName, setLastName] = useState(typeof row === "undefined" ? "" : row.lastName);
+    const [type, setType] = useState(typeof row === "undefined" ? "" : row.type);
     const [email, setEmail] = useState(typeof row === "undefined" ? "" : row.mail);
     const [phone, setPhone] = useState(typeof row === "undefined" ? "" : row.phone);
+
+    console.log(location)
 
     return (
         <section
@@ -74,6 +77,13 @@ const FamilyMemberSubmit = ({
                                 defaultValue={lastName}
                                 onChange={(event) => {
                                     setLastName(event.target.value)
+                                }}/>
+                            <h3>Type:</h3>
+                            <input
+                                type='text'
+                                defaultValue={type}
+                                onChange={(event) => {
+                                    setType(event.target.value)
                                 }}/>
                             <h3>Phone:</h3>
                             <input
@@ -105,7 +115,7 @@ const FamilyMemberSubmit = ({
     );
 }
 
-FamilyMemberSubmit.propTypes = propTypes;
-FamilyMemberSubmit.defaultProps = defaultProps;
+EmergencyContactSubmit.propTypes = propTypes;
+EmergencyContactSubmit.defaultProps = defaultProps;
 
-export default FamilyMemberSubmit;
+export default EmergencyContactSubmit;
