@@ -1,32 +1,44 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from "./Checkbox";
 import {useTable} from "react-table";
 import Button from "./Button";
 import ButtonGroup from "./ButtonGroup";
 import {useHistory} from "react-router-dom";
+import UserService from "../../utils/data/axios/services/UserService";
 
 
 const propTypes = {
     title: PropTypes.String,
     service: PropTypes.elementType,
     columns: PropTypes.array,
-    headerGroups: PropTypes.array
+    headerGroups: PropTypes.array,
+    setData: PropTypes.func
 }
 
 const defaultProps = {
     title: undefined,
     service: undefined,
     columns: [],
-    headerGroups: []
+    headerGroups: [],
+    setData: undefined
 }
 
 
-function DataTable({location, columns, data_rows}) {
-    console.log(location)
+function DataTable({location, columns, service, url}) {
     const history = useHistory();
+    const dataService = new service();
 
-    const [data, changeData] = useState(data_rows);
+    const [data, setData] = useState([])
+    let userService;
+
+
+    userService = new UserService(url);
+    userService.getData("1").then((response) => {
+        if (JSON.stringify(response.data) !== JSON.stringify(data))
+            setData(response.data);
+    });
+
 
     if (columns[0].Header !== "Action") {
         columns.unshift({
@@ -35,7 +47,7 @@ function DataTable({location, columns, data_rows}) {
     }
     columns[0]['columns'] = [{
         Header: ' ', Cell: ({row}) => (
-            <div style={{width: "205px"}} className="reveal-from-left">
+            <div style={{width: "205px"}}>
                 <ButtonGroup>
                     <Button className="button-primary button-sm" onClick={() => {
                         history.push(location + "submit", {
@@ -46,11 +58,11 @@ function DataTable({location, columns, data_rows}) {
                         Edit
                     </Button>
                     <Button className="button-dark button-sm" onClick={() => {
-                        changeData((preVal) => {
-                            const dataCopy = [...preVal];
-                            dataCopy.splice(row.index, 1);
-                            return dataCopy;
-                        });
+                        dataService.delete(row.original.id).then(
+                            userService.getData("1").then((response) => {
+                                setData(response.data);
+                            })
+                        );
                     }}>
                         Remove
                     </Button>
@@ -68,7 +80,6 @@ function DataTable({location, columns, data_rows}) {
         columns,
         data
     });
-
 
     return (
         <div>
@@ -103,7 +114,7 @@ function DataTable({location, columns, data_rows}) {
                     history.push(location + "submit", {type: "new"});
                 }}>Add</Button>
                 <Button type="submit" className="button-dark reveal-from-bottom" onClick={() => {
-                    history.push("/profile")
+                    history.push("/profile");
                 }}>Return</Button>
             </ButtonGroup>
         </div>

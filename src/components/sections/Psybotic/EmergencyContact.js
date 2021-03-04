@@ -5,6 +5,7 @@ import DataTable from "../../elements/DataTable";
 import {EMERGENCY_CONTACT} from "../../../utils/data/DataFormats";
 import EmergencyContactService from "../../../utils/data/axios/services/EmergencyContactService"
 import FamilyMemberService from "../../../utils/data/axios/services/FamilyMemberService";
+import UserService from "../../../utils/data/axios/services/UserService";
 
 const propTypes = {
     ...SectionProps.types
@@ -41,8 +42,7 @@ const EmergencyContact = ({
         bottomDivider && 'has-bottom-divider'
     );
 
-    const service = new EmergencyContactService();
-    //service.findById("1");
+    const userService = new UserService("/emergencyContact");
 
     return (
         <section
@@ -54,25 +54,8 @@ const EmergencyContact = ({
                         <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
                             Edit Emergency Contacts
                         </h1>
-                        <DataTable location={location} columns={EMERGENCY_CONTACT} data_rows={[{
-                            firstName: "Mert Onur",
-                            lastName: "Cakiroglu",
-                            type: "brother",
-                            mail: "cakiroglu.mert@gmail.com",
-                            phone: "0530282823",
-                        }, {
-                            firstName: "name2",
-                            lastName: "lastname2",
-                            type: "sister",
-                            mail: "yahoo",
-                            phone: "345",
-                        }, {
-                            firstName: "name3",
-                            lastName: "lastname3",
-                            type: "uncle",
-                            mail: "gmail",
-                            phone: "890",
-                        }]}/>
+                        <DataTable location={location} columns={EMERGENCY_CONTACT} url={"/emergencyContacts"}
+                                   service={EmergencyContactService}/>
                         <br/>
                     </div>
                 </div>

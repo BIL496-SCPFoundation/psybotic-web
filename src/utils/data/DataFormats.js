@@ -25,7 +25,7 @@ export const FAMILY_MEMBER = [{
             },
             {
                 Header: 'Mail',
-                accessor: 'mail',
+                accessor: 'email',
             },
         ],
     },
@@ -40,13 +40,10 @@ export const EMERGENCY_CONTACT = [{
         Header: 'Name',
         columns: [
             {
-                Header: 'First Name',
-                accessor: 'firstName',
+                Header: 'Name',
+                accessor: 'name',
             },
-            {
-                Header: 'Last Name',
-                accessor: 'lastName',
-            },
+
             {
                 Header: 'Type',
                 accessor: 'type',
@@ -62,7 +59,7 @@ export const EMERGENCY_CONTACT = [{
             },
             {
                 Header: 'Mail',
-                accessor: 'mail',
+                accessor: 'email',
             },
         ],
     },

@@ -5,6 +5,7 @@ import Button from "../../../elements/Button";
 import ButtonGroup from "../../../elements/ButtonGroup";
 import {useHistory} from 'react-router-dom';
 import PathNameOperations from "../../../../utils/PathNameOperations";
+import EmergencyContactService from "../../../../utils/data/axios/services/EmergencyContactService";
 
 const propTypes = {
     ...SectionProps.types
@@ -42,15 +43,14 @@ const EmergencyContactSubmit = ({
     );
     const history = useHistory();
     const row = history.location.state.row;
+    const comp_type = history.location.state.type;
 
-    const [firstName, setFirstName] = useState(typeof row === "undefined" ? "" : row.firstName);
-    const [lastName, setLastName] = useState(typeof row === "undefined" ? "" : row.lastName);
+    const [name, setName] = useState(typeof row === "undefined" ? "" : row.name);
     const [type, setType] = useState(typeof row === "undefined" ? "" : row.type);
-    const [email, setEmail] = useState(typeof row === "undefined" ? "" : row.mail);
+    const [email, setEmail] = useState(typeof row === "undefined" ? "" : row.email);
     const [phone, setPhone] = useState(typeof row === "undefined" ? "" : row.phone);
 
-    console.log(location)
-
+    const emergencyContactService = new EmergencyContactService();
     return (
         <section
             {...props}
@@ -59,24 +59,15 @@ const EmergencyContactSubmit = ({
                 <div className={innerClasses}>
                     <div className="hero-content">
                         <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
-                            {(history.location.state.type === "new") ? "Add New Family Members" : "Edit Existing Family Member"}
+                            {(comp_type === "new") ? "Add New Emergency Contact" : "Edit Existing Emergency Contact"}
                         </h1>
-                        <form className="reveal-from-bottom" onSubmit={(data) => {
-                            alert(firstName + " " + lastName + " " + email + " " + phone);
-                        }}>
-                            <h3>First Name:</h3>
+                        <form className="reveal-from-bottom" >
+                            <h3>Name:</h3>
                             <input
                                 type='text'
-                                defaultValue={firstName}
+                                defaultValue={name}
                                 onChange={(event) => {
-                                    setFirstName(event.target.value)
-                                }}/>
-                            <h3>Last Name:</h3>
-                            <input
-                                type='text'
-                                defaultValue={lastName}
-                                onChange={(event) => {
-                                    setLastName(event.target.value)
+                                    setName(event.target.value)
                                 }}/>
                             <h3>Type:</h3>
                             <input
@@ -90,19 +81,34 @@ const EmergencyContactSubmit = ({
                                 type='text'
                                 defaultValue={phone}
                                 onChange={(event) => {
-                                    setEmail(event.target.value)
+                                    setPhone(event.target.value)
                                 }}/>
                             <h3>Mail:</h3>
                             <input
                                 type='text'
                                 defaultValue={email}
                                 onChange={(event) => {
-                                    setPhone(event.target.value)
+                                    setEmail(event.target.value)
                                 }}/>
                             <br/>
                             <br/>
                             <ButtonGroup>
-                                <Button type="submit" className="button-secondary">Add</Button>
+                                <Button type="button" className="button-secondary" onClick={() => {
+                                    if (comp_type === "new")
+                                        emergencyContactService.insert({superId: "1", name, type, email, phone})
+                                            .then(() => alert("Emergency Contact Submitted!"));
+                                    else
+                                        emergencyContactService.update({
+                                            id: row.id,
+                                            superId: "1",
+                                            name,
+                                            type,
+                                            email,
+                                            phone
+                                        })
+                                            .then(() => alert("Emergency Contact Updated!"));
+
+                                }}>{(comp_type === "new") ? "Add" : "Edit"}</Button>
                                 <Button type="button" className="button-dark" onClick={() => {
                                     history.push(PathNameOperations.parentPathName(location.pathname));
                                 }}>Return</Button>

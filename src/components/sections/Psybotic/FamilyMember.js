@@ -3,7 +3,9 @@ import classNames from 'classnames';
 import {SectionProps} from '../../../utils/SectionProps';
 import DataTable from "../../elements/DataTable";
 import {FAMILY_MEMBER} from "../../../utils/data/DataFormats";
-import FamilyMemberService from "../../../utils/data/axios/services/FamilyMemberService"
+import FamilyMemberService from "../../../utils/data/axios/services/FamilyMemberService";
+import UserService from "../../../utils/data/axios/services/UserService";
+import EmergencyContactService from "../../../utils/data/axios/services/EmergencyContactService";
 
 const propTypes = {
     ...SectionProps.types
@@ -39,8 +41,9 @@ const FamilyMember = ({
         topDivider && 'has-top-divider',
         bottomDivider && 'has-bottom-divider'
     );
-    const service = new FamilyMemberService();
-    //service.findById("1");
+
+
+
     return (
         <section
             {...props}
@@ -51,22 +54,8 @@ const FamilyMember = ({
                         <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
                             Edit Family Members
                         </h1>
-                        <DataTable location={location} columns={FAMILY_MEMBER} data_rows={[{
-                            firstName: "Mert Onur",
-                            lastName: "Cakiroglu",
-                            mail: "cakiroglu.mert@gmail.com",
-                            phone: "0530282823",
-                        }, {
-                            firstName: "name2",
-                            lastName: "lastname2",
-                            mail: "yahoo",
-                            phone: "345",
-                        }, {
-                            firstName: "name3",
-                            lastName: "lastname3",
-                            mail: "gmail",
-                            phone: "890",
-                        }]}/>
+                        <DataTable location={location} columns={FAMILY_MEMBER}  url={"/familyMembers"}
+                                   service={EmergencyContactService}/>
                         <br/>
                     </div>
                 </div>

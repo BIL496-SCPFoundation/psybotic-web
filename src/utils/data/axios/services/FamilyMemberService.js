@@ -4,5 +4,6 @@ class FamilyMemberService extends AxiosConfig{
     constructor() {
         super("/familyMembers");
     }
+
 }
 export default FamilyMemberService;
