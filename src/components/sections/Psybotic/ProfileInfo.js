@@ -48,7 +48,7 @@ const ProfileInfo = ({
 
   const sectionHeader = {
     title: userName,
-    paragraph: 'Welcome to your profile ' + userName + '.Here, you can check your info saved about you and edit it if you want.',
+    paragraph: 'Welcome to your profile ' + userName + '. Here, you can check your info saved about you and edit it if you want.',
   };
 
   const history = useHistory();
