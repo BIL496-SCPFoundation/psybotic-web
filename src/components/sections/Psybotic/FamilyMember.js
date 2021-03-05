@@ -4,8 +4,6 @@ import {SectionProps} from '../../../utils/SectionProps';
 import DataTable from "../../elements/DataTable";
 import {FAMILY_MEMBER} from "../../../utils/data/DataFormats";
 import FamilyMemberService from "../../../utils/data/axios/services/FamilyMemberService";
-import UserService from "../../../utils/data/axios/services/UserService";
-import EmergencyContactService from "../../../utils/data/axios/services/EmergencyContactService";
 
 const propTypes = {
     ...SectionProps.types
@@ -55,7 +53,7 @@ const FamilyMember = ({
                             Edit Family Members
                         </h1>
                         <DataTable location={location} columns={FAMILY_MEMBER}  url={"/familyMembers"}
-                                   service={EmergencyContactService}/>
+                                   service={FamilyMemberService}/>
                         <br/>
                     </div>
                 </div>

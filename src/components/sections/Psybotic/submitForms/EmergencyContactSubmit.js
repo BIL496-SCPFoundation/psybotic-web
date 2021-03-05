@@ -61,7 +61,7 @@ const EmergencyContactSubmit = ({
                         <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
                             {(comp_type === "new") ? "Add New Emergency Contact" : "Edit Existing Emergency Contact"}
                         </h1>
-                        <form className="reveal-from-bottom" >
+                        <form className="reveal-from-bottom">
                             <h3>Name:</h3>
                             <input
                                 type='text'
@@ -96,7 +96,10 @@ const EmergencyContactSubmit = ({
                                 <Button type="button" className="button-secondary" onClick={() => {
                                     if (comp_type === "new")
                                         emergencyContactService.insert({superId: "1", name, type, email, phone})
-                                            .then(() => alert("Emergency Contact Submitted!"));
+                                            .then(() => {
+                                                alert("Emergency Contact Submitted!");
+                                                history.push(PathNameOperations.parentPathName(location.pathname));
+                                            });
                                     else
                                         emergencyContactService.update({
                                             id: row.id,

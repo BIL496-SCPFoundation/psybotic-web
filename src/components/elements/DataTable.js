@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from "./Checkbox";
 import {useTable} from "react-table";
@@ -33,8 +33,8 @@ function DataTable({location, columns, service, url}) {
     let userService;
 
 
-    userService = new UserService(url);
-    userService.getData("1").then((response) => {
+    userService = new UserService();
+    userService.getData("1", url).then((response) => {
         if (JSON.stringify(response.data) !== JSON.stringify(data))
             setData(response.data);
     });
@@ -59,7 +59,7 @@ function DataTable({location, columns, service, url}) {
                     </Button>
                     <Button className="button-dark button-sm" onClick={() => {
                         dataService.delete(row.original.id).then(
-                            userService.getData("1").then((response) => {
+                            userService.getData("1", url).then((response) => {
                                 setData(response.data);
                             })
                         );

@@ -5,6 +5,7 @@ import Button from "../../../elements/Button";
 import ButtonGroup from "../../../elements/ButtonGroup";
 import {useHistory} from 'react-router-dom';
 import PathNameOperations from "../../../../utils/PathNameOperations";
+import UserService from "../../../../utils/data/axios/services/UserService";
 
 const propTypes = {
     ...SectionProps.types
@@ -15,16 +16,16 @@ const defaultProps = {
 }
 
 const ProfileSubmit = ({
-                                className,
-                                topOuterDivider,
-                                bottomOuterDivider,
-                                topDivider,
-                                bottomDivider,
-                                hasBgColor,
-                                invertColor,
-                                location,
-                                ...props
-                            }) => {
+                           className,
+                           topOuterDivider,
+                           bottomOuterDivider,
+                           topDivider,
+                           bottomDivider,
+                           hasBgColor,
+                           invertColor,
+                           location,
+                           ...props
+                       }) => {
 
     const outerClasses = classNames(
         'hero section center-content',
@@ -41,15 +42,16 @@ const ProfileSubmit = ({
         bottomDivider && 'has-bottom-divider'
     );
     const history = useHistory();
-    const row = undefined;
+    const user = history.location.state.user;
+    const userService = new UserService();
 
-    const [firstName, setFirstName] = useState(typeof row === "undefined" ? "" : row.firstName);
-    const [lastName, setLastName] = useState(typeof row === "undefined" ? "" : row.lastName);
-    const [age, setAge] = useState(typeof row === "undefined" ? "" : row.age);
-    const [gender, setGender] = useState(typeof row === "undefined" ? "" : row.gender);
-    const [city, setCity] = useState(typeof row === "undefined" ? "" : row.city);
-    const [maritialStatus, setMaritialStatus] = useState(typeof row === "undefined" ? "" : row.maritialStatus);
-    const [jobs, setjobs] = useState(typeof row === "undefined" ? "" : row.jobs);
+
+    const [firstName, setFirstName] = useState(typeof user === "undefined" ? "" : user.firstName);
+    const [lastName, setLastName] = useState(typeof user === "undefined" ? "" : user.lastName);
+    const [email, setEmail] = useState(typeof user === "undefined" ? "" : user.email);
+    const [gender, setGender] = useState(typeof user === "undefined" ? "" : user.gender);
+    const [city, setCity] = useState(typeof user === "undefined" ? "" : user.city);
+    const [maritalStatus, getMaritalStatus] = useState(typeof user === "undefined" ? "" : user.maritalStatus);
 
     return (
         <section
@@ -61,9 +63,7 @@ const ProfileSubmit = ({
                         <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
                             Edit Your Profile Info
                         </h1>
-                        <form className="reveal-from-bottom" onSubmit={(data) => {
-                            //alert(firstName + " " + lastName + " " + email + " " + phone);
-                        }}>
+                        <form className="reveal-from-bottom">
                             <h3>First Name:</h3>
                             <input
                                 type='text'
@@ -78,19 +78,19 @@ const ProfileSubmit = ({
                                 onChange={(event) => {
                                     setLastName(event.target.value)
                                 }}/>
-                            <h3>Age:</h3>
-                            <input
-                                type='text'
-                                defaultValue={age}
-                                onChange={(event) => {
-                                    setAge(event.target.value)
-                                }}/>
                             <h3>Gender:</h3>
                             <input
                                 type='text'
                                 defaultValue={gender}
                                 onChange={(event) => {
                                     setGender(event.target.value)
+                                }}/>
+                            <h3>Email:</h3>
+                            <input
+                                type='text'
+                                defaultValue={email}
+                                onChange={(event) => {
+                                    setEmail(event.target.value)
                                 }}/>
                             <h3>City:</h3>
                             <input
@@ -102,24 +102,28 @@ const ProfileSubmit = ({
                             <h3>Maritial Status:</h3>
                             <input
                                 type='text'
-                                defaultValue={maritialStatus}
+                                defaultValue={maritalStatus}
                                 onChange={(event) => {
-                                    setMaritialStatus(event.target.value)
-                                }}/>
-                            <h3>Jobs:</h3>
-                            <input
-                                type='text'
-                                defaultValue={jobs}
-                                onChange={(event) => {
-                                    setjobs(event.target.value)
+                                    getMaritalStatus(event.target.value)
                                 }}/>
                             <br/>
                             <br/>
                             <ButtonGroup>
-                                <Button type="submit" className="button-secondary reveal-from-bottom">Edit</Button>
-                                <Button type="submit" className="button-dark reveal-from-bottom" onClick={() =>{
-                                    history.push("/profile")
-                                }}>Return</Button>
+                                <Button type="button" className="button-secondary reveal-from-bottom" onClick={() => {
+                                    userService.update({
+                                        id: "1",
+                                        firstName,
+                                        lastName,
+                                        email,
+                                        gender,
+                                        city,
+                                        maritalStatus
+                                    }).then((response) => {
+                                        console.log(response);
+                                        alert("Your info has been updated!");
+                                    })
+                                }}>Edit</Button>
+                                <Button type="button" className="button-dark reveal-from-bottom">Return</Button>
                             </ButtonGroup>
                         </form>
                     </div>

@@ -48,7 +48,7 @@ const FamilyMemberSubmit = ({
 
     const [firstName, setFirstName] = useState(typeof row === "undefined" ? "" : row.firstName);
     const [lastName, setLastName] = useState(typeof row === "undefined" ? "" : row.lastName);
-    const [email, setEmail] = useState(typeof row === "undefined" ? "" : row.mail);
+    const [email, setEmail] = useState(typeof row === "undefined" ? "" : row.email);
     const [phone, setPhone] = useState(typeof row === "undefined" ? "" : row.phone);
 
     const familyMemberService = new FamilyMemberService();
@@ -98,7 +98,10 @@ const FamilyMemberSubmit = ({
                                 <Button type="button" className="button-secondary" onClick={() => {
                                     if (comp_type === "new")
                                         familyMemberService.insert({superId: "1", firstName, lastName, email, phone})
-                                            .then(() => alert("Family Member Submitted!"));
+                                            .then(() => {
+                                                alert("Family Member Submitted!");
+                                                history.push(PathNameOperations.parentPathName(location.pathname));
+                                            });
                                     else
                                         familyMemberService.update({
                                             id: row.id,
