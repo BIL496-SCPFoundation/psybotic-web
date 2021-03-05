@@ -6,6 +6,7 @@ import ButtonGroup from "../../../elements/ButtonGroup";
 import {useHistory} from 'react-router-dom';
 import PathNameOperations from "../../../../utils/PathNameOperations";
 import EmergencyContactService from "../../../../utils/data/axios/services/EmergencyContactService";
+import Input from "../../../elements/Input";
 
 const propTypes = {
     ...SectionProps.types
@@ -61,35 +62,27 @@ const EmergencyContactSubmit = ({
                         <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
                             {(comp_type === "new") ? "Add New Emergency Contact" : "Edit Existing Emergency Contact"}
                         </h1>
-                        <form className="reveal-from-bottom">
+                        <form className="reveal-from-bottom" style={{textAlign: "left", paddingLeft:"225px", paddingRight: "225px"}}>
                             <h3>Name:</h3>
-                            <input
-                                type='text'
-                                defaultValue={name}
-                                onChange={(event) => {
-                                    setName(event.target.value)
-                                }}/>
+                            <Input type="text" placeholder="Name" defaultValue={name} onChange={(event) => {
+                                setName(event.target.value)
+                            }}
+                            />
                             <h3>Type:</h3>
-                            <input
-                                type='text'
-                                defaultValue={type}
-                                onChange={(event) => {
-                                    setType(event.target.value)
-                                }}/>
+                            <Input type="text" placeholder="Type" defaultValue={type} onChange={(event) => {
+                                setType(event.target.value)
+                            }}
+                            />
                             <h3>Phone:</h3>
-                            <input
-                                type='text'
-                                defaultValue={phone}
-                                onChange={(event) => {
-                                    setPhone(event.target.value)
-                                }}/>
+                            <Input type="tel" placeholder="Phone" defaultValue={phone} onChange={(event) => {
+                                setPhone(event.target.value)
+                            }}
+                            />
                             <h3>Mail:</h3>
-                            <input
-                                type='text'
-                                defaultValue={email}
-                                onChange={(event) => {
-                                    setEmail(event.target.value)
-                                }}/>
+                            <Input type="email" placeholder="E-mail" defaultValue={email} onChange={(event) => {
+                                setEmail(event.target.value)
+                            }}
+                            />
                             <br/>
                             <br/>
                             <ButtonGroup>

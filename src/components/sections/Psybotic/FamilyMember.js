@@ -40,8 +40,6 @@ const FamilyMember = ({
         bottomDivider && 'has-bottom-divider'
     );
 
-
-
     return (
         <section
             {...props}

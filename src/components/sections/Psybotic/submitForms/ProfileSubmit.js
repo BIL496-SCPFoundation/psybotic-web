@@ -4,8 +4,9 @@ import {SectionProps} from '../../../../utils/SectionProps';
 import Button from "../../../elements/Button";
 import ButtonGroup from "../../../elements/ButtonGroup";
 import {useHistory} from 'react-router-dom';
-import PathNameOperations from "../../../../utils/PathNameOperations";
 import UserService from "../../../../utils/data/axios/services/UserService";
+import Input from "../../../elements/Input";
+import Select from "../../../elements/Select";
 
 const propTypes = {
     ...SectionProps.types
@@ -51,7 +52,7 @@ const ProfileSubmit = ({
     const [email, setEmail] = useState(typeof user === "undefined" ? "" : user.email);
     const [gender, setGender] = useState(typeof user === "undefined" ? "" : user.gender);
     const [city, setCity] = useState(typeof user === "undefined" ? "" : user.city);
-    const [maritalStatus, getMaritalStatus] = useState(typeof user === "undefined" ? "" : user.maritalStatus);
+    const [maritalStatus, setMaritalStatus] = useState(typeof user === "undefined" ? "" : user.maritalStatus);
 
     return (
         <section
@@ -63,49 +64,47 @@ const ProfileSubmit = ({
                         <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
                             Edit Your Profile Info
                         </h1>
-                        <form className="reveal-from-bottom">
+                        <form className="reveal-from-bottom"
+                              style={{textAlign: "left", paddingLeft: "225px", paddingRight: "225px"}}>
                             <h3>First Name:</h3>
-                            <input
-                                type='text'
-                                defaultValue={firstName}
-                                onChange={(event) => {
-                                    setFirstName(event.target.value)
-                                }}/>
+                            <Input type="text" placeholder="First Name" defaultValue={firstName} onChange={(event) => {
+                                setFirstName(event.target.value)
+                            }}
+                            />
                             <h3>Last Name:</h3>
-                            <input
-                                type='text'
-                                defaultValue={lastName}
-                                onChange={(event) => {
-                                    setLastName(event.target.value)
-                                }}/>
+                            <Input type="text" placeholder="Last Name" defaultValue={lastName} onChange={(event) => {
+                                setLastName(event.target.value)
+                            }}
+                            />
                             <h3>Gender:</h3>
-                            <input
-                                type='text'
-                                defaultValue={gender}
-                                onChange={(event) => {
-                                    setGender(event.target.value)
-                                }}/>
-                            <h3>Email:</h3>
-                            <input
-                                type='text'
-                                defaultValue={email}
-                                onChange={(event) => {
-                                    setEmail(event.target.value)
-                                }}/>
+                            <Select placeholder="Gender" defaultValue={gender} onChange={(event) => {
+                                setGender(event.target.value)
+                            }}>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </Select>
+                            <h3>Mail:</h3>
+                            <Input type="email" placeholder="E-mail" defaultValue={email} onChange={(event) => {
+                                setEmail(event.target.value)
+                            }}
+                            />
                             <h3>City:</h3>
-                            <input
-                                type='text'
-                                defaultValue={city}
-                                onChange={(event) => {
-                                    setCity(event.target.value)
-                                }}/>
-                            <h3>Maritial Status:</h3>
-                            <input
-                                type='text'
-                                defaultValue={maritalStatus}
-                                onChange={(event) => {
-                                    getMaritalStatus(event.target.value)
-                                }}/>
+                            <Input type="text" placeholder="City" defaultValue={city} onChange={(event) => {
+                                setCity(event.target.value)
+                            }}
+                            />
+                            <h3>Marital Status:</h3>
+                            <Select placeholder="Marital Status" defaultValue={maritalStatus} onChange={(event) => {
+                                setMaritalStatus(event.target.value)
+                            }}>
+                                <option value="now_married">Now Married</option>
+                                <option value="widowed">Widowed</option>
+                                <option value="divorced">Divorced</option>
+                                <option value="separated">Separated</option>
+                                <option value="never_married">Never Married</option>
+
+                            </Select>
                             <br/>
                             <br/>
                             <ButtonGroup>
@@ -123,7 +122,9 @@ const ProfileSubmit = ({
                                         alert("Your info has been updated!");
                                     })
                                 }}>Edit</Button>
-                                <Button type="button" className="button-dark reveal-from-bottom">Return</Button>
+                                <Button type="button" className="button-dark reveal-from-bottom" onClick={() => {
+                                    history.push("/profile");
+                                }}>Return</Button>
                             </ButtonGroup>
                         </form>
                     </div>

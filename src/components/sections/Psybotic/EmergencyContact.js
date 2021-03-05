@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import {SectionProps} from '../../../utils/SectionProps';
 import DataTable from "../../elements/DataTable";
 import {EMERGENCY_CONTACT} from "../../../utils/data/DataFormats";
 import EmergencyContactService from "../../../utils/data/axios/services/EmergencyContactService"
-import UserService from "../../../utils/data/axios/services/UserService";
 
 const propTypes = {
     ...SectionProps.types
@@ -40,8 +39,6 @@ const EmergencyContact = ({
         topDivider && 'has-top-divider',
         bottomDivider && 'has-bottom-divider'
     );
-
-    const userService = new UserService("/emergencyContact");
 
     return (
         <section
