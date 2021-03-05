@@ -7,7 +7,7 @@ const ProfileData = () => {
 
     return (
         <>
-            <ProfileSubmit userName="Lumpus" topDivider/>
+            <ProfileSubmit className="illustration-section-01" topDivider/>
         </>
     );
 }

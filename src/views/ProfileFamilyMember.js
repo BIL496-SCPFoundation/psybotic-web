@@ -5,7 +5,7 @@ import PathNameOperations from "../utils/PathNameOperations";
 const ProfileFamilyMember = (props) => {
     return (
         <>
-            <FamilyMember location={PathNameOperations.normalizePathName(props.location.pathname)}/>
+            <FamilyMember className="illustration-section-01" location={PathNameOperations.normalizePathName(props.location.pathname)}/>
         </>
     );
 }

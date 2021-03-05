@@ -5,7 +5,7 @@ import PathNameOperations from "../utils/PathNameOperations"
 const ProfileEmergencyContact = (props) => {
     return (
         <>
-            <EmergencyContact location={PathNameOperations.normalizePathName(props.location.pathname)}/>
+            <EmergencyContact className="illustration-section-01" location={PathNameOperations.normalizePathName(props.location.pathname)}/>
         </>
     );
 }

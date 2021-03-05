@@ -7,7 +7,7 @@ const Profile = () => {
 
     return (
         <>
-            <ProfileInfo userName="Lumpus" topDivider/>
+            <ProfileInfo className="illustration-section-01" userName="Lumpus" topDivider/>
         </>
     );
 }
