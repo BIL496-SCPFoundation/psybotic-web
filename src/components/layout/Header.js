@@ -7,7 +7,7 @@ import {Dropdown, Button, SplitButton, DropdownButton, ButtonGroup} from "react-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../assets/css/userButton.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import {faPhone, faSignOutAlt, faUser, faUserEdit, faUsers} from '@fortawesome/free-solid-svg-icons'
 import UserService from "../../utils/data/axios/services/UserService";
 
 
@@ -171,17 +171,21 @@ const Header = ({
                         <Dropdown.Menu>
                           <Dropdown.Item onClick={(() => {
                             history.push("/Profile", {user})
-                          })} >Profile</Dropdown.Item>
+                          })} ><FontAwesomeIcon icon={faUser} />Profile</Dropdown.Item>
                           <Dropdown.Item onClick={(() => {
                             history.push("/table/profileData/submit", {user})
-                          })} >Edit Personal Info</Dropdown.Item>
+                          })} ><FontAwesomeIcon icon={faUserEdit} />Edit Personal Info</Dropdown.Item>
                           <Dropdown.Item onClick={(() => {
                             history.push("/table/familyMember", {user})
-                          })} >Edit Family Info</Dropdown.Item>
+                          })} ><FontAwesomeIcon icon={faUsers} /> Edit Family Info</Dropdown.Item>
                           <Dropdown.Item onClick={(() => {
                             history.push("/table/emergencyContact", {user})
-                          })} >Edit Emergency Info</Dropdown.Item>
+                          })} ><FontAwesomeIcon icon={faPhone} />Edit Emergency Info</Dropdown.Item>
+                          <Dropdown.Item onClick={(() => {
+                            history.push("/Home", {user})
+                          })} ><FontAwesomeIcon icon={faSignOutAlt} />Log Out</Dropdown.Item>
                         </Dropdown.Menu>
+
                       </Dropdown>
                     </li>
                   </ul>}

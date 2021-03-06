@@ -8,6 +8,8 @@ import ProfileCard from "../../elements/ProfileCard";
 
 import UserService from "../../../utils/data/axios/services/UserService";
 import {Button, Dropdown} from "react-bootstrap";
+import {faRobot, faUserMd, faUsers} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 
 
@@ -76,14 +78,14 @@ const MainMenu = ({
                                     history.push("/ChatPage", {user})
                                 })}
                                 variant="outline-danger" size="lg" block>
-                                Chat With Our AI BOT !
+                                <FontAwesomeIcon icon={faRobot}/> Chat With Our AI BOT !
                             </Button>
                             <Button
                                 onClick={(() => {
                                     history.push("/SelectPsychologist", {user})
                                 })}
                                 variant="dark" size="lg" block>
-                                Chat With A Verified Psychologist
+                                <FontAwesomeIcon icon={faUserMd} />  Chat With A Verified Psychologist
                             </Button>
                             <Button
                                 onClick={(() => {

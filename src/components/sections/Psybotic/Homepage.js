@@ -55,6 +55,8 @@ const Homepage = ({
   }
   const responseGoogle = (response) => {
     console.log(response);
+    //history.push("/Mainmenu")
+
   }
   return (
     <section
