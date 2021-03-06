@@ -5,6 +5,12 @@ import ButtonGroup from '../../elements/ButtonGroup';
 import Button from '../../elements/Button';
 import Image from '../../elements/Image';
 
+import {useHistory} from "react-router-dom";
+
+import { GoogleLogin } from 'react-google-login';
+
+
+
 const propTypes = {
   ...SectionProps.types
 }
@@ -39,7 +45,17 @@ const Homepage = ({
     topDivider && 'has-top-divider',
     bottomDivider && 'has-bottom-divider'
   );
-
+  const history = useHistory();
+  const onSignIn = (googleUser) => {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  }
+  const responseGoogle = (response) => {
+    console.log(response);
+  }
   return (
     <section
       {...props}
@@ -53,16 +69,24 @@ const Homepage = ({
             </h1>
             <div className="container-xs">
               <p className="m-0 mb-32 reveal-from-bottom" data-reveal-delay="400">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tincidunt accumsan nibh et lacinia. Nullam ullamcorper tempor purus quis mattis. Proin pretium libero eget tellus gravida placerat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
                 </p>
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <ButtonGroup>
-                  <Button tag="a" color="primary" wideMobile href="#0">
-                    Login with Google
-                    </Button>
-                  <Button tag="a" color="dark" wideMobile href="#0">
+                  <GoogleLogin
+                      clientId="206287057539-h7i662ki6u8ed1duoau35fqo68q52l29.apps.googleusercontent.com"
+                      buttonText="Login"
+                      onSuccess={responseGoogle}
+                      onFailure={responseGoogle}
+                      cookiePolicy={'single_host_origin'}
+                  />
+                  <Button
+                      onClick={(() => {
+                        history.push("/Mainmenu")
+                      })}
+                      tag="a" color="dark" wideMobile href="#0">
                     Try As Guest
-                    </Button>
+                  </Button>
                 </ButtonGroup>
               </div>
             </div>

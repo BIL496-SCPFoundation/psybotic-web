@@ -1,0 +1,3 @@
+a:not(.button):hover{
+    color: inherit !important;
+}

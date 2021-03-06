@@ -1,8 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import Logo from './partials/Logo';
+import {Dropdown, Button, SplitButton, DropdownButton, ButtonGroup} from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../assets/css/userButton.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
+import UserService from "../../utils/data/axios/services/UserService";
+
+
+
 
 const propTypes = {
   navPosition: PropTypes.string,
@@ -20,6 +29,8 @@ const defaultProps = {
   bottomDivider: false
 }
 
+
+
 const Header = ({
   className,
   navPosition,
@@ -29,6 +40,14 @@ const Header = ({
   bottomDivider,
   ...props
 }) => {
+  const history = useHistory();
+  console.log("this is history");
+  console.log(history);
+
+  const showLogo = function(){
+    if(history.location.pathname === "/" || history.location.pathname === "/home")return false;
+    return true;
+  }
 
   const [isActive, setIsactive] = useState(false);
 
@@ -44,7 +63,23 @@ const Header = ({
       document.removeEventListener('click', clickOutside);
       closeMenu();
     };
-  });  
+  });
+  const [user, setUser] = useState({name: "", age: "", email: "", gender: "", city: "", maritalStatus: ""});
+  const [familyMemberCount, setFamilyMemberCount] = useState("?");
+  const [emergencyContactCount, setEmergencyContactCount] = useState("?");
+  var userService = new UserService();
+
+  userService.findById("1").then((response) => {
+    if (JSON.stringify(response.data) !== JSON.stringify(user))
+      setUser(response.data);
+  })
+
+  userService.getData("1", "/familyMembers").then((response) => {
+    setFamilyMemberCount(response.data.length);
+  })
+  userService.getData("1", "/emergencyContacts").then((response) => {
+    setEmergencyContactCount(response.data.length);
+  })
 
   const openMenu = () => {
     document.body.classList.add('off-nav-is-active');
@@ -95,7 +130,7 @@ const Header = ({
               >
                 <span className="screen-reader">Menu</span>
                 <span className="hamburger">
-                  <span className="hamburger-inner"></span>
+                  <span className="hamburger-inner"/>
                 </span>
               </button>
               <nav
@@ -123,6 +158,32 @@ const Header = ({
                         <Link to={{ pathname: "https://github.com/BIL496-SCPFoundation" }} target="_blank" className="button button-primary button-wide-mobile button-sm" onClick={closeMenu}>Github</Link>
                       </li>
                     </ul>}
+                  {showLogo() &&
+                  <ul
+                      className="list-reset header-nav-right ml-3"
+                  >
+                    <li>
+                      <Dropdown>
+                        <Dropdown.Toggle size="sm" variant="success" id="dropdown-basic">
+                          <FontAwesomeIcon icon={faUser} /> {user.firstName}
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+
+                          <Dropdown.Item onClick={(() => {
+                            history.push("/table/profileData/submit", {user})
+                          })} >Edit Personal Info</Dropdown.Item>
+                          <Dropdown.Item onClick={(() => {
+                            history.push("/table/familyMember", {user})
+                          })} >Edit Family Info</Dropdown.Item>
+                          <Dropdown.Item onClick={(() => {
+                            history.push("/table/emergencyContact", {user})
+                          })} >Edit Emergency Info</Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </li>
+                  </ul>}
+
                 </div>
               </nav>
             </>}
@@ -131,6 +192,7 @@ const Header = ({
     </header>
   );
 }
+
 
 Header.propTypes = propTypes;
 Header.defaultProps = defaultProps;

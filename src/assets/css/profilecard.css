@@ -1,0 +1,72 @@
+.profile-container {
+    height: auto;
+    width: auto;
+    box-shadow: 0 10px 20px black;
+    background-size: cover;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px !important;
+
+}
+
+.profile-image {
+    height: 100px;
+    width: 100px;
+    background-image: url('https://images.wallpaperscraft.com/image/man_silhouette_night_barbed_wire_115312_1280x720.jpg');
+    background-size: cover;
+    border-radius: 50%;
+    border: 8px solid white;
+    position: relative;
+    top: 200px;
+    margin-left: auto;
+    box-shadow: 0 2px 15px rgb(58, 54, 54);
+    transform: rotate(-20deg);
+    font-size: 10px !important;
+}
+
+.profile-shape {
+    height: 250px;
+    width: 400px;
+    background-color: black;
+    margin-left: -20px;
+    position: relative;
+    top: -120px;
+    box-shadow: 0 2px 15px black;
+    transform: rotate(25deg);
+
+}
+
+.profile-container h3 {
+    margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.title {
+    color: rgb(105, 100, 109);
+}
+
+.profile-container p {
+    padding-left: 30px;
+    padding-right: 30px;
+    color: rgb(105, 100, 109);
+}
+
+.profile-icons {
+    margin-top: 15px;
+}
+
+.profile-icons i {
+    margin-left: 10px;
+    font-size: 20px;
+    transition: 0.3s;
+    color: rgb(40, 163, 194);
+;
+}
+
+.profile-icons i:hover {
+    transform: scale(1.1);
+    color: rgb(18, 192, 235);
+}
