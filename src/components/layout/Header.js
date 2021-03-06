@@ -169,7 +169,9 @@ const Header = ({
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-
+                          <Dropdown.Item onClick={(() => {
+                            history.push("/Profile", {user})
+                          })} >Profile</Dropdown.Item>
                           <Dropdown.Item onClick={(() => {
                             history.push("/table/profileData/submit", {user})
                           })} >Edit Personal Info</Dropdown.Item>

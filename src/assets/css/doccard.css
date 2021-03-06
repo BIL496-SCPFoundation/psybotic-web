@@ -58,6 +58,7 @@
     list-style-type: none;
 }
 .doc-social li {
+
     display: inline;
     font-size: 22px;
     cursor: pointer;

@@ -67,7 +67,7 @@ const MainMenu = ({
             <div className="container">
                 <div className={innerClasses}>
                     <div className="col-md-6" >
-                        <ProfileCard user={user}/>
+                        <ProfileCard user={user} />
                     </div>
                     <div className="col-md-6">
                         <div >
