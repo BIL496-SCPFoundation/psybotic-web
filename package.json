@@ -1,5 +1,5 @@
 {
-  "name": "open-react-template",
+  "name": "psybotic",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -48,6 +48,7 @@
     ]
   },
   "devDependencies": {
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "eslint": "^6.6.0"
   }
 }

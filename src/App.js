@@ -16,7 +16,7 @@ import EmergencyContactSubmit from './components/sections/Psybotic/submitForms/E
 import ProfileData from './views/ProfileData';
 import Mainmenu from "./components/sections/Psybotic/Mainmenu";
 
-import ChatPage from "./components/sections/Psybotic/ChatPage";
+import ChatPageDisplay from "./views/ChatPageDisplay";
 import SelectPsychologist from "./components/sections/Psybotic/SelectPsychologist";
 
 
@@ -54,7 +54,7 @@ const App = () => {
                     <AppRoute exact path="/table/familyMember/submit" component={FamilyMemberSubmit}
                               layout={LayoutDefault}/>
 
-                    <AppRoute exact path="/ChatPage" component={ChatPage} layout={LayoutDefault}/>
+                    <AppRoute exact path="/ChatPage" component={ChatPageDisplay} layout={LayoutDefault}/>
                     <AppRoute exact path="/SelectPsychologist" component={SelectPsychologist} layout={LayoutDefault}/>
 
                     <AppRoute exact path="/table/emergencyContact" component={ProfileEmergencyContact}

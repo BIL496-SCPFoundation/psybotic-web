@@ -3,7 +3,7 @@ import React from 'react';
 import ChatPage from '../components/sections/Psybotic/ChatPage';
 
 
-const ChatPage = () => {
+const ChatPageDisplay = () => {
 
     return (
         <>
@@ -17,4 +17,4 @@ const ChatPage = () => {
     );
 }
 
-export default ChatPage;
+export default ChatPageDisplay;
