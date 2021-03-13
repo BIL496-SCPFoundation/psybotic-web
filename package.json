@@ -15,6 +15,7 @@
     "popper.js": "^1.14.3",
     "react": "^16.13.1",
     "react-bootstrap": "^1.5.1",
+    "react-chat-elements": "^10.14.0",
     "react-dom": "^16.13.1",
     "react-ga": "^2.7.0",
     "react-google-login": "^5.2.2",

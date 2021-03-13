@@ -1,10 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState ,useRef, useEffect} from 'react';
 import classNames from 'classnames';
-import { SectionProps } from '../../../utils/SectionProps';
+import {SectionProps} from '../../../utils/SectionProps';
 
 import '../../../assets/css/chat.css'
 import UserService from "../../../utils/data/axios/services/UserService";
 import {useHistory} from "react-router-dom";
+import {MessageList} from 'react-chat-elements'
+import 'react-chat-elements/dist/main.css';
+import Button from "../../elements/Button";
 
 const propTypes = {
     ...SectionProps.types
@@ -41,23 +44,40 @@ const ChatPage = ({
         bottomDivider && 'has-bottom-divider'
     );
     const [user, setUser] = useState({name: "", age: "", email: "", gender: "", city: "", maritalStatus: ""});
-    const [familyMemberCount, setFamilyMemberCount] = useState("?");
-    const [emergencyContactCount, setEmergencyContactCount] = useState("?");
-    var userService = new UserService();
+    const [chatMessages, setChatMessages] = useState([{
+        position: 'right',
+        type: 'text',
+        text: ' Hi, welcome to Psybotic! Go ahead and send me a message. 😄',
+        avatar: 'https://image.flaticon.com/icons/svg/327/327779.svg',
+        title: "ChatBot",
+        date: new Date(),
+    }])
+    const [message, setMessage] = useState("")
+
+    const userService = new UserService();
 
     userService.findById("1").then((response) => {
         if (JSON.stringify(response.data) !== JSON.stringify(user))
             setUser(response.data);
     })
 
+    const messagesEndRef = useRef(null);
+    const scrollToBottom = () => {
+        //TODO: Fix auto scroll
+        //messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+    useEffect(scrollToBottom);
 
     const history = useHistory();
+
+
     return (
         <section
             {...props}
             className={outerClasses}
         >
             <div className="container">
+
                 <div className={innerClasses}>
                     <>
                         <section className="msger">
@@ -71,49 +91,34 @@ const ChatPage = ({
                             </header>
 
                             <main className="msger-chat">
-                                <div className="msg left-msg">
-                                    <div
-                                        className="msg-img"
-                                        style={{backgroundImage: 'url(https://image.flaticon.com/icons/svg/327/327779.svg)'}}
-
-                                    />
-
-                                    <div className="msg-bubble">
-                                        <div className="msg-info">
-                                            <div className="msg-info-name">AI BOT</div>
-                                            <div className="msg-info-time">now</div>
-                                        </div>
-
-                                        <div className="msg-text">
-                                            Hi, welcome to Psybotic! Go ahead and send me a message. 😄
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="msg right-msg">
-                                    <div
-                                        className="msg-img"
-                                        style={{backgroundImage : 'url(https://image.flaticon.com/icons/svg/145/145867.svg)'}}
-
-                                    />
-
-                                    <div className="msg-bubble">
-                                        <div className="msg-info">
-                                            <div className="msg-info-name">{user.firstName}</div>
-                                            <div className="msg-info-time">now</div>
-                                        </div>
-
-                                        <div className="msg-text">
-                                            I want to discuss a problem of mine with you.
-                                        </div>
-                                    </div>
-                                </div>
+                                <MessageList
+                                    className='message-list'
+                                    lockable={true}
+                                    toBottomHeight={'100%'}
+                                    dataSource={chatMessages}/>
+                                <div ref={messagesEndRef}/>
                             </main>
 
-                            <form className="msger-inputarea">
-                                <input type="text" className="msger-input" placeholder="Enter your message..."/>
-                                <button type="submit" className="msger-send-btn">Send</button>
-                            </form>
+                            <div className="msger-inputarea">
+                                <input type="text" className="msger-input" placeholder="Enter your message..."
+                                       onKeyDown={(event) => {
+                                           if (message !== "" && event.keyCode === 13 && event.shiftKey === false) {
+                                               setChatMessages(prevState => ([...prevState, getMessageObject(message)]));
+                                               setMessage("");
+                                           }
+                                       }}
+
+                                       value={message || ''} onChange={(event) => {
+                                    setMessage(event.target.value);
+                                }}/>
+                                <Button type="button" className="msger-send-btn button-primary"
+                                        onClick={() => {
+                                            if (message !== "") {
+                                                setChatMessages(prevState => ([...prevState, getMessageObject(message)]));
+                                                setMessage("");
+                                            }
+                                        }}>Send</Button>
+                            </div>
                         </section>
                     </>
                 </div>
@@ -121,6 +126,19 @@ const ChatPage = ({
         </section>
     );
 }
+
+function getMessageObject(message) {
+    return {
+        position: 'left',
+        type: 'text',
+        text: message,
+        avatar: 'https://image.flaticon.com/icons/svg/145/145867.svg',
+        title: "You",
+        date: new Date(),
+    }
+
+}
+
 
 ChatPage.propTypes = propTypes;
 ChatPage.defaultProps = defaultProps;
