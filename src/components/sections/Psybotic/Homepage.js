@@ -76,7 +76,7 @@ const Homepage = ({
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <ButtonGroup>
                   <GoogleLogin
-                      clientId="206287057539-h7i662ki6u8ed1duoau35fqo68q52l29.apps.googleusercontent.com"
+                      clientId="206287057539-g5ao42ofpsllimed99hflbeqjgmf5jdo.apps.googleusercontent.com"
                       buttonText="Login"
                       onSuccess={responseGoogle}
                       onFailure={responseGoogle}
