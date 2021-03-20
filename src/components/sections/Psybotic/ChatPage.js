@@ -57,8 +57,13 @@ const ChatPage = ({
             {...props}
             className={outerClasses}
         >
-            <div className="container">
+            {"TODO: @Selen pls fix this ugly styling"}
+            <br/>
+            <br/>
 
+            <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
+                Talk with a <span className="text-color-primary">Chat Bot</span></h1>
+            <div className="container">
                 <div className={innerClasses}>
                     <Chat/>
                 </div>
