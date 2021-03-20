@@ -5,6 +5,7 @@ import ButtonGroup from '../../elements/ButtonGroup';
 import Button from '../../elements/Button';
 import Image from '../../elements/Image';
 
+import UserService from "../../../utils/data/axios/services/UserService";
 import {useHistory} from "react-router-dom";
 
 import { GoogleLogin } from 'react-google-login';
@@ -30,6 +31,7 @@ const Homepage = ({
   ...props
 }) => {
 
+  const userService = new UserService();
 
   const outerClasses = classNames(
     'hero section center-content',
@@ -53,10 +55,24 @@ const Homepage = ({
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
   }
+
   const responseGoogle = (response) => {
     console.log(response);
     //history.push("/Mainmenu")
-
+    console.log(response.profileObj.givenName);
+    var a =  response.profileObj;
+    let user = {
+        firstName: a.givenName,
+        lastName: a.familyName,
+        email: a.email,
+        googleId: a.googleId,
+        imageUrl: a.imageUrl
+    }
+    
+    userService.login(user).then((selen) => history.push({
+      pathname: '/Mainmenu',
+        state: user
+    }));
   }
   return (
     <section
