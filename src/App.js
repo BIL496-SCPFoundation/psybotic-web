@@ -19,6 +19,7 @@ import MainMenu from "./views/MainMenuDisplay";
 
 import ChatPageDisplay from "./views/ChatPageDisplay";
 import SelectPsychologist from "./components/sections/Psybotic/SelectPsychologist";
+import UserPanelPage from './views/UserPanelPage.js';
 
 
 // Initialize Google Analytics
@@ -67,6 +68,8 @@ const App = () => {
                               layout={LayoutDefault}/>
                     <AppRoute exact path="/Admin" component={AdminPage}
                               layout={LayoutDefault}/>
+
+                    <AppRoute exact path="/Grid" component={UserPanelPage} layout={LayoutDefault}/>
                 </Switch>
             )}/>
     );

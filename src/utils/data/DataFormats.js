@@ -64,3 +64,34 @@ export const EMERGENCY_CONTACT = [{
         ],
     },
 ]
+
+export const USER = [
+    {
+        Header: 'Id',
+        accessor: '_id',
+    },
+    {
+        Header: 'First Name',
+        accessor: 'firstname',
+    },
+    {
+        Header: 'Last Name',
+        accessor: 'lastname',
+    },
+    {
+        Header: 'Gender',
+        accessor: 'gender',
+    },
+    {
+        Header: 'Gender',
+        accessor: 'gender',
+    },
+    {
+        Header: 'City',
+        accessor: 'city',
+    },
+    {
+        Header: 'Marital Status',
+        accessor: 'maritalStatus',
+    }
+]
