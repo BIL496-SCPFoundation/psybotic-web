@@ -68,6 +68,8 @@ const Homepage = ({
         googleId: a.googleId,
         imageUrl: a.imageUrl
     }
+
+    localStorage.setItem("googleId",user.googleId);
     
     userService.login(user).then((selen) => history.push({
       pathname: '/Mainmenu',

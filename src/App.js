@@ -18,7 +18,7 @@ import Mainmenu from "./components/sections/Psybotic/Mainmenu";
 
 import ChatPageDisplay from "./views/ChatPageDisplay";
 import SelectPsychologist from "./components/sections/Psybotic/SelectPsychologist";
-
+import ApplyPsy from "./components/sections/Psybotic/ApplyPsy.js";
 
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
@@ -56,6 +56,7 @@ const App = () => {
 
                     <AppRoute exact path="/ChatPage" component={ChatPageDisplay} layout={LayoutDefault}/>
                     <AppRoute exact path="/SelectPsychologist" component={SelectPsychologist} layout={LayoutDefault}/>
+                    <AppRoute exact path="/ApplyPsy" component={ApplyPsy} layout={LayoutDefault}/>
 
                     <AppRoute exact path="/table/emergencyContact" component={ProfileEmergencyContact}
                               layout={LayoutDefault}/>

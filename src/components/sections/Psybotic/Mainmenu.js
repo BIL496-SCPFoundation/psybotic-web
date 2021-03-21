@@ -32,6 +32,7 @@ const MainMenu = ({
                       ...props
                   }) => {
 
+    const temp = props.location.state;
 
     const outerClasses = classNames(
         'hero section center-content',
@@ -53,7 +54,7 @@ const MainMenu = ({
     const [emergencyContactCount, setEmergencyContactCount] = useState("?");
     var userService = new UserService();
 
-    userService.findById("1").then((response) => {
+    userService.findById(localStorage.getItem("googleId")).then((response) => {
         if (JSON.stringify(response.data) !== JSON.stringify(user))
             setUser(response.data);
     })
@@ -70,6 +71,7 @@ const MainMenu = ({
                 <div className={innerClasses}>
                     <div className="col-md-6" >
                         <ProfileCard user={user} />
+                        {user.firstName}
                     </div>
                     <div className="col-md-6">
                         <div >
@@ -93,6 +95,14 @@ const MainMenu = ({
                                 })}
                                 variant="dark" size="lg" block>
                                 Learn More..
+                            </Button>
+                            <Button
+                                onClick={(() => {
+                                    history.push("/ApplyPsy", {user})
+                                })}
+                                variant="dark" size="lg" block
+                            >
+                                Apply as a Psychologist
                             </Button>
                         </div>
                     </div>
