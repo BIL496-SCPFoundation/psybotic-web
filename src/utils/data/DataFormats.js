@@ -68,19 +68,15 @@ export const EMERGENCY_CONTACT = [{
 export const USER = [
     {
         Header: 'Id',
-        accessor: '_id',
+        accessor: 'googleId',
     },
     {
         Header: 'First Name',
-        accessor: 'firstname',
+        accessor: 'firstName',
     },
     {
         Header: 'Last Name',
-        accessor: 'lastname',
-    },
-    {
-        Header: 'Gender',
-        accessor: 'gender',
+        accessor: 'lastName',
     },
     {
         Header: 'Gender',

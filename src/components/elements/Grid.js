@@ -40,10 +40,11 @@ const Grid = () => {
             };
             params.api.setDatasource(dataSource);
         };
-        userService.findByPagination(2).then((data) => console.log(data));
+        userService.findByPagination(1000).then((data) => updateData(data.data._embedded.users));
+        /*
         fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')
             .then((resp) => resp.json())
-            .then((data) => updateData(data));
+            .then((data) => updateData(data));*/
     };
 
     return (
@@ -87,6 +88,7 @@ const Grid = () => {
                     }}
                     onGridReady={onGridReady}
                 >
+                    <AgGridColumn checkboxSelection={true} maxWidth={40} sortable={false}/>
                     {USER.map(((value) => {
                         return (<AgGridColumn headerName={value.Header} field={value.accessor} sortable={false}/>);
                     }))}
