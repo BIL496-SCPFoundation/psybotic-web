@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {AgGridColumn, AgGridReact} from 'ag-grid-react';
+import {useHistory} from 'react-router-dom';
 
 import 'ag-grid-community';
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -13,17 +14,20 @@ import Button from "./Button";
 const Grid = () => {
     const [gridApi, setGridApi] = useState(null);
     const [gridColumnApi, setGridColumnApi] = useState(null);
+    const [selectedRows, setSelectedRows] = useState([]);
     const userService = new UserService();
-
+    const history = useHistory();
     const onGridReady = (params) => {
         setGridApi(params.api);
         setGridColumnApi(params.columnApi);
 
         const updateData = (data) => {
+            data.forEach(function (data) {
+                data.id = data.googleId;
+            });
             let dataSource = {
                 rowCount: null,
                 getRows: function (params) {
-                    console.log('asking for ' + params.startRow + ' to ' + params.endRow);
                     setTimeout(function () {
                         const dataAfterSortingAndFiltering = sortAndFilter(
                             data,
@@ -51,8 +55,7 @@ const Grid = () => {
 
 
     const onSelectionChanged = () => {
-        let selectedRows = gridApi.getSelectedRows();
-        console.log(selectedRows);
+        setSelectedRows([...gridApi.getSelectedRows()]);
     };
 
     return (
@@ -83,8 +86,12 @@ const Grid = () => {
                                 }
                             },
                         }}
+                        gridOptions={{
+                            getRowNodeId: item => item.googleId
+                        }}
                         rowSelection={'multiple'}
                         rowModelType={'infinite'}
+                        enableCellTextSelection={true}
                         onSelectionChanged={onSelectionChanged}
                         cacheOverflowSize={2}
                         maxConcurrentDatasourceRequests={2}
@@ -98,11 +105,12 @@ const Grid = () => {
                         }}
                         onGridReady={onGridReady}
                     >
-                        <AgGridColumn checkboxSelection={true} maxWidth={40} sortable={false}/>
+                        <AgGridColumn checkboxSelection={true} cellRenderer="loadingRenderer"
+                                      maxWidth={40} sortable={false}/>
                         {USER.map(((value, index) => {
                             return (<AgGridColumn key={index} filter="agTextColumnFilter"
                                                   filterParams={{
-                                                      filterOptions: ['includes', 'equals'],
+                                                      filterOptions: ['Includes', 'Equals'],
                                                   }} headerName={value.Header} field={value.accessor}
                                                   sortable={true}/>);
                         }))}
@@ -112,7 +120,14 @@ const Grid = () => {
                 </div>
             </div>
             <ButtonGroup style={{"paddingTop": "30px"}}>
-                <Button type="button" className="button-secondary">Edit</Button>
+                <Button type="button" disabled={selectedRows.length !== 1} className="button-secondary" onClick={() => {
+                    let selectedRow = selectedRows[0]
+                    history.push("/table/profileData/submit", {
+                        prevPath: history.location.pathname,
+                        type: "edit",
+                        user: selectedRow,
+                    });
+                }}>Edit</Button>
                 <Button type="button" className="button-primary">Delete</Button>
                 <Button type="button" className="button-dark">Return</Button>
             </ButtonGroup>
@@ -161,12 +176,14 @@ function filterData(filterModel, data) {
         let item = data[i];
         for (let prop in filterModel) {
             if (Object.prototype.hasOwnProperty.call(filterModel, prop)) {
+                if (item[prop] === null)
+                    continue;
                 let filterField = filterModel[prop];
                 let value = item[prop].toLowerCase();
                 let filterValue = filterField.filter.toLowerCase()
                 if (filterField.type === "equals" && filterValue !== value)
                     continue;
-                else if(filterField.type === "includes" && !value.includes(filterValue))
+                else if (filterField.type === "includes" && !value.includes(filterValue))
                     continue;
             }
             resultOfFilter.push(item);

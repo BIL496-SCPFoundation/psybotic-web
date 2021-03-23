@@ -101,7 +101,7 @@ const ProfileInfo = ({
                                 <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
                   <span className="testimonial-item-link">
                     <a style={{cursor: "pointer"}} onClick={(() => {
-                        history.push("/table/profileData/submit", {user})
+                        history.push("/table/profileData/submit", {user, prevPath: history.location.pathname})
                     })}>Edit</a>
                   </span>
                                 </div>
