@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback } from 'react';
 import {AgGridColumn, AgGridReact} from 'ag-grid-react';
 import {useHistory} from 'react-router-dom';
 
@@ -128,8 +128,19 @@ const Grid = () => {
                         user: selectedRow,
                     });
                 }}>Edit</Button>
-                <Button type="button" className="button-primary">Delete</Button>
-                <Button type="button" className="button-dark">Return</Button>
+                <Button type="button" disabled={selectedRows.length === 0} className="button-primary" onClick={() => {
+                    let promises = [];
+                    selectedRows.forEach((row) => {
+                       promises.push(userService.delete(row.id));
+                    });
+                    Promise.all(promises).then(() => {
+                        alert("Selected users are deleted.");
+                        window.location.reload(true);
+                    });
+                }}>Delete</Button>
+                <Button type="button" className="button-dark" onClick={() => {
+                    history.push("/Admin");
+                }}>Return</Button>
             </ButtonGroup>
         </div>
     );
@@ -171,7 +182,6 @@ function filterData(filterModel, data) {
         return data;
     }
     let resultOfFilter = [];
-
     for (let i = 0; i < data.length; i++) {
         let item = data[i];
         for (let prop in filterModel) {
@@ -181,9 +191,9 @@ function filterData(filterModel, data) {
                 let filterField = filterModel[prop];
                 let value = item[prop].toLowerCase();
                 let filterValue = filterField.filter.toLowerCase()
-                if (filterField.type === "equals" && filterValue !== value)
+                if (filterField.type === "Equals" && filterValue !== value)
                     continue;
-                else if (filterField.type === "includes" && !value.includes(filterValue))
+                else if (filterField.type === "Includes" && !value.includes(filterValue))
                     continue;
             }
             resultOfFilter.push(item);

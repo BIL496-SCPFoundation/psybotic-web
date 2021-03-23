@@ -69,7 +69,7 @@ const App = () => {
                     <AppRoute exact path="/Admin" component={AdminPage}
                               layout={LayoutDefault}/>
 
-                    <AppRoute exact path="/Grid" component={UserPanelPage} layout={LayoutDefault}/>
+                    <AppRoute exact path="/Admin/Panel/User" component={UserPanelPage} layout={LayoutDefault}/>
                 </Switch>
             )}/>
     );

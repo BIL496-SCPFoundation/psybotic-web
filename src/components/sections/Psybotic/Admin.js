@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import classNames from 'classnames';
 import {SectionSplitProps} from '../../../utils/SectionProps';
 import SectionHeader from '../partials/SectionHeader';
-import Image from '../../elements/Image';
+import UserService from "../../../utils/data/axios/services/UserService";
 
 const propTypes = {
     ...SectionSplitProps.types
@@ -58,6 +59,13 @@ const Admin = ({
         paragraph: 'Manage different users and psychologists here'
     };
 
+    const history = useHistory();
+
+    const userService = new UserService();
+    const [userCount, setUserCount] = useState("?")
+    userService.findByPagination(1).then((data) => {
+        setUserCount(data.data.page.totalElements);
+    })
     return (
         <section
             {...props}
@@ -79,7 +87,7 @@ const Admin = ({
                                         <div className="testimonial-item-content">
                                             <p className="text-sm mb-0">
                                                 <h4>User Panel</h4>
-                                                Currently, <b className="text-color-high"> ? </b> users registered to
+                                                Currently, <b className="text-color-high"> {userCount} </b> users registered to
                                                 the application. Please click the <span
                                                 className="testimonial-item-link">Go to Panel</span> button to see and edit
                                                 them
@@ -88,6 +96,7 @@ const Admin = ({
                                         <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
                   <span className="testimonial-item-link">
                     <a href="#0" onClick={(() => {
+                        history.push("/Admin/Panel/User");
                     })}>Go to Panel</a>
                   </span>
                                         </div>
