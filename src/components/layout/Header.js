@@ -41,8 +41,6 @@ const Header = ({
   ...props
 }) => {
   const history = useHistory();
-  console.log("this is history");
-  console.log(history);
 
   const showLogo = function(){
     if(history.location.pathname === "/" || history.location.pathname === "/home")return false;

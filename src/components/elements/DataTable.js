@@ -122,7 +122,7 @@ function DataTable({location, columns, service, url}) {
 }
 
 
-Checkbox.propTypes = propTypes;
-Checkbox.defaultProps = defaultProps;
+DataTable.propTypes = propTypes;
+DataTable.defaultProps = defaultProps;
 
 export default DataTable;

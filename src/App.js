@@ -12,12 +12,14 @@ import Profile from './views/Profile';
 import ProfileFamilyMember from './views/ProfileFamilyMember.js';
 import FamilyMemberSubmit from './components/sections/Psybotic/submitForms/FamilyMemberSubmit';
 import ProfileEmergencyContact from './views/ProfileEmergencyContact.js';
+import AdminPage from './views/AdminPage.js';
 import EmergencyContactSubmit from './components/sections/Psybotic/submitForms/EmergencyContactSubmit';
 import ProfileData from './views/ProfileData';
-import Mainmenu from "./components/sections/Psybotic/Mainmenu";
+import MainMenu from "./views/MainMenuDisplay";
 
 import ChatPageDisplay from "./views/ChatPageDisplay";
 import SelectPsychologist from "./components/sections/Psybotic/SelectPsychologist";
+import UserPanelPage from './views/UserPanelPage.js';
 
 
 // Initialize Google Analytics
@@ -47,7 +49,7 @@ const App = () => {
             children={() => (
                 <Switch>
                     <AppRoute exact path="/" component={Home} layout={LayoutDefault}/>
-                    <AppRoute exact path="/mainmenu" component={Mainmenu} layout={LayoutDefault}/>
+                    <AppRoute exact path="/mainmenu" component={MainMenu} layout={LayoutDefault}/>
                     <AppRoute exact path="/profile" component={Profile} layout={LayoutDefault}/>
 
                     <AppRoute exact path="/table/familyMember" component={ProfileFamilyMember} layout={LayoutDefault}/>
@@ -64,6 +66,10 @@ const App = () => {
 
                     <AppRoute exact path="/table/profileData/submit" component={ProfileData}
                               layout={LayoutDefault}/>
+                    <AppRoute exact path="/Admin" component={AdminPage}
+                              layout={LayoutDefault}/>
+
+                    <AppRoute exact path="/Grid" component={UserPanelPage} layout={LayoutDefault}/>
                 </Switch>
             )}/>
     );

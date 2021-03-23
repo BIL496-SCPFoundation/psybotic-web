@@ -5,6 +5,14 @@ class UserService extends AxiosConfig{
         super("/users");
     }
 
+    findByPagination(size){
+        return this.axiosInstance.request({method:"GET", params:{size}},).then((response) => {
+            return response;
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+
     findById(id){
         return this.axiosInstance.request({method:"GET", url:"/findById", params:{id}}).then((response) => {
             return response;
