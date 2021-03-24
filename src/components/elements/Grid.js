@@ -6,16 +6,13 @@ import 'ag-grid-community';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine-dark.css';
 import '../../assets/css/agGrid.css'
-import {USER} from '../../utils/data/DataFormats'
-import UserService from "../../utils/data/axios/services/UserService";
 import ButtonGroup from "./ButtonGroup";
 import Button from "./Button";
 
-const Grid = () => {
+const Grid = ({service, dataFormat, dataPath}) => {
     const [gridApi, setGridApi] = useState(null);
     const [gridColumnApi, setGridColumnApi] = useState(null);
     const [selectedRows, setSelectedRows] = useState([]);
-    const userService = new UserService();
     const history = useHistory();
     const onGridReady = (params) => {
         setGridApi(params.api);
@@ -49,7 +46,7 @@ const Grid = () => {
             params.api.setDatasource(dataSource);
         };
 
-        userService.findByPagination(1000).then((data) => updateData(data.data._embedded.users));
+        service.findByPagination(1000).then((data) => updateData(data.data._embedded[dataPath]));
 
     };
 
@@ -107,7 +104,7 @@ const Grid = () => {
                     >
                         <AgGridColumn checkboxSelection={true} cellRenderer="loadingRenderer"
                                       maxWidth={40} sortable={false}/>
-                        {USER.map(((value, index) => {
+                        {dataFormat.map(((value, index) => {
                             return (<AgGridColumn key={index} filter="agTextColumnFilter"
                                                   filterParams={{
                                                       filterOptions: ['Includes', 'Equals'],
@@ -131,7 +128,7 @@ const Grid = () => {
                 <Button type="button" disabled={selectedRows.length === 0} className="button-primary" onClick={() => {
                     let promises = [];
                     selectedRows.forEach((row) => {
-                       promises.push(userService.delete(row.id));
+                       promises.push(service.delete(row.id));
                     });
                     Promise.all(promises).then(() => {
                         alert("Selected users are deleted.");
