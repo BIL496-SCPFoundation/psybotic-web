@@ -5,6 +5,7 @@ import ButtonGroup from '../../elements/ButtonGroup';
 import Button from '../../elements/Button';
 import Image from '../../elements/Image';
 
+import UserService from "../../../utils/data/axios/services/UserService";
 import {useHistory} from "react-router-dom";
 
 import { GoogleLogin } from 'react-google-login';
@@ -30,6 +31,7 @@ const Homepage = ({
   ...props
 }) => {
 
+  const userService = new UserService();
 
   const outerClasses = classNames(
     'hero section center-content',
@@ -54,10 +56,24 @@ const Homepage = ({
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
   }
+
   const responseGoogle = (response) => {
     console.log(response);
     //history.push("/Mainmenu")
-
+    console.log(response.profileObj.givenName);
+    var a =  response.profileObj;
+    let user = {
+        firstName: a.givenName,
+        lastName: a.familyName,
+        email: a.email,
+        googleId: a.googleId,
+        imageUrl: a.imageUrl
+    }
+    
+    userService.login(user).then((selen) => history.push({
+      pathname: '/Mainmenu',
+        state: user
+    }));
   }
   return (
     <section
@@ -77,7 +93,7 @@ const Homepage = ({
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <ButtonGroup>
                   <GoogleLogin
-                      clientId="206287057539-h7i662ki6u8ed1duoau35fqo68q52l29.apps.googleusercontent.com"
+                      clientId="206287057539-g5ao42ofpsllimed99hflbeqjgmf5jdo.apps.googleusercontent.com"
                       buttonText="Login"
                       onSuccess={responseGoogle}
                       onFailure={responseGoogle}

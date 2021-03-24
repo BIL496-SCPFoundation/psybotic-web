@@ -20,5 +20,14 @@ class UserService extends AxiosConfig{
             console.log(error);
         })
     }
+
+    login(user){
+        return this.axiosInstance.request({method:"POST", url: '/login', data:user}).then((response)=>{
+            sessionStorage.setItem("user", JSON.stringify(response))
+            return response;
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
 }
 export default UserService;
