@@ -52,7 +52,7 @@ const PsychologistPanel = ({
                         <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
                             Psychologist Panel
                         </h1>
-                        <Grid service={userService} dataFormat={PSYCHOLOGIST} dataPath={"psychologists"}/>
+                        <Grid service={userService} dataFormat={PSYCHOLOGIST} dataPath={"psychologists"} editButton={false}/>
                     </div>
                 </div>
             </div>

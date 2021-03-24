@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import {SectionSplitProps} from '../../../utils/SectionProps';
 import SectionHeader from '../partials/SectionHeader';
 import UserService from "../../../utils/data/axios/services/UserService";
+import PsychologistService from "../../../utils/data/axios/services/PsychologistService";
 
 const propTypes = {
     ...SectionSplitProps.types
@@ -62,10 +63,19 @@ const Admin = ({
     const history = useHistory();
 
     const userService = new UserService();
-    const [userCount, setUserCount] = useState("?")
+    const psychologistService = new PsychologistService();
+
+    const [userCount, setUserCount] = useState("?");
+    const [psychologistCount, setPsychologistCount] = useState("?")
+
     userService.findByPagination(1).then((data) => {
         setUserCount(data.data.page.totalElements);
-    })
+    });
+
+    psychologistService.findByPagination(1).then((data) => {
+        setPsychologistCount(data.data.page.totalElements);
+    });
+
     return (
         <section
             {...props}
@@ -129,7 +139,7 @@ const Admin = ({
                                         <div className="testimonial-item-content">
                                             <p className="text-sm mb-0">
                                                 <h4>Psychologist Panel</h4>
-                                                Currently, <b className="text-color-high"> ? </b> psychologists registered to
+                                                Currently, <b className="text-color-high"> {psychologistCount} </b> psychologists registered to
                                                 the application. Please click the <span
                                                 className="testimonial-item-link">Go to Panel</span> button to see and edit
                                                 them

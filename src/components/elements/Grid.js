@@ -1,4 +1,4 @@
-import React, {useState, useCallback } from 'react';
+import React, {useState, useCallback} from 'react';
 import {AgGridColumn, AgGridReact} from 'ag-grid-react';
 import {useHistory} from 'react-router-dom';
 
@@ -8,8 +8,10 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine-dark.css';
 import '../../assets/css/agGrid.css'
 import ButtonGroup from "./ButtonGroup";
 import Button from "./Button";
+import PathNameOperations from "../../utils/PathNameOperations";
 
-const Grid = ({service, dataFormat, dataPath}) => {
+
+const Grid = ({service, dataFormat, dataPath, editButton = true, deleteButton = true}) => {
     const [gridApi, setGridApi] = useState(null);
     const [gridColumnApi, setGridColumnApi] = useState(null);
     const [selectedRows, setSelectedRows] = useState([]);
@@ -20,7 +22,9 @@ const Grid = ({service, dataFormat, dataPath}) => {
 
         const updateData = (data) => {
             data.forEach(function (data) {
-                data.id = data.googleId;
+                if(typeof data.id === "undefined") {
+                    data.id = PathNameOperations.finalPathName(data._links.self.href)
+                }
             });
             let dataSource = {
                 rowCount: null,
@@ -117,24 +121,28 @@ const Grid = ({service, dataFormat, dataPath}) => {
                 </div>
             </div>
             <ButtonGroup style={{"paddingTop": "30px"}}>
-                <Button type="button" disabled={selectedRows.length !== 1} className="button-secondary" onClick={() => {
-                    let selectedRow = selectedRows[0]
-                    history.push("/table/profileData/submit", {
-                        prevPath: history.location.pathname,
-                        type: "edit",
-                        user: selectedRow,
-                    });
-                }}>Edit</Button>
-                <Button type="button" disabled={selectedRows.length === 0} className="button-primary" onClick={() => {
-                    let promises = [];
-                    selectedRows.forEach((row) => {
-                       promises.push(service.delete(row.id));
-                    });
-                    Promise.all(promises).then(() => {
-                        alert("Selected users are deleted.");
-                        window.location.reload(true);
-                    });
-                }}>Delete</Button>
+                {(editButton) ?
+                    <Button type="button" disabled={selectedRows.length !== 1} className="button-secondary"
+                            onClick={() => {
+                                let selectedRow = selectedRows[0]
+                                history.push("/table/profileData/submit", {
+                                    prevPath: history.location.pathname,
+                                    type: "edit",
+                                    user: selectedRow,
+                                });
+                            }}>Edit</Button> : null}
+                {(deleteButton) ?
+                    <Button type="button" disabled={selectedRows.length === 0} className="button-primary"
+                            onClick={() => {
+                                let promises = [];
+                                selectedRows.forEach((row) => {
+                                    promises.push(service.delete(row.id));
+                                });
+                                Promise.all(promises).then(() => {
+                                    alert("Selected "+ dataPath +" are deleted.");
+                                    window.location.reload(true);
+                                });
+                            }}>Delete</Button> : null}
                 <Button type="button" className="button-dark" onClick={() => {
                     history.push("/Admin");
                 }}>Return</Button>
