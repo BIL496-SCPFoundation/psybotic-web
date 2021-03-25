@@ -64,12 +64,11 @@ const Homepage = ({
         auth.signInWithPopup(provider).then((response) => {
             let user = response.additionalUserInfo.profile;
             let userData = {
-                uid: response.user.uid,
+                id: user.id,
                 googleId: user.id,
                 firstName: user.given_name,
                 lastName: user.family_name,
                 email: user.email,
-                imageUrl: user.picture
             }
             userService.login(userData).then(() => history.push({
                 pathname: '/Mainmenu'

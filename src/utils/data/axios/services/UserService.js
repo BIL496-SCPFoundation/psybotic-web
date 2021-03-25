@@ -6,7 +6,6 @@ class UserService extends AxiosConfig{
     }
 
     findById(id){
-        console.log(id);
         return this.axiosInstance.request({method:"GET", url:"/findById", params:{id}}).then((response) => {
             return response;
         }).catch((error) => {

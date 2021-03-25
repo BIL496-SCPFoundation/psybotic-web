@@ -55,7 +55,7 @@ const ProfileInfo = ({
 
     const history = useHistory();
 
-    const [user, setUser] = useState({name: "", age: "", email: "", gender: "", city: "", maritalStatus: ""});
+    const [user, setUser] = useState({});
     const [familyMemberCount, setFamilyMemberCount] = useState("?");
     const [emergencyContactCount, setEmergencyContactCount] = useState("?");
 
@@ -63,7 +63,7 @@ const ProfileInfo = ({
 
     const userService = new UserService();
 
-    if (Object.keys(OAuthUser).length !== 0) {
+    if (Object.keys(OAuthUser).length !== 0 && Object.keys(user).length === 0 )  {
         userService.findById(OAuthUser.googleId).then((response) => {
             if (JSON.stringify(response.data) !== JSON.stringify(user))
                 setUser(response.data);

@@ -17,7 +17,6 @@ const analytics = firebase.analytics();
 const Chat = () => {
 
     const currentUser = getUser();
-    console.log(currentUser);
 
     const receiverId = "chatbot";
     const senderId = currentUser.googleId;
@@ -38,7 +37,6 @@ const Chat = () => {
 
 
     const sendMessage = async () => {
-        console.log(formValue);
         await messagesRef.add({
             chatRoomId: senderId + receiverId,
             message: formValue,
