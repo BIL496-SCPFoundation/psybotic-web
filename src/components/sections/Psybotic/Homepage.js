@@ -1,4 +1,4 @@
-import React  from 'react';
+import React , {useContext} from 'react';
 import classNames from 'classnames';
 import { SectionProps } from '../../../utils/SectionProps';
 import ButtonGroup from '../../elements/ButtonGroup';
@@ -8,8 +8,10 @@ import Image from '../../elements/Image';
 import UserService from "../../../utils/data/axios/services/UserService";
 import {useHistory} from "react-router-dom";
 
-import { GoogleLogin } from 'react-google-login';
-
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+import 'firebase/analytics';
 
 
 const propTypes = {
@@ -19,7 +21,16 @@ const propTypes = {
 const defaultProps = {
   ...SectionProps.defaults
 }
-
+firebase.initializeApp({
+  apiKey: "AIzaSyCt_3a9ovNugndR3hu6455stXrf7M-WlLA",
+  authDomain: "psybotic.firebaseapp.com",
+  projectId: "psybotic",
+  storageBucket: "psybotic.appspot.com",
+  messagingSenderId: "206287057539",
+  appId: "1:206287057539:web:2d793dbd3e549614aba1b6",
+  measurementId: "G-GFH4G8EGNY"
+});
+const auth = firebase.auth();
 const Homepage = ({
   className,
   topOuterDivider,
@@ -30,7 +41,6 @@ const Homepage = ({
   invertColor,
   ...props
 }) => {
-
   const userService = new UserService();
 
   const outerClasses = classNames(
@@ -48,33 +58,27 @@ const Homepage = ({
     bottomDivider && 'has-bottom-divider'
   );
   const history = useHistory();
-  const onSignIn = (googleUser) => {
-    var profile = googleUser.getBasicProfile();
-    console.log(profile)
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+  const signInWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider).then((response) => {
+      let user = response.additionalUserInfo.profile;
+      let userData = {
+        uid: response.user.uid,
+        googleId: user.id,
+        firstName: user.given_name,
+        lastName: user.family_name,
+        email: user.email,
+        imageUrl: user.picture
+      }
+      userService.login(userData).then(() => history.push({
+        pathname: '/Mainmenu',
+        state: {user: userData}
+      }));
+    });
   }
 
-  const responseGoogle = (response) => {
-    console.log(response);
-    //history.push("/Mainmenu")
-    console.log(response.profileObj.givenName);
-    var a =  response.profileObj;
-    let user = {
-        firstName: a.givenName,
-        lastName: a.familyName,
-        email: a.email,
-        googleId: a.googleId,
-        imageUrl: a.imageUrl
-    }
-    
-    userService.login(user).then((selen) => history.push({
-      pathname: '/Mainmenu',
-        state: user
-    }));
-  }
+
   return (
     <section
       {...props}
@@ -92,13 +96,7 @@ const Homepage = ({
                 </p>
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <ButtonGroup>
-                  <GoogleLogin
-                      clientId="206287057539-g5ao42ofpsllimed99hflbeqjgmf5jdo.apps.googleusercontent.com"
-                      buttonText="Login"
-                      onSuccess={responseGoogle}
-                      onFailure={responseGoogle}
-                      cookiePolicy={'single_host_origin'}
-                  />
+                  <Button className="button-primary" onClick={signInWithGoogle}>Sign in with Google</Button>
                   <Button
                       onClick={(() => {
                         history.push("/Mainmenu")
