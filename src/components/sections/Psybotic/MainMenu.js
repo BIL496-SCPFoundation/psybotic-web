@@ -2,15 +2,16 @@ import React, {useState} from 'react';
 import classNames from 'classnames';
 import {SectionProps} from '../../../utils/SectionProps';
 
-import {Link, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 import ProfileCard from "../../elements/ProfileCard";
 
-import UserService from "../../../utils/data/axios/services/UserService";
 import {Button, Dropdown} from "react-bootstrap";
 import {faRobot, faUserMd, faUsers} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import 'firebase/auth';
+import getUser from '../../../utils/GetUser'
+import firebase from "firebase";
 
 const propTypes = {
     ...SectionProps.types
@@ -19,6 +20,7 @@ const propTypes = {
 const defaultProps = {
     ...SectionProps.defaults
 }
+
 
 const MainMenu = ({
                       className,
@@ -49,8 +51,7 @@ const MainMenu = ({
         topDivider && 'has-top-divider',
         bottomDivider && 'has-bottom-divider'
     );
-
-    const user = history.location.state.user;
+    const user = getUser();
 
 
     return (

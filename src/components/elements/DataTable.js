@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import Checkbox from "./Checkbox";
 import {useTable} from "react-table";
 import Button from "./Button";
 import ButtonGroup from "./ButtonGroup";
 import {useHistory} from "react-router-dom";
 import UserService from "../../utils/data/axios/services/UserService";
+import getUser from "../../utils/GetUser";
 
 
 const propTypes = {
@@ -32,13 +32,16 @@ function DataTable({location, columns, service, url}) {
     const [data, setData] = useState([])
     let userService;
 
+    const OAuthUser = getUser();
+
 
     userService = new UserService();
-    userService.getData("1", url).then((response) => {
-        if (JSON.stringify(response.data) !== JSON.stringify(data))
-            setData(response.data);
-    });
-
+    if (Object.keys(OAuthUser).length !== 0) {
+        userService.getData(OAuthUser.googleId, url).then((response) => {
+            if (JSON.stringify(response.data) !== JSON.stringify(data))
+                setData(response.data);
+        });
+    }
 
     if (columns[0].Header !== "Action") {
         columns.unshift({
@@ -59,7 +62,7 @@ function DataTable({location, columns, service, url}) {
                     </Button>
                     <Button className="button-dark button-sm" onClick={() => {
                         dataService.delete(row.original.id).then(
-                            userService.getData("1", url).then((response) => {
+                            userService.getData(OAuthUser.googleId, url).then((response) => {
                                 setData(response.data);
                             })
                         );

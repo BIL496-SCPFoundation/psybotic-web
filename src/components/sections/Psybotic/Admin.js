@@ -95,8 +95,8 @@ const Admin = ({
                                 <div className="tiles-item reveal-from-left" data-reveal-delay="200">
                                     <div className="tiles-item-inner">
                                         <div className="testimonial-item-content">
+                                            <h4>User Panel</h4>
                                             <p className="text-sm mb-0">
-                                                <h4>User Panel</h4>
                                                 Currently, <b className="text-color-high"> {userCount} </b> users registered to
                                                 the application. Please click the <span
                                                 className="testimonial-item-link">Go to Panel</span> button to see and edit
@@ -137,8 +137,8 @@ const Admin = ({
                                 <div className="tiles-item reveal-from-left" data-reveal-delay="200">
                                     <div className="tiles-item-inner">
                                         <div className="testimonial-item-content">
+                                            <h4>Psychologist Panel</h4>
                                             <p className="text-sm mb-0">
-                                                <h4>Psychologist Panel</h4>
                                                 Currently, <b className="text-color-high"> {psychologistCount} </b> psychologists registered to
                                                 the application. Please click the <span
                                                 className="testimonial-item-link">Go to Panel</span> button to see and edit

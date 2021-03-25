@@ -7,6 +7,7 @@ import {useHistory} from 'react-router-dom';
 import PathNameOperations from "../../../../utils/PathNameOperations";
 import FamilyMemberService from "../../../../utils/data/axios/services/FamilyMemberService";
 import Input from "../../../elements/Input";
+import getUser from "../../../../utils/GetUser";
 const propTypes = {
     ...SectionProps.types
 }
@@ -45,6 +46,8 @@ const FamilyMemberSubmit = ({
     const history = useHistory();
     const row = history.location.state.row;
     const comp_type = history.location.state.type;
+
+    const OAuthUser = getUser();
 
     const [firstName, setFirstName] = useState(typeof row === "undefined" ? "" : row.firstName);
     const [lastName, setLastName] = useState(typeof row === "undefined" ? "" : row.lastName);
@@ -90,7 +93,7 @@ const FamilyMemberSubmit = ({
                             <ButtonGroup>
                                 <Button type="button" className="button-secondary" onClick={() => {
                                     if (comp_type === "new")
-                                        familyMemberService.insert({superId: "1", firstName, lastName, email, phone})
+                                        familyMemberService.insert({superId: OAuthUser.googleId, firstName, lastName, email, phone})
                                             .then(() => {
                                                 alert("Family Member Submitted!");
                                                 history.push(PathNameOperations.parentPathName(location.pathname));
@@ -98,7 +101,7 @@ const FamilyMemberSubmit = ({
                                     else
                                         familyMemberService.update({
                                             id: row.id,
-                                            superId: "1",
+                                            superId: OAuthUser.googleId,
                                             firstName,
                                             lastName,
                                             email,

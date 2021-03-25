@@ -1,6 +1,5 @@
 import React, {useRef, useState, useEffect} from "react";
 import {MessageList} from "react-chat-elements";
-import {useHistory} from "react-router-dom";
 import Button from "./Button";
 import '../../assets/css/chat.css'
 import 'react-chat-elements/dist/main.css';
@@ -9,7 +8,7 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/analytics';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
-
+import getUser from '../../utils/GetUser'
 
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
@@ -17,9 +16,8 @@ const analytics = firebase.analytics();
 //https://stackoverflow.com/questions/37139525/firebase-chat-app-query-messages-optimize-query-that-should-be-or-or-improve
 const Chat = () => {
 
-    const history = useHistory();
-
-    const currentUser = history.location.state.user;
+    const currentUser = getUser();
+    console.log(currentUser);
 
     const receiverId = "chatbot";
     const senderId = currentUser.googleId;
@@ -38,7 +36,6 @@ const Chat = () => {
         messagesEndRef.current.scrollIntoView({behavior: "smooth", block: 'nearest', inline: 'start'});
     }
 
-    console.log(currentUser);
 
     const sendMessage = async () => {
         console.log(formValue);
