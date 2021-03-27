@@ -46,7 +46,6 @@ const ProfileSubmit = ({
     const user = history.location.state.user;
     const userService = new UserService();
 
-
     const [firstName, setFirstName] = useState(typeof user === "undefined" ? "" : user.firstName);
     const [lastName, setLastName] = useState(typeof user === "undefined" ? "" : user.lastName);
     const [email, setEmail] = useState(typeof user === "undefined" ? "" : user.email);
@@ -80,9 +79,9 @@ const ProfileSubmit = ({
                             <Select placeholder="Gender" defaultValue={gender} onChange={(event) => {
                                 setGender(event.target.value)
                             }}>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                                <option value="O">Other</option>
                             </Select>
                             <h3>Mail:</h3>
                             <Input type="email" placeholder="E-mail" defaultValue={email} onChange={(event) => {
@@ -108,9 +107,10 @@ const ProfileSubmit = ({
                             <br/>
                             <br/>
                             <ButtonGroup>
-                                <Button type="button" className="button-secondary reveal-from-bottom" onClick={() => {
+                                <Button type="button" className="button-secondary" onClick={() => {
                                     userService.update({
-                                        id: "1",
+                                        id: user.id,
+                                        googleId: user.id,
                                         firstName,
                                         lastName,
                                         email,
@@ -118,12 +118,14 @@ const ProfileSubmit = ({
                                         city,
                                         maritalStatus
                                     }).then((response) => {
-                                        console.log(response);
-                                        alert("Your info has been updated!");
+                                        if(response)
+                                            alert("Your info has been updated!");
+                                        else
+                                            alert("There was a problem making your request.\n Please try again later.")
                                     })
                                 }}>Edit</Button>
-                                <Button type="button" className="button-dark reveal-from-bottom" onClick={() => {
-                                    history.push("/profile");
+                                <Button type="button" className="button-dark" onClick={() => {
+                                    history.push(history.location.state.prevPath);
                                 }}>Return</Button>
                             </ButtonGroup>
                         </form>

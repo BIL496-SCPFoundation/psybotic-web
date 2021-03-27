@@ -57,7 +57,6 @@ const ChatPage = ({
             {...props}
             className={outerClasses}
         >
-            {"TODO: @Selen pls fix this ugly styling"}
             <br/>
             <br/>
 

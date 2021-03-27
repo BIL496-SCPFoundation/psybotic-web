@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import classNames from 'classnames';
 import {SectionProps} from '../../../utils/SectionProps';
 import Grid from "../../elements/Grid";
-import UserService from "../../../utils/data/axios/services/UserService";
-import {USER} from "../../../utils/data/DataFormats";
+import PsychologistService from "../../../utils/data/axios/services/PsychologistService";
+import {PSYCHOLOGIST} from "../../../utils/data/DataFormats";
 
 const propTypes = {
     ...SectionProps.types
@@ -13,17 +13,17 @@ const defaultProps = {
     ...SectionProps.defaults
 }
 
-const UserPanel = ({
-                          className,
-                          topOuterDivider,
-                          bottomOuterDivider,
-                          topDivider,
-                          bottomDivider,
-                          hasBgColor,
-                          invertColor,
-                          location,
-                          ...props
-                      }) => {
+const PsychologistPanel = ({
+                       className,
+                       topOuterDivider,
+                       bottomOuterDivider,
+                       topDivider,
+                       bottomDivider,
+                       hasBgColor,
+                       invertColor,
+                       location,
+                       ...props
+                   }) => {
 
     const outerClasses = classNames(
         'hero section center-content',
@@ -40,7 +40,7 @@ const UserPanel = ({
         bottomDivider && 'has-bottom-divider'
     );
 
-    let userService = new UserService();
+    let userService = new PsychologistService();
 
     return (
         <section
@@ -50,9 +50,9 @@ const UserPanel = ({
                 <div className={innerClasses}>
                     <div className="hero-content" >
                         <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
-                            User Panel
+                            Psychologist Panel
                         </h1>
-                        <Grid service={userService} dataFormat={USER} dataPath={"users"}/>
+                        <Grid service={userService} dataFormat={PSYCHOLOGIST} dataPath={"psychologists"} editButton={false}/>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@ const UserPanel = ({
     );
 }
 
-UserPanel.propTypes = propTypes;
-UserPanel.defaultProps = defaultProps;
+PsychologistPanel.propTypes = propTypes;
+PsychologistPanel.defaultProps = defaultProps;
 
-export default UserPanel;
+export default PsychologistPanel;

@@ -20,6 +20,7 @@ import MainMenu from "./views/MainMenuDisplay";
 import ChatPageDisplay from "./views/ChatPageDisplay";
 import SelectPsychologist from "./components/sections/Psybotic/SelectPsychologist";
 import UserPanelPage from './views/UserPanelPage.js';
+import PsychologistPanelPage from "./views/PsychologistPanelPage";
 
 
 // Initialize Google Analytics
@@ -66,10 +67,13 @@ const App = () => {
 
                     <AppRoute exact path="/table/profileData/submit" component={ProfileData}
                               layout={LayoutDefault}/>
+
                     <AppRoute exact path="/Admin" component={AdminPage}
                               layout={LayoutDefault}/>
+                    <AppRoute exact path="/Admin/Panel/User" component={UserPanelPage} layout={LayoutDefault}/>
+                    <AppRoute exact path="/Admin/Panel/Psychologist" component={PsychologistPanelPage}
+                              layout={LayoutDefault}/>
 
-                    <AppRoute exact path="/Grid" component={UserPanelPage} layout={LayoutDefault}/>
                 </Switch>
             )}/>
     );
