@@ -7,7 +7,7 @@ import '../../assets/css/doccard.css'
 
 
 const propTypes = {
-    user : PropTypes.object
+    user: PropTypes.object
 
 }
 
@@ -27,19 +27,17 @@ const DoctorCard = ({
         <>
             <div className="doc-card">
                 <div className="doc-avatar">
-                    <img src="https://madalyonklinik.com/wp-content/uploads/2019/05/G%C3%BClseren-han%C4%B1m.jpg"/>
+                    <img src={props.user.imageURL}/>
                 </div>
                 <div className="doc-title">
-                    <h3>Dr. Gülseren
-                        BUDAYICIOĞLU
+                    <h3>{props.user.firstName} {props.user.lastName}
                     </h3>
                     <h5>
-                        Psikiyatri Uzmanı
-                        Merkez Başkanı
+                        {props.user.expertise}
                     </h5>
                 </div>
                 <div className="doc-description">
-                    Tıp öğrenimi sırasında, önce TRT Ankara Radyosu’nda, daha sonra da TRT televizyonunda 5 yıl boyunca kadrolu spiker ve ..</div>
+                    {props.user.biography}</div>
                 <div className="doc-social">
                     <ul>
                         <li><i className="fab fa-facebook"/></li>

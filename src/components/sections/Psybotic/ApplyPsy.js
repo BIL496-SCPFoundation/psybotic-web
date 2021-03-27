@@ -5,6 +5,7 @@ import { SectionProps } from '../../../utils/SectionProps';
 import {Button} from "react-bootstrap";
 import DoctorCard from "../../elements/DoctorCard";
 import DocForm from "../../elements/DocForm";
+import {useHistory} from "react-router-dom";
 
 const propTypes = {
     ...SectionProps.types

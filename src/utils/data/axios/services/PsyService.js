@@ -20,6 +20,15 @@ class PsychologistService extends AxiosConfig{
             throw error;
         })
     }
+    
+    confirmedApplicatns = () => {
+        return this.axiosInstance.request({method : "GET" , url : '/verifiedPsychologists'})
+        .then((response) =>{
+            return response
+        }).catch((error) => {
+            throw error;
+        })
+    }
 
     confirmApplicant = (item) => {
         item.approved = true;
@@ -28,6 +37,8 @@ class PsychologistService extends AxiosConfig{
         }).catch((error) => {
             throw error;
         });
+    
+        
 
 
     };

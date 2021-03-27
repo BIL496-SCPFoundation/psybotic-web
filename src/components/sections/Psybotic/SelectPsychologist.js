@@ -1,9 +1,10 @@
-import React  from 'react';
+import React,{useState} from 'react';
 import classNames from 'classnames';
 import { SectionProps } from '../../../utils/SectionProps';
-
+import PsychologistService from '../../../utils/data/axios/services/PsyService'
 import {Button} from "react-bootstrap";
 import DoctorCard from "../../elements/DoctorCard";
+import {useHistory} from "react-router-dom";
 
 const propTypes = {
     ...SectionProps.types
@@ -23,8 +24,24 @@ const SelectPsychologist = ({
                       invertColor,
                       ...props
                   }) => {
-
-
+                    const history = useHistory();
+                    const row = history.location.state.row; 
+    const [verifiedDocs,setVerifiedDocs] =  useState(0);
+    const [docs,setDocs] = useState(0);
+    const psyService = new PsychologistService();
+    psyService.confirmedApplicatns().then((res) => {
+        setVerifiedDocs();
+        let temp = res.data.map(function(doc){
+            return <div className={"col-md-12"}>
+                <DoctorCard user={doc}></DoctorCard>
+            </div>
+        });
+        setDocs(temp);
+        
+        
+    
+    })
+    
 
 
     const innerClasses = classNames(
@@ -38,28 +55,12 @@ const SelectPsychologist = ({
             <div className="container ">
                 <div className={innerClasses}>
                  <div className={"col-md-12 row mt-10"}>
-                     <div className="col-md-4" >
-                         <DoctorCard/></div>
-                     <div className="col-md-4" >
-                         <DoctorCard/></div>
-                     <div className="col-md-4" >
-                         <DoctorCard/></div>
+                     {docs}
 
 
                  </div>
 
-                    <div className={"col-md-12 row mt-5"}>
-                        <div className="col-md-4" >
-                            <DoctorCard/></div>
-                        <div className="col-md-4" >
-                            <DoctorCard/></div>
-                        <div className="col-md-4" >
-                            <DoctorCard/></div>
-
-
-                    </div>
-
-
+                 
                 </div>
             </div>
     );

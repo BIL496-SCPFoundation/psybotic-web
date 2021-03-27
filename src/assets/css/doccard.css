@@ -20,19 +20,18 @@
     box-shadow: 5px 6px 0 #17a589;
     transition: 0.3s all;
     border-radius: 3px;
-    background-color: #fff;
     padding: 21px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    width: 340px;
+    margin-bottom: 5%;
     max-width: 95%;
 
 }
 
 .doc-avatar img {
-    margin-left: 23%;
+    margin-left: 44%;
     border-radius: 50%;
     width: 125px;
     height: 125px;
