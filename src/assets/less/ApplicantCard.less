@@ -1,0 +1,43 @@
+.DetailsModel {
+  width: 70%;
+  display: flex;
+  height: 80%;
+  overflow-y: scroll;
+
+  .LeftContainer {
+    flex: 1;
+  }
+  .RightContainer {
+    margin-left: 1em;
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    .NameContainer {
+      display: flex;
+    }
+  }
+  .ListItem {
+    margin-top: 8px;
+    .Label {
+      top: 0;
+      transform: translateY(-120%);
+      display: block;
+      position: absolute;
+      font-size: 0.8rem;
+    }
+    .IconContainer {
+      min-width: 0;
+      margin-right: 5px;
+    }
+    .Icon {
+      width: 20px;
+    }
+    .ListText {
+      color: #151719;
+      span {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+

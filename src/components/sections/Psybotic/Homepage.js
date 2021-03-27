@@ -69,6 +69,7 @@ const Homepage = ({
                 firstName: user.given_name,
                 lastName: user.family_name,
                 email: user.email,
+                imageUrl: user.imageUrl
             }
             userService.login(userData).then(() => history.push({
                 pathname: '/Mainmenu'

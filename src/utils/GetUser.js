@@ -14,6 +14,7 @@ export default function () {
         firstName: (user.displayName.includes(' ') ? user.displayName.substring(0, user.displayName.lastIndexOf(" ")): user.displayName),
         lastName: (user.displayName.includes(' ') ? user.displayName.substring(user.displayName.lastIndexOf(" ") + 1, user.displayName.length): ""),
         email: user.email,
-        imageUrl: user.photoURL
+        imageUrl: user.photoURL,
+        token: user.token
     }
 }

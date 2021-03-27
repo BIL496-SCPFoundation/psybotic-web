@@ -67,6 +67,7 @@ const Admin = ({
 
     const [userCount, setUserCount] = useState("?");
     const [psychologistCount, setPsychologistCount] = useState("?")
+    const [applicants, setApplicants] = useState([]);
 
     userService.findByPagination(1).then((data) => {
         setUserCount(data.data.page.totalElements);
@@ -75,6 +76,13 @@ const Admin = ({
     psychologistService.findByPagination(1).then((data) => {
         setPsychologistCount(data.data.page.totalElements);
     });
+
+    psychologistService.getApplicants().then(res => {
+        setApplicants(res.data);
+    })
+        .catch(err => {
+            console.log(err);
+        });
 
     return (
         <section
@@ -97,23 +105,26 @@ const Admin = ({
                                         <div className="testimonial-item-content">
                                             <h4>User Panel</h4>
                                             <p className="text-sm mb-0">
-                                                Currently, <b className="text-color-high"> {userCount} </b> users registered to
+                                                Currently, <b className="text-color-high"> {userCount} </b> users
+                                                registered to
                                                 the application. Please click the <span
-                                                className="testimonial-item-link">Go to Panel</span> button to see and edit
+                                                className="testimonial-item-link">Go to Panel</span> button to see and
+                                                edit
                                                 them
                                             </p>
                                         </div>
                                         <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
-                  <span className="testimonial-item-link">
-                    <a href="#0" onClick={(() => {
-                        history.push("/Admin/Panel/User");
-                    })}>Go to Panel</a>
-                  </span>
+                                          <span className="testimonial-item-link">
+                                            <a href="#0" onClick={(() => {
+                                                history.push("/Admin/Panel/User");
+                                            })}>Go to Panel</a>
+                                          </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div style={{"marginRight":"0px"}} className="split-item-content center-content-mobile reveal-from-left"
+                            <div style={{"marginRight": "0px"}}
+                                 className="split-item-content center-content-mobile reveal-from-left"
                                  data-reveal-container=".split-item">
                                 <div className="text-xxs text-color-primary fw-600 tt-u mb-8">
                                     User Panel
@@ -139,18 +150,21 @@ const Admin = ({
                                         <div className="testimonial-item-content">
                                             <h4>Psychologist Panel</h4>
                                             <p className="text-sm mb-0">
-                                                Currently, <b className="text-color-high"> {psychologistCount} </b> psychologists registered to
+                                                Currently, <b
+                                                className="text-color-high"> {psychologistCount} </b> psychologists
+                                                registered to
                                                 the application. Please click the <span
-                                                className="testimonial-item-link">Go to Panel</span> button to see and edit
+                                                className="testimonial-item-link">Go to Panel</span> button to see and
+                                                edit
                                                 them
                                             </p>
                                         </div>
                                         <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
-                  <span className="testimonial-item-link">
-                    <a href="#0" onClick={(() => {
-                        history.push("/Admin/Panel/Psychologist");
-                    })}>Go to Panel</a>
-                  </span>
+                                          <span className="testimonial-item-link">
+                                            <a href="#0" onClick={(() => {
+                                                history.push("/Admin/Panel/Psychologist");
+                                            })}>Go to Panel</a>
+                                          </span>
                                         </div>
                                     </div>
                                 </div>
@@ -165,6 +179,51 @@ const Admin = ({
                                 </h3>
                                 <p className="m-0">
                                     See and manage individual Psychologists registered to the application
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="split-item">
+                            <div className={
+                                classNames(
+                                    'split-item-image center-content-mobile reveal-from-bottom',
+                                    imageFill && 'split-item-image-fill'
+                                )}
+                                 data-reveal-container=".split-item">
+                                <div className="tiles-item reveal-from-left" data-reveal-delay="200">
+                                    <div className="tiles-item-inner">
+                                        <div className="testimonial-item-content">
+                                            <h4>Verify Psychologist Applicants</h4>
+                                            <p className="text-sm mb-0">
+                                                Currently, <b
+                                                className="text-color-high"> {applicants.length} </b> applicants
+                                                registered for verified psychologist program <span
+                                                className="testimonial-item-link">Go to Panel</span> button to see and
+                                                edit
+                                                them
+                                            </p>
+                                        </div>
+                                        <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
+                                          <span className="testimonial-item-link">
+                                            <a href="" onClick={(() => {
+                                                history.push("/admin/panel/verify");
+                                            })}>See Them</a>
+                                          </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style={{"marginRight": "0px"}}
+                                 className="split-item-content center-content-mobile reveal-from-left"
+                                 data-reveal-container=".split-item">
+                                <div className="text-xxs text-color-primary fw-600 tt-u mb-8">
+                                    Verify Psychologists Panel
+                                </div>
+                                <h3 className="mt-0 mb-12">
+                                    Verify Psychologists
+                                </h3>
+                                <p className="m-0">
+                                    You can verify new applicants by checking their personal info and CV
                                 </p>
                             </div>
                         </div>

@@ -53,7 +53,6 @@ const MainMenu = ({
     );
     const user = getUser();
 
-
     return (
         <section
             {...props}
@@ -87,6 +86,14 @@ const MainMenu = ({
                                 variant="dark" size="lg" block>
                                 Learn More..
                             </Button>
+                            {/*TODO: user.isAdmin ile değişecek*/}
+                            {true && <Button
+                                onClick={(() => {
+                                    history.push("/admin", {user})
+                                })}
+                                variant="dark" size="lg" block>
+                                Admin Page
+                            </Button>}
                         </div>
                     </div>
 
