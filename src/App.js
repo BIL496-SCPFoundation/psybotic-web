@@ -6,7 +6,7 @@ import ReactGA from 'react-ga';
 // Layouts
 import LayoutDefault from './layouts/LayoutDefault';
 
-// Views 
+// Views
 import Home from './views/Home';
 import Profile from './views/Profile';
 import ProfileFamilyMember from './views/ProfileFamilyMember.js';
@@ -21,6 +21,7 @@ import ChatPageDisplay from "./views/ChatPageDisplay";
 import SelectPsychologist from "./components/sections/Psybotic/SelectPsychologist";
 import UserPanelPage from './views/UserPanelPage.js';
 import PsychologistPanelPage from "./views/PsychologistPanelPage";
+import ManagePsychologists from "./components/sections/Psybotic/ManagePsychologists";
 
 
 // Initialize Google Analytics
@@ -72,6 +73,9 @@ const App = () => {
                               layout={LayoutDefault}/>
                     <AppRoute exact path="/Admin/Panel/User" component={UserPanelPage} layout={LayoutDefault}/>
                     <AppRoute exact path="/Admin/Panel/Psychologist" component={PsychologistPanelPage}
+                              layout={LayoutDefault}/>
+
+                    <AppRoute exact path="/admin/panel/verify" component={ManagePsychologists}
                               layout={LayoutDefault}/>
 
                 </Switch>
