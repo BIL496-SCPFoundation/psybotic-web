@@ -48,10 +48,7 @@ const ProfileInfo = ({
         pushLeft && 'push-left'
     );
 
-    const sectionHeader = {
-        title: userName,
-        paragraph: 'Welcome to your profile ' + userName + '. Here, you can check your info saved about you and edit it if you want.',
-    };
+
 
     const history = useHistory();
 
@@ -60,6 +57,11 @@ const ProfileInfo = ({
     const [emergencyContactCount, setEmergencyContactCount] = useState("?");
 
     const OAuthUser = getUser();
+
+    const sectionHeader = {
+        title: OAuthUser.firstName,
+        paragraph: 'Welcome to your profile ' + OAuthUser.firstName + '. Here, you can check your info saved about you and edit it if you want.',
+    };
 
     const userService = new UserService();
 
