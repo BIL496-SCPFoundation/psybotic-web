@@ -13,15 +13,6 @@ class UserService extends AxiosConfig{
         })
     }
 
-    update(data){
-        return this.axiosInstance.request({method:"POST", url:"/update", data}).then((response) => {
-            return response;
-        }).catch((error) => {
-            console.log(error);
-        })
-    }
-
-
     getData(userId, url){
         return this.axiosInstance.request({method:"GET", params:{userId}, url}).then((response) => {
             return response;

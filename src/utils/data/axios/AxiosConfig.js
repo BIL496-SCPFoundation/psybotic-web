@@ -31,6 +31,14 @@ class AxiosConfig {
             console.log(error);
         })
     }
+
+    findByPagination(size){
+        return this.axiosInstance.request({method:"GET", params:{size}},).then((response) => {
+            return response;
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
 }
 
 export default AxiosConfig;

@@ -6,19 +6,24 @@ import ReactGA from 'react-ga';
 // Layouts
 import LayoutDefault from './layouts/LayoutDefault';
 
-// Views 
+// Views
 import Home from './views/Home';
 import Profile from './views/Profile';
 import ProfileFamilyMember from './views/ProfileFamilyMember.js';
 import FamilyMemberSubmit from './components/sections/Psybotic/submitForms/FamilyMemberSubmit';
 import ProfileEmergencyContact from './views/ProfileEmergencyContact.js';
+import AdminPage from './views/AdminPage.js';
 import EmergencyContactSubmit from './components/sections/Psybotic/submitForms/EmergencyContactSubmit';
 import ProfileData from './views/ProfileData';
-import Mainmenu from "./components/sections/Psybotic/Mainmenu";
+import MainMenu from "./views/MainMenuDisplay";
 
 import ChatPageDisplay from "./views/ChatPageDisplay";
 import SelectPsychologist from "./components/sections/Psybotic/SelectPsychologist";
+
 import ApplyPsy from "./components/sections/Psybotic/ApplyPsy.js";
+import UserPanelPage from './views/UserPanelPage.js';
+import PsychologistPanelPage from "./views/PsychologistPanelPage";
+import ManagePsychologists from "./components/sections/Psybotic/ManagePsychologists";
 
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
@@ -47,7 +52,7 @@ const App = () => {
             children={() => (
                 <Switch>
                     <AppRoute exact path="/" component={Home} layout={LayoutDefault}/>
-                    <AppRoute exact path="/mainmenu" component={Mainmenu} layout={LayoutDefault}/>
+                    <AppRoute exact path="/mainmenu" component={MainMenu} layout={LayoutDefault}/>
                     <AppRoute exact path="/profile" component={Profile} layout={LayoutDefault}/>
 
                     <AppRoute exact path="/table/familyMember" component={ProfileFamilyMember} layout={LayoutDefault}/>
@@ -65,6 +70,16 @@ const App = () => {
 
                     <AppRoute exact path="/table/profileData/submit" component={ProfileData}
                               layout={LayoutDefault}/>
+
+                    <AppRoute exact path="/Admin" component={AdminPage}
+                              layout={LayoutDefault}/>
+                    <AppRoute exact path="/Admin/Panel/User" component={UserPanelPage} layout={LayoutDefault}/>
+                    <AppRoute exact path="/Admin/Panel/Psychologist" component={PsychologistPanelPage}
+                              layout={LayoutDefault}/>
+
+                    <AppRoute exact path="/admin/panel/verify" component={ManagePsychologists}
+                              layout={LayoutDefault}/>
+
                 </Switch>
             )}/>
     );
