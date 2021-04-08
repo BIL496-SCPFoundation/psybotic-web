@@ -21,6 +21,7 @@ import SelectPsychologist from "./components/sections/Psybotic/SelectPsychologis
 import UserPanelPage from './views/UserPanelPage.js';
 import PsychologistPanelPage from "./views/PsychologistPanelPage";
 import ManagePsychologists from "./components/sections/Psybotic/ManagePsychologists";
+import QuizDisplay from "./views/QuizDisplay";
 
 
 
@@ -66,6 +67,9 @@ const App = () => {
                               layout={LayoutDefault}/>
 
                     <AppRoute exact path="/admin/panel/verify" component={ManagePsychologists}
+                              layout={LayoutDefault}/>
+
+                    <AppRoute exact path="/mentalState/test" component={QuizDisplay}
                               layout={LayoutDefault}/>
 
                 </Switch>
