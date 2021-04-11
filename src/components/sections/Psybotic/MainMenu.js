@@ -33,7 +33,7 @@ const MainMenu = ({
                       ...props
                   }) => {
 
-    //const temp = props.location.state;
+    //apconst temp = props.location.state;
 
     const outerClasses = classNames(
         'hero section center-content',

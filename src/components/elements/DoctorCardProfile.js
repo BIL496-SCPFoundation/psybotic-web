@@ -47,6 +47,7 @@ const DoctorCardProfile = ({ className, ...props }) => {
               {new Date(props.user.createdDate).getMonth()}-
               {new Date(props.user.createdDate).getFullYear()}
             </span>
+            <span>Experties :  {props.user.expertise}</span>
           </h2>
           <span>Biography</span>
           <p>
@@ -54,7 +55,9 @@ const DoctorCardProfile = ({ className, ...props }) => {
               ? props.user.biography
               : "biography not setted"}
           </p>
-          <a className="follow full-width">Go Chat</a>
+          <a className="follow full-width" onClick={()=> {
+            history.push("/Chat/Psychologist/"+props.user.id);
+          }}>Go Chat</a>
         </figcaption>
       </figure>
     </>

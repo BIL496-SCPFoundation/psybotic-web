@@ -54,7 +54,9 @@ const DoctorCard = ({ className, ...props }) => {
               </span>
             )}
           </p>
-          <a className="follow">Go Chat</a>
+          <a onClick={() => {
+            history.push("/Chat/Psychologist/" + props.user.id)
+          }} className="follow">Go Chat</a>
           <a
             onClick={() =>
               history.push("/PsychologistProfile/" + props.user.id)
