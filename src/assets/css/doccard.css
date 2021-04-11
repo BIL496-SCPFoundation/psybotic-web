@@ -7,8 +7,8 @@
   position: relative;
   overflow: hidden;
   margin: 10px;
-  min-width: 230px;
-  max-width: 315px;
+  min-width: 315px;
+
   width: 100%;
   color: #ffffff;
   text-align: left;
@@ -76,7 +76,6 @@
   margin-right: 4%;
   border-color: #2980b9;
   color: #2980b9;
-  width: 100%;
 }
 .snip1336 h2 {
   margin: 0 0 5px;
@@ -92,4 +91,8 @@
   font-size: 0.8em;
   letter-spacing: 1px;
   opacity: 0.8;
+}
+
+.full-width {
+  width: 100% !important;
 }

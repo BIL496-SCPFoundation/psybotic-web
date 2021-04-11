@@ -14,7 +14,7 @@ const defaultProps = {
 };
 
 console.log(`your doctor informations `);
-const DoctorCard = ({ className, ...props }) => {
+const DoctorCardProfile = ({ className, ...props }) => {
   const history = useHistory();
 
   return (
@@ -40,35 +40,28 @@ const DoctorCard = ({ className, ...props }) => {
           )}
 
           <h2>
-            {props.user.firstName} {props.user.lastName}{" "}
-            <span>{props.user.titles}</span>
+            Name : {props.user.firstName} {props.user.lastName}{" "}
+            <span>Titles : {props.user.titles}</span>
+            <span>
+              Create Time : {new Date(props.user.createdDate).getDay()}-
+              {new Date(props.user.createdDate).getMonth()}-
+              {new Date(props.user.createdDate).getFullYear()}
+            </span>
           </h2>
+          <span>Biography</span>
           <p>
-            {props.user.biography && props.user.biography.length > 200 ? (
-              <span>{props.user.biography.substring(0, 200)}...</span>
-            ) : (
-              <span>
-                {props.user.biography == null
-                  ? "biography not setted"
-                  : props.user.biography}
-              </span>
-            )}
+            {props.user.biography
+              ? props.user.biography
+              : "biography not setted"}
           </p>
-          <a className="follow">Go Chat</a>
-          <a
-            onClick={() =>
-              history.push("/PsychologistProfile/" + props.user.id)
-            }
-          >
-            Look Profile
-          </a>
+          <a className="follow full-width">Go Chat</a>
         </figcaption>
       </figure>
     </>
   );
 };
 
-DoctorCard.propTypes = propTypes;
-DoctorCard.defaultProps = defaultProps;
+DoctorCardProfile.propTypes = propTypes;
+DoctorCardProfile.defaultProps = defaultProps;
 
-export default DoctorCard;
+export default DoctorCardProfile;
