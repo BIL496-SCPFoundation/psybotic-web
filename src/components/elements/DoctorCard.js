@@ -1,56 +1,65 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-
-
-import '../../assets/css/doccard.css'
-
+import "../../assets/css/doccard.css";
 
 const propTypes = {
-    user: PropTypes.object
-
-}
+  user: PropTypes.object,
+};
 
 const defaultProps = {
-    user : null
-}
+  user: null,
+};
 
-const DoctorCard = ({
-                         className,
-                         ...props
-                     }) => {
+console.log(`your doctor informations `);
+const DoctorCard = ({ className, ...props }) => {
+  console.log("your doctor profile");
+  console.log(props.user);
+  return (
+    <>
+      <figure className="snip1336">
+        <img
+          src="https://www.lawsonpsychology.com.au/wp-content/uploads/2019/02/Lawson_Blog_017-2-01.png"
+          alt="sample87"
+        />
+        <figcaption>
+          {props.user.imageURL ? (
+            <img
+              src={props.user.imageURL}
+              alt="profile-sample4"
+              className="profile"
+            />
+          ) : (
+            <img
+              src="https://www.allianceplast.com/wp-content/uploads/2017/11/no-image.png"
+              alt="profile-sample4"
+              className="profile"
+            />
+          )}
 
-
-
-
-    return (
-        <>
-            <div className="doc-card">
-                <div className="doc-avatar">
-                    <img src={props.user.imageURL}/>
-                </div>
-                <div className="doc-title">
-                    <h3>{props.user.firstName} {props.user.lastName}
-                    </h3>
-                    <h5>
-                        {props.user.expertise}
-                    </h5>
-                </div>
-                <div className="doc-description">
-                    {props.user.biography}</div>
-                <div className="doc-social">
-                    <ul>
-                        <li><i className="fab fa-facebook"/></li>
-                        <li><i className="fab fa-twitter"/></li>
-                        <li><i className="fab fa-github"/></li>
-                        <li><i className="fab fa-dev"/></li>
-                        <li><i className="fas fa-link"/></li>
-                    </ul>
-                </div>
-            </div>
-        </>
-    );
-}
+          <h2>
+            {props.user.firstName} {props.user.lastName}{" "}
+            <span>{props.user.titles}</span>
+          </h2>
+          <p>
+            {props.user.biography && props.user.biography.length > 200 ? (
+              <span>{props.user.biography.substring(0, 200)}...</span>
+            ) : (
+              <span>
+                {props.user.biography == null
+                  ? "biography not setted"
+                  : props.user.biography}
+              </span>
+            )}
+          </p>
+          <a href="#" className="follow">
+            Go Chat
+          </a>
+        </figcaption>
+      </figure>
+    </>
+  );
+};
 
 DoctorCard.propTypes = propTypes;
 DoctorCard.defaultProps = defaultProps;
