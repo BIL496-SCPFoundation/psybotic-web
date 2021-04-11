@@ -1,9 +1,9 @@
 import React from 'react';
 // import sections
-import MainMenu from '../components/sections/Psybotic/Mainmenu';
+import MainMenu from '../components/sections/Psybotic/MainMenu';
 
 
-const MainMenu = () => {
+const MainMenuDisplay = () => {
 
     return (
         <>
@@ -17,4 +17,4 @@ const MainMenu = () => {
     );
 }
 
-export default MainMenu;
+export default MainMenuDisplay;

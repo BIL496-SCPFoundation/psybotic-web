@@ -7,6 +7,7 @@ import {useHistory} from 'react-router-dom';
 import PathNameOperations from "../../../../utils/PathNameOperations";
 import EmergencyContactService from "../../../../utils/data/axios/services/EmergencyContactService";
 import Input from "../../../elements/Input";
+import getUser from "../../../../utils/GetUser";
 
 const propTypes = {
     ...SectionProps.types
@@ -45,6 +46,8 @@ const EmergencyContactSubmit = ({
     const history = useHistory();
     const row = history.location.state.row;
     const comp_type = history.location.state.type;
+
+    const OAuthUser = getUser();
 
     const [name, setName] = useState(typeof row === "undefined" ? "" : row.name);
     const [type, setType] = useState(typeof row === "undefined" ? "" : row.type);
@@ -88,7 +91,7 @@ const EmergencyContactSubmit = ({
                             <ButtonGroup>
                                 <Button type="button" className="button-secondary" onClick={() => {
                                     if (comp_type === "new")
-                                        emergencyContactService.insert({superId: "1", name, type, email, phone})
+                                        emergencyContactService.insert({superId: OAuthUser.googleId, name, type, email, phone})
                                             .then(() => {
                                                 alert("Emergency Contact Submitted!");
                                                 history.push(PathNameOperations.parentPathName(location.pathname));
@@ -96,7 +99,7 @@ const EmergencyContactSubmit = ({
                                     else
                                         emergencyContactService.update({
                                             id: row.id,
-                                            superId: "1",
+                                            superId: OAuthUser.googleId,
                                             name,
                                             type,
                                             email,

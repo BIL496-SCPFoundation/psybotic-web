@@ -8,9 +8,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../assets/css/userButton.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faPhone, faSignOutAlt, faUser, faUserEdit, faUsers} from '@fortawesome/free-solid-svg-icons'
-import UserService from "../../utils/data/axios/services/UserService";
-
-
+import getUser from '../../utils/GetUser'
+import firebase from "firebase";
+import {useAuthState} from "react-firebase-hooks/auth";
 
 
 const propTypes = {
@@ -41,8 +41,6 @@ const Header = ({
   ...props
 }) => {
   const history = useHistory();
-  console.log("this is history");
-  console.log(history);
 
   const showLogo = function(){
     if(history.location.pathname === "/" || history.location.pathname === "/home")return false;
@@ -56,6 +54,8 @@ const Header = ({
   const nav = useRef(null);
   const hamburger = useRef(null);
 
+  const auth = firebase.auth();
+
   useEffect(() => {
     isActive && openMenu();
     document.addEventListener('keydown', keyPress);
@@ -66,7 +66,9 @@ const Header = ({
       closeMenu();
     };
   });
-  const [user, setUser] = useState({name: "", age: "", email: "", gender: "", city: "", maritalStatus: ""});
+
+/*  
+const [user, setUser] = useState({name: "", age: "", email: "", gender: "", city: "", maritalStatus: ""});
   const [familyMemberCount, setFamilyMemberCount] = useState("?");
   const [emergencyContactCount, setEmergencyContactCount] = useState("?");
   var userService = new UserService();
@@ -82,6 +84,11 @@ const Header = ({
    userService.getData("1", "/emergencyContacts").then((response) => {
     setEmergencyContactCount(response.data.length);
   })
+
+  */
+
+
+  const user = getUser();
 
   const openMenu = () => {
     document.body.classList.add('off-nav-is-active');
@@ -184,7 +191,7 @@ const Header = ({
                             history.push("/table/emergencyContact", {user})
                           })} ><FontAwesomeIcon icon={faPhone} />Edit Emergency Info</Dropdown.Item>
                           <Dropdown.Item onClick={(() => {
-                            history.push("/Home", {user})
+                            auth.signOut().then(()=> history.push("/", {user}));
                           })} ><FontAwesomeIcon icon={faSignOutAlt} />Log Out</Dropdown.Item>
                         </Dropdown.Menu>
 

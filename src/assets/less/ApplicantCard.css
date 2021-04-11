@@ -1,0 +1,42 @@
+.DetailsModel {
+  width: 70%;
+  display: flex;
+  height: 80%;
+  overflow-y: scroll;
+}
+.DetailsModel .LeftContainer {
+  flex: 1;
+}
+.DetailsModel .RightContainer {
+  margin-left: 1em;
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+}
+.DetailsModel .RightContainer .NameContainer {
+  display: flex;
+}
+.DetailsModel .ListItem {
+  margin-top: 8px;
+}
+.DetailsModel .ListItem .Label {
+  top: 0;
+  transform: translateY(-120%);
+  display: block;
+  position: absolute;
+  font-size: 0.8rem;
+}
+.DetailsModel .ListItem .IconContainer {
+  min-width: 0;
+  margin-right: 5px;
+}
+.DetailsModel .ListItem .Icon {
+  width: 20px;
+}
+.DetailsModel .ListItem .ListText {
+  color: #151719;
+}
+.DetailsModel .ListItem .ListText span {
+  font-size: 0.8rem;
+}
+/*# sourceMappingURL=ApplicantCard.css.map */

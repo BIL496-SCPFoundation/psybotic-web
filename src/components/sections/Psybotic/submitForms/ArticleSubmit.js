@@ -7,7 +7,6 @@ import {useHistory} from 'react-router-dom';
 import PathNameOperations from "../../../../utils/PathNameOperations";
 import FamilyMemberService from "../../../../utils/data/axios/services/FamilyMemberService";
 import Input from "../../../elements/Input";
-import getUser from "../../../../utils/GetUser";
 const propTypes = {
     ...SectionProps.types
 }
@@ -16,7 +15,7 @@ const defaultProps = {
     ...SectionProps.defaults
 }
 
-const FamilyMemberSubmit = ({
+const ArticleSubmit = ({
                                 className,
                                 topOuterDivider,
                                 bottomOuterDivider,
@@ -47,12 +46,9 @@ const FamilyMemberSubmit = ({
     const row = history.location.state.row;
     const comp_type = history.location.state.type;
 
-    const OAuthUser = getUser();
-
-    const [firstName, setFirstName] = useState(typeof row === "undefined" ? "" : row.firstName);
-    const [lastName, setLastName] = useState(typeof row === "undefined" ? "" : row.lastName);
-    const [email, setEmail] = useState(typeof row === "undefined" ? "" : row.email);
-    const [phone, setPhone] = useState(typeof row === "undefined" ? "" : row.phone);
+    const [articleName, setArticleName] = useState(typeof row === "undefined" ? "" : row.articleName);
+    const [link, setLink] = useState(typeof row === "undefined" ? "" : row.link);
+    const [targetAge, setTargetAge] = useState(typeof row === "undefined" ? "" : row.targetAge);
 
     const familyMemberService = new FamilyMemberService();
 
@@ -64,50 +60,34 @@ const FamilyMemberSubmit = ({
                 <div className={innerClasses}>
                     <div className="hero-content">
                         <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
-                            {(comp_type === "new") ? "Add New Family Members" : "Edit Existing Family Member"}
+                            {"Submit New Articles"}
                         </h1>
                         <form className="reveal-from-bottom"
                               style={{textAlign: "left", paddingLeft: "225px", paddingRight: "225px"}}>
-                            <h3>First Name:</h3>
-                            <Input type="text" placeholder="First Name" defaultValue={firstName} onChange={(event) => {
-                                setFirstName(event.target.value)
+                            <h3>Article Name:</h3>
+                            <Input type="text" placeholder="Article Name" defaultValue={articleName} onChange={(event) => {
+                                setArticleName(event.target.value)
                             }}
                             />
-                            <h3>Last Name:</h3>
-                            <Input type="text" placeholder="Last Name" defaultValue={lastName} onChange={(event) => {
-                                setLastName(event.target.value)
+                            <h3>Link:</h3>
+                            <Input type="text" placeholder="Link" defaultValue={link} onChange={(event) => {
+                                setLink(event.target.value)
                             }}
                             />
-                            <h3>Phone:</h3>
-                            <Input type="tel" placeholder="Phone" defaultValue={phone} onChange={(event) => {
-                                setPhone(event.target.value)
-                            }}
-                            />
-                            <h3>Mail:</h3>
-                            <Input type="email" placeholder="E-mail" defaultValue={email} onChange={(event) => {
-                                setEmail(event.target.value)
+                            <h3>Target Age:</h3>
+                            <Input type="number" placeholder="Target Age" defaultValue={targetAge} onChange={(event) => {
+                                setTargetAge(event.target.value)
                             }}
                             />
                             <br/>
                             <br/>
                             <ButtonGroup>
                                 <Button type="button" className="button-secondary" onClick={() => {
-                                    if (comp_type === "new")
-                                        familyMemberService.insert({superId: OAuthUser.googleId, firstName, lastName, email, phone})
+                                        familyMemberService.insert({articleName, link, targetAge})
                                             .then(() => {
                                                 alert("Family Member Submitted!");
                                                 history.push(PathNameOperations.parentPathName(location.pathname));
                                             });
-                                    else
-                                        familyMemberService.update({
-                                            id: row.id,
-                                            superId: OAuthUser.googleId,
-                                            firstName,
-                                            lastName,
-                                            email,
-                                            phone
-                                        })
-                                            .then(() => alert("Family Member Updated!"));
 
                                 }}>{(comp_type === "new") ? "Add" : "Edit"}</Button>
                                 <Button type="button" className="button-dark" onClick={() => {
@@ -122,7 +102,7 @@ const FamilyMemberSubmit = ({
     );
 }
 
-FamilyMemberSubmit.propTypes = propTypes;
-FamilyMemberSubmit.defaultProps = defaultProps;
+ArticleSubmit.propTypes = propTypes;
+ArticleSubmit.defaultProps = defaultProps;
 
-export default FamilyMemberSubmit;
+export default ArticleSubmit;

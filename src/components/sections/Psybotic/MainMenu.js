@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
 import classNames from 'classnames';
-import { SectionProps } from '../../../utils/SectionProps';
+import {SectionProps} from '../../../utils/SectionProps';
 
-import {Link, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 import ProfileCard from "../../elements/ProfileCard";
 
-import UserService from "../../../utils/data/axios/services/UserService";
 import {Button, Dropdown} from "react-bootstrap";
 import {faRobot, faUserMd, faUsers} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-
-
+import 'firebase/auth';
+import getUser from '../../../utils/GetUser'
+import firebase from "firebase";
 
 const propTypes = {
     ...SectionProps.types
@@ -20,6 +20,7 @@ const propTypes = {
 const defaultProps = {
     ...SectionProps.defaults
 }
+
 
 const MainMenu = ({
                       className,
@@ -32,7 +33,7 @@ const MainMenu = ({
                       ...props
                   }) => {
 
-    const temp = props.location.state;
+    //const temp = props.location.state;
 
     const outerClasses = classNames(
         'hero section center-content',
@@ -43,24 +44,15 @@ const MainMenu = ({
         className
     );
 
+    const history = useHistory();
+
+
     const innerClasses = classNames(
         'hero-inner section-inner row col-md-12',
         topDivider && 'has-top-divider',
         bottomDivider && 'has-bottom-divider'
     );
-
-    const [user, setUser] = useState({name: "", age: "", email: "", gender: "", city: "", maritalStatus: ""});
-    const [familyMemberCount, setFamilyMemberCount] = useState("?");
-    const [emergencyContactCount, setEmergencyContactCount] = useState("?");
-    var userService = new UserService();
-
-    userService.findById(localStorage.getItem("googleId")).then((response) => {
-        if (JSON.stringify(response.data) !== JSON.stringify(user))
-            setUser(response.data);
-    })
-
-
-    const history = useHistory();
+    const user = getUser();
 
     return (
         <section
@@ -69,12 +61,11 @@ const MainMenu = ({
         >
             <div className="container">
                 <div className={innerClasses}>
-                    <div className="col-md-6" >
-                        <ProfileCard user={user} />
-                        {user.firstName}
+                    <div className="col-md-6">
+                        <ProfileCard user={user}/>
                     </div>
                     <div className="col-md-6">
-                        <div >
+                        <div>
                             <Button
                                 onClick={(() => {
                                     history.push("/ChatPage", {user})
@@ -87,7 +78,7 @@ const MainMenu = ({
                                     history.push("/SelectPsychologist", {user})
                                 })}
                                 variant="dark" size="lg" block>
-                                <FontAwesomeIcon icon={faUserMd} />  Chat With A Verified Psychologist
+                                <FontAwesomeIcon icon={faUserMd}/> Chat With A Verified Psychologist
                             </Button>
                             <Button
                                 onClick={(() => {
@@ -104,6 +95,14 @@ const MainMenu = ({
                             >
                                 Apply as a Psychologist
                             </Button>
+                            {/*TODO: user.isAdmin ile değişecek*/}
+                            {true && <Button
+                                onClick={(() => {
+                                    history.push("/admin", {user})
+                                })}
+                                variant="dark" size="lg" block>
+                                Admin Page
+                            </Button>}
                         </div>
                     </div>
 
@@ -117,7 +116,8 @@ const MainMenu = ({
 
                         </div>
                     </div>
-                    <div className="hero-figure reveal-from-bottom illustration-element-01" data-reveal-value="20px" data-reveal-delay="800">
+                    <div className="hero-figure reveal-from-bottom illustration-element-01" data-reveal-value="20px"
+                         data-reveal-delay="800">
 
                     </div>
                 </div>
