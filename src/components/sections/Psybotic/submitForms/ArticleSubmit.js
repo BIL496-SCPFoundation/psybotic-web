@@ -95,7 +95,7 @@ const ArticleSubmit = ({
                             <ButtonGroup>
                                 <Button type="button" className="button-secondary" onClick={() => {
                                     if(articleName === "" || link === "" || targetAge === "") {
-                                        alert("Please fill all the values");
+                                        alert("Please fill all the values.");
                                     }else {
                                         articleService.insert({
                                             title: articleName,
@@ -105,7 +105,7 @@ const ArticleSubmit = ({
                                     }
                                 }}>{"Add"}</Button>
                                 <Button type="button" className="button-dark" onClick={() => {
-                                    history.push(PathNameOperations.parentPathName(location.pathname));
+                                    history.push("/Admin");
                                 }}>Return</Button>
                             </ButtonGroup>
                         </form>

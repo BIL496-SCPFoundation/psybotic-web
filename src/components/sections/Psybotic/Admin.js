@@ -5,6 +5,7 @@ import {SectionSplitProps} from '../../../utils/SectionProps';
 import SectionHeader from '../partials/SectionHeader';
 import UserService from "../../../utils/data/axios/services/UserService";
 import PsychologistService from "../../../utils/data/axios/services/PsychologistService";
+import Button from "../../elements/Button";
 
 const propTypes = {
     ...SectionSplitProps.types
@@ -227,7 +228,46 @@ const Admin = ({
                                 </p>
                             </div>
                         </div>
-
+                        <div className="split-item">
+                            <div className={
+                                classNames(
+                                    'split-item-image center-content-mobile reveal-from-bottom',
+                                    imageFill && 'split-item-image-fill'
+                                )}
+                                 data-reveal-container=".split-item">
+                                <div className="tiles-item reveal-from-left" data-reveal-delay="200">
+                                    <div className="tiles-item-inner">
+                                        <div className="testimonial-item-content">
+                                            <h4>Submit an Article</h4>
+                                            <p className="text-sm mb-0">
+                                                Submit an article about natural disasters. Please click the <span
+                                                className="testimonial-item-link">Submit</span> button to submit a new article.
+                                            </p>
+                                        </div>
+                                        <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
+                                          <span className="testimonial-item-link">
+                                            <a href="#0" onClick={(() => {
+                                                history.push("/Admin/Article/Submit");
+                                            })}>Submit</a>
+                                          </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style={{"marginRight": "0px"}}
+                                 className="split-item-content center-content-mobile reveal-from-left"
+                                 data-reveal-container=".split-item">
+                                <div className="text-xxs text-color-primary fw-600 tt-u mb-8">
+                                    Submit Article
+                                </div>
+                                <h3 className="mt-0 mb-12">
+                                    Articles
+                                </h3>
+                                <p className="m-0">
+                                    Submit Articles For Different Users
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
