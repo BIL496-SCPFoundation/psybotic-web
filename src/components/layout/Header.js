@@ -47,6 +47,8 @@ const Header = ({
     return true;
   }
 
+  //const temp = JSON.parse(sessionStorage.getItem('user'));
+
   const [isActive, setIsactive] = useState(false);
 
   const nav = useRef(null);
@@ -64,6 +66,27 @@ const Header = ({
       closeMenu();
     };
   });
+
+/*  
+const [user, setUser] = useState({name: "", age: "", email: "", gender: "", city: "", maritalStatus: ""});
+  const [familyMemberCount, setFamilyMemberCount] = useState("?");
+  const [emergencyContactCount, setEmergencyContactCount] = useState("?");
+  var userService = new UserService();
+
+   userService.findById("1").then((response) => {
+    if (JSON.stringify(response.data) !== JSON.stringify(user))
+      setUser(response.data);
+  })
+
+   userService.getData("1", "/familyMembers").then((response) => {
+    setFamilyMemberCount(response.data.length);
+  })
+   userService.getData("1", "/emergencyContacts").then((response) => {
+    setEmergencyContactCount(response.data.length);
+  })
+
+  */
+
 
   const user = getUser();
 

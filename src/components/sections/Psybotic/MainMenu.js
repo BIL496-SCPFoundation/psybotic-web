@@ -33,6 +33,7 @@ const MainMenu = ({
                       ...props
                   }) => {
 
+    //apconst temp = props.location.state;
 
     const outerClasses = classNames(
         'hero section center-content',
@@ -90,13 +91,14 @@ const MainMenu = ({
                                 })}
                                 variant="dark" size="lg" block>
                                 <FontAwesomeIcon icon={faUserMd}/> Chat With A Verified Psychologist
-                            </Button>
+                            </Button>           
                             <Button
                                 onClick={(() => {
-                                    history.push("/LearnMore", {user})
+                                    history.push("/ApplyPsy", {user})
                                 })}
-                                variant="dark" size="lg" block>
-                                Learn More..
+                                variant="dark" size="lg" block
+                            >
+                                Apply as a Psychologist
                             </Button>
                             {user.isAdmin && <Button
                                 onClick={(() => {

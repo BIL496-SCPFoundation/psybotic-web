@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
+import getUser from '../../utils/GetUser';
 
 
 
@@ -23,6 +24,7 @@ const ProfileCard = ({
                          ...props
                      }) => {
 
+    const currentUser = getUser();
 
 
     const user = props.user;
@@ -30,17 +32,14 @@ const ProfileCard = ({
         <>
             <div className="profile-container">
                 <div className="profile-shape">
-                    <img className={"profile-image"} src={user.imageUrl ? user.imageUrl : defaultImageUrl}
+                    <img className={"profile-image"} src={currentUser.imageUrl ? currentUser.imageUrl : defaultImageUrl}
                          alt="User avatar"/>
                 </div>
                 <h3 className="title">
-                    {user.firstName}
+                    {currentUser.firstName}
                 </h3>
                 <h3 className="title">
-                    {user.lastName}
-                </h3>
-                <h3 className="title">
-                    {user.city}
+                    {currentUser.lastName}
                 </h3>
                 <h5> "Daily Quote" </h5>
             </div>
