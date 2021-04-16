@@ -14,17 +14,17 @@ const firestore = firebase.firestore();
 const analytics = firebase.analytics();
 
 //https://stackoverflow.com/questions/37139525/firebase-chat-app-query-messages-optimize-query-that-should-be-or-or-improve
-const Chat = () => {
+const   Chat = ({type}) => {
 
     const currentUser = getUser();
 
-    const receiverId = "chatbot";
+    const receiverId = type;
     const senderId = currentUser.googleId;
     const id = senderId + receiverId
 
     const messagesEndRef = useRef(null);
 
-    const messagesRef = firestore.collection('chats/'+ id +'/messages');
+    const messagesRef = firestore.collection('chats/'+ type + '/' + id);
     const incoming_query = messagesRef.orderBy('date');
     const [messages] = useCollectionData(incoming_query, {idField: 'id'});
     const messageList = (typeof messages === "undefined") ? [] : getMessages([...messages], senderId, currentUser);

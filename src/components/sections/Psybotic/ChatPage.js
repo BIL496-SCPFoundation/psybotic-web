@@ -1,8 +1,6 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import {SectionProps} from '../../../utils/SectionProps';
-import UserService from "../../../utils/data/axios/services/UserService";
-import {useHistory} from "react-router-dom";
 import Chat from "../../../components/elements/Chat"
 
 
@@ -40,16 +38,7 @@ const ChatPage = ({
         topDivider && 'has-top-divider',
         bottomDivider && 'has-bottom-divider'
     );
-    const [user, setUser] = useState({name: "", age: "", email: "", gender: "", city: "", maritalStatus: ""});
 
-    const userService = new UserService();
-
-    userService.findById("1").then((response) => {
-        if (JSON.stringify(response.data) !== JSON.stringify(user))
-            setUser(response.data);
-    })
-
-    const history = useHistory();
 
 
     return (
@@ -64,7 +53,7 @@ const ChatPage = ({
                 Talk with a <span className="text-color-primary">Chat Bot</span></h1>
             <div className="container">
                 <div className={innerClasses}>
-                    <Chat/>
+                    <Chat type="ChatBot2"/>
                 </div>
             </div>
         </section>
