@@ -11,7 +11,7 @@ import {faRobot, faUserMd, faUsers} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import 'firebase/auth';
 import getUser from '../../../utils/GetUser'
-import firebase from "firebase";
+import UserService from "../../../utils/data/axios/services/UserService";
 
 const propTypes = {
     ...SectionProps.types
@@ -51,7 +51,19 @@ const MainMenu = ({
         topDivider && 'has-top-divider',
         bottomDivider && 'has-bottom-divider'
     );
-    const user = getUser();
+
+    const OAuthUser = getUser();
+    const [user, setUser] = useState({});
+    const userService = new UserService();
+
+    if (Object.keys(OAuthUser).length !== 0 && Object.keys(user).length === 0) {
+        userService.findById(OAuthUser.googleId).then((response) => {
+            if (JSON.stringify(response.data) !== JSON.stringify(user))
+                setUser(response.data);
+        })
+    }
+
+    console.log(user);
 
     return (
         <section
@@ -86,8 +98,7 @@ const MainMenu = ({
                                 variant="dark" size="lg" block>
                                 Learn More..
                             </Button>
-                            {/*TODO: user.isAdmin ile değişecek*/}
-                            {true && <Button
+                            {user.isAdmin && <Button
                                 onClick={(() => {
                                     history.push("/admin", {user})
                                 })}

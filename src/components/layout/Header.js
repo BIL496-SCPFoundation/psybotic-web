@@ -95,6 +95,8 @@ const Header = ({
     className
   );
 
+  // console.log(Object.keys(user).length);
+
   return (
     <header
       {...props}

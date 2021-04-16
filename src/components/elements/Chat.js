@@ -24,8 +24,8 @@ const Chat = () => {
 
     const messagesEndRef = useRef(null);
 
-    const messagesRef = firestore.collection('messages');
-    const incoming_query = messagesRef.where("chatRoomId", "==", id);
+    const messagesRef = firestore.collection('chats/'+ id +'/messages');
+    const incoming_query = messagesRef.orderBy('date');
     const [messages] = useCollectionData(incoming_query, {idField: 'id'});
     const messageList = (typeof messages === "undefined") ? [] : getMessages([...messages], senderId, currentUser);
 
@@ -38,7 +38,6 @@ const Chat = () => {
 
     const sendMessage = async () => {
         await messagesRef.add({
-            chatRoomId: senderId + receiverId,
             message: formValue,
             date: firebase.firestore.FieldValue.serverTimestamp(),
             senderId: currentUser.googleId,
@@ -48,7 +47,6 @@ const Chat = () => {
         })
 
         await messagesRef.add({
-            chatRoomId: senderId + receiverId,
             message: "Hello I'm not implemented yet. Please try again later!",
             date: firebase.firestore.FieldValue.serverTimestamp(),
             senderId: "chatbot",
@@ -118,10 +116,6 @@ function getMessages(messages, senderId, currentUser) {
             title: (data.senderId === senderId) ? "You" : "Chat Bot",
             date: (data.date === null) ? new Date() : data.date.toDate(),
         });
-    });
-
-    messageList.sort((a, b) => {
-        return (a.date.getTime() > b.date.getTime()) ? 1 : -1;
     });
 
     return messageList;
