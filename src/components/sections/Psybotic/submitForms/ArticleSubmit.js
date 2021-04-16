@@ -7,6 +7,10 @@ import {useHistory} from 'react-router-dom';
 import PathNameOperations from "../../../../utils/PathNameOperations";
 import FamilyMemberService from "../../../../utils/data/axios/services/FamilyMemberService";
 import Input from "../../../elements/Input";
+import Select from "../../../elements/Select";
+import getUser from "../../../../utils/GetUser";
+import ArticleService from "../../../../utils/data/axios/services/ArticleService";
+
 const propTypes = {
     ...SectionProps.types
 }
@@ -16,16 +20,16 @@ const defaultProps = {
 }
 
 const ArticleSubmit = ({
-                                className,
-                                topOuterDivider,
-                                bottomOuterDivider,
-                                topDivider,
-                                bottomDivider,
-                                hasBgColor,
-                                invertColor,
-                                location,
-                                ...props
-                            }) => {
+                           className,
+                           topOuterDivider,
+                           bottomOuterDivider,
+                           topDivider,
+                           bottomDivider,
+                           hasBgColor,
+                           invertColor,
+                           location,
+                           ...props
+                       }) => {
 
     const outerClasses = classNames(
         'hero section center-content',
@@ -43,12 +47,14 @@ const ArticleSubmit = ({
     );
 
     const history = useHistory();
-    const row = history.location.state.row;
-    const comp_type = history.location.state.type;
 
-    const [articleName, setArticleName] = useState(typeof row === "undefined" ? "" : row.articleName);
-    const [link, setLink] = useState(typeof row === "undefined" ? "" : row.link);
-    const [targetAge, setTargetAge] = useState(typeof row === "undefined" ? "" : row.targetAge);
+
+    const [articleName, setArticleName] = useState("");
+    const [link, setLink] = useState("");
+    const [targetAge, setTargetAge] = useState("");
+    const OAuthUser = getUser();
+    const articleService = new ArticleService()
+    console.log(OAuthUser);
 
     const familyMemberService = new FamilyMemberService();
 
@@ -65,9 +71,10 @@ const ArticleSubmit = ({
                         <form className="reveal-from-bottom"
                               style={{textAlign: "left", paddingLeft: "225px", paddingRight: "225px"}}>
                             <h3>Article Name:</h3>
-                            <Input type="text" placeholder="Article Name" defaultValue={articleName} onChange={(event) => {
-                                setArticleName(event.target.value)
-                            }}
+                            <Input type="text" placeholder="Article Name" defaultValue={articleName}
+                                   onChange={(event) => {
+                                       setArticleName(event.target.value)
+                                   }}
                             />
                             <h3>Link:</h3>
                             <Input type="text" placeholder="Link" defaultValue={link} onChange={(event) => {
@@ -75,21 +82,28 @@ const ArticleSubmit = ({
                             }}
                             />
                             <h3>Target Age:</h3>
-                            <Input type="number" placeholder="Target Age" defaultValue={targetAge} onChange={(event) => {
+                            <Select placeholder="Target Audience" onChange={(event) => {
                                 setTargetAge(event.target.value)
-                            }}
-                            />
+                            }}>
+                                <option value="CHILD">Child</option>
+                                <option value="YOUNG_ADULT">Young Adult</option>
+                                <option value="ADULT">Adult</option>
+                                <option value="OLD">Old</option>
+                            </Select>
                             <br/>
                             <br/>
                             <ButtonGroup>
                                 <Button type="button" className="button-secondary" onClick={() => {
-                                        familyMemberService.insert({articleName, link, targetAge})
-                                            .then(() => {
-                                                alert("Family Member Submitted!");
-                                                history.push(PathNameOperations.parentPathName(location.pathname));
-                                            });
-
-                                }}>{(comp_type === "new") ? "Add" : "Edit"}</Button>
+                                    if(articleName === "" || link === "" || targetAge === "") {
+                                        alert("Please fill all the values");
+                                    }else {
+                                        articleService.insert({
+                                            title: articleName,
+                                            url: link,
+                                            ageRange: targetAge
+                                        })
+                                    }
+                                }}>{"Add"}</Button>
                                 <Button type="button" className="button-dark" onClick={() => {
                                     history.push(PathNameOperations.parentPathName(location.pathname));
                                 }}>Return</Button>
