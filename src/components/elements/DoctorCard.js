@@ -16,7 +16,6 @@ const defaultProps = {
 console.log(`your doctor informations `);
 const DoctorCard = ({ className, ...props }) => {
   const history = useHistory();
-
   return (
     <>
       <figure className={"snip1336 col-md-" + props.aligment}>
@@ -54,8 +53,11 @@ const DoctorCard = ({ className, ...props }) => {
               </span>
             )}
           </p>
+
           <a onClick={() => {
-            history.push("/Chat/Psychologist/" + props.user.id)
+            history.push("/Chat/Psychologist/" + props.user.id, {
+              imageUrl: props.user.imageURL
+            })
           }} className="follow">Go Chat</a>
           <a
             onClick={() =>

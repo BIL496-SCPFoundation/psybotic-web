@@ -25,14 +25,12 @@ const ProfileCard = ({
                      }) => {
 
     const currentUser = getUser();
-
-
-    const user = props.user;
+    console.log(currentUser);
     return (
         <>
             <div className="profile-container">
                 <div className="profile-shape">
-                    <img className={"profile-image"} src={currentUser.imageUrl ? currentUser.imageUrl : defaultImageUrl}
+                    <img className={"profile-image"} src={(typeof currentUser.imageUrl !== "undefined") ? currentUser.imageUrl : defaultImageUrl}
                          alt="User avatar"/>
                 </div>
                 <h3 className="title">

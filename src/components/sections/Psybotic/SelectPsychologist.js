@@ -29,6 +29,8 @@ const SelectPsychologist = ({
   const [verifiedDocs, setVerifiedDocs] = useState(0);
   const [docs, setDocs] = useState([]);
   const psyService = new PsychologistService();
+
+
   useEffect(() => {
     console.log("your docs");
     console.log(docs);
@@ -38,7 +40,7 @@ const SelectPsychologist = ({
         let temp = res.data.map(function (doc) {
           return (
             <div className={"col-md-4 mt-10"}>
-              <DoctorCard user={doc}></DoctorCard>
+              <DoctorCard user={doc}/>
             </div>
           );
         });

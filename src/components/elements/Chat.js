@@ -14,11 +14,11 @@ const firestore = firebase.firestore();
 const analytics = firebase.analytics();
 
 //https://stackoverflow.com/questions/37139525/firebase-chat-app-query-messages-optimize-query-that-should-be-or-or-improve
-const   Chat = ({type}) => {
+const   Chat = ({type, receiver, psy}) => {
 
     const currentUser = getUser();
 
-    const receiverId = type;
+    const receiverId = receiver;
     const senderId = currentUser.googleId;
     const id = senderId + receiverId
 
@@ -27,7 +27,10 @@ const   Chat = ({type}) => {
     const messagesRef = firestore.collection('chats/'+ type + '/' + id);
     const incoming_query = messagesRef.orderBy('date');
     const [messages] = useCollectionData(incoming_query, {idField: 'id'});
-    const messageList = (typeof messages === "undefined") ? [] : getMessages([...messages], senderId, currentUser);
+
+    console.log(psy);
+
+    const messageList = (typeof messages === "undefined") ? [] : getMessages([...messages], senderId, currentUser, type, psy);
 
     const [formValue, setFormValue] = useState('');
 
@@ -41,24 +44,14 @@ const   Chat = ({type}) => {
             message: formValue,
             date: firebase.firestore.FieldValue.serverTimestamp(),
             senderId: currentUser.googleId,
-            receiverId: "chatbot",
+            receiverId: type,
             senderFirstName: currentUser.firstName,
             senderLastName: currentUser.lastName,
-        })
-
-        await messagesRef.add({
-            message: "Hello I'm not implemented yet. Please try again later!",
-            date: firebase.firestore.FieldValue.serverTimestamp(),
-            senderId: "chatbot",
-            receiverId: currentUser.googleId,
-            senderFirstName: null,
-            senderLastName: null,
         })
 
         setFormValue('');
         scrollToBottom();
     }
-
 
     useEffect(scrollToBottom);
 
@@ -66,7 +59,7 @@ const   Chat = ({type}) => {
         <section className="msger">
             <header className="msger-header">
                 <div className="msger-header-title">
-                    <i className="fas fa-comment-alt"></i> AI Chat by Psybotic
+                    <i className="fas fa-comment-alt"></i> {(type === "chatbot") ?  "AI Chat by Psybotic": "Talk with a Psychologist"}
                 </div>
                 <div className="msger-header-options">
                     <span><i className="fas fa-cog"></i></span>
@@ -104,18 +97,29 @@ const   Chat = ({type}) => {
     );
 }
 
-function getMessages(messages, senderId, currentUser) {
+function getMessages(messages, senderId, currentUser, type, psy) {
 
     let messageList = [];
     messages.forEach((data) => {
-        messageList.push({
-            position: (data.senderId === senderId) ? "left" : "right",
-            type: 'text',
-            text: data.message,
-            avatar: (data.senderId === senderId) ? currentUser.imageUrl : 'https://image.flaticon.com/icons/svg/327/327779.svg',
-            title: (data.senderId === senderId) ? "You" : "Chat Bot",
-            date: (data.date === null) ? new Date() : data.date.toDate(),
-        });
+        if(type === "chatbot") {
+            messageList.push({
+                position: (data.senderId === senderId) ? "left" : "right",
+                type: 'text',
+                text: data.message,
+                avatar: (data.senderId === senderId) ? currentUser.imageUrl : 'https://image.flaticon.com/icons/svg/327/327779.svg',
+                title: (data.senderId === senderId) ? "You" : "Chat Bot",
+                date: (data.date === null) ? new Date() : data.date.toDate(),
+            });
+        } else {
+            messageList.push({
+                position: (data.senderId === senderId) ? "left" : "right",
+                type: 'text',
+                text: data.message,
+                avatar: (data.senderId === senderId) ? currentUser.imageUrl : psy.imageUrl,
+                title: (data.senderId === senderId) ? "You" : psy.firstName + psy.lastName ,
+                date: (data.date === null) ? new Date() : data.date.toDate(),
+        })
+        }
     });
 
     return messageList;

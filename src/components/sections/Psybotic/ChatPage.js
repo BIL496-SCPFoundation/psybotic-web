@@ -53,7 +53,7 @@ const ChatPage = ({
                 Talk with a <span className="text-color-primary">Chat Bot</span></h1>
             <div className="container">
                 <div className={innerClasses}>
-                    <Chat type="chatbot"/>
+                    <Chat type="chatbot" receiver="chatbot"/>
                 </div>
             </div>
         </section>
