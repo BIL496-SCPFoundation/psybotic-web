@@ -27,7 +27,7 @@
     margin-left: auto;
     margin-right: auto;
     box-shadow: 0 2px 15px rgb(58, 54, 54);
-    transform: rotate(-20deg);
+    
     font-size: 10px !important;
 }
 
@@ -39,7 +39,6 @@
     position: relative;
     top: -120px;
     box-shadow: 0 2px 15px black;
-    transform: rotate(25deg);
 
 }
 
