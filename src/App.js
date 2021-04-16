@@ -5,25 +5,29 @@ import ScrollReveal from './utils/ScrollReveal';
 // Layouts
 import LayoutDefault from './layouts/LayoutDefault';
 
-// Views
+// Views 
 import Home from './views/Home';
 import Profile from './views/Profile';
 import ProfileFamilyMember from './views/ProfileFamilyMember.js';
 import FamilyMemberSubmit from './components/sections/Psybotic/submitForms/FamilyMemberSubmit';
 import ProfileEmergencyContact from './views/ProfileEmergencyContact.js';
-import AdminPage from './views/AdminPage.js';
 import EmergencyContactSubmit from './components/sections/Psybotic/submitForms/EmergencyContactSubmit';
 import ProfileData from './views/ProfileData';
-import MainMenu from "./views/MainMenuDisplay";
 import ArticleSubmitView from "./views/ArticleSubmitView";
+import AdminPage from './views/AdminPage.js';
 
-import ChatPageDisplay from "./views/ChatPageDisplay";
-import SelectPsychologist from "./components/sections/Psybotic/SelectPsychologist";
 import UserPanelPage from './views/UserPanelPage.js';
 import PsychologistPanelPage from "./views/PsychologistPanelPage";
 import ManagePsychologists from "./components/sections/Psybotic/ManagePsychologists";
 import QuizDisplay from "./views/QuizDisplay";
 
+import MainMenu from "./components/sections/Psybotic/MainMenu";
+
+import ChatPageDisplay from "./views/ChatPageDisplay";
+import SelectPsychologist from "./components/sections/Psybotic/SelectPsychologist";
+import PsychologistProfile from "./components/sections/Psybotic/PsychologistProfile";
+import ApplyPsy from "./components/sections/Psybotic/ApplyPsy.js";
+import PsychologistChat from "./components/sections/Psybotic/PsychologistChat"
 
 
 const App = () => {
@@ -52,6 +56,10 @@ const App = () => {
 
                     <AppRoute exact path="/ChatPage" component={ChatPageDisplay} layout={LayoutDefault}/>
                     <AppRoute exact path="/SelectPsychologist" component={SelectPsychologist} layout={LayoutDefault}/>
+                    <AppRoute exact path="/PsychologistProfile/:id" component={PsychologistProfile} layout={LayoutDefault}/>
+                    <AppRoute exact path="/Chat/Psychologist/:id" component={PsychologistChat} layout={LayoutDefault}/>
+
+                    <AppRoute exact path="/ApplyPsy" component={ApplyPsy} layout={LayoutDefault}/>
 
                     <AppRoute exact path="/table/emergencyContact" component={ProfileEmergencyContact}
                               layout={LayoutDefault}/>

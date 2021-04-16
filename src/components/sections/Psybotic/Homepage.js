@@ -76,6 +76,52 @@ const Homepage = ({
             }));
         });
     }
+/*
+
+    localStorage.setItem("googleId",user.googleId);
+    
+    userService.login(user).then((selen) => history.push({
+      pathname: '/Mainmenu',
+        state: user
+    }));
+  }
+  return (
+    <section
+      {...props}
+      className={outerClasses}
+    >
+      <div className="container-sm">
+        <div className={innerClasses}>
+          <div className="hero-content">
+            <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
+              Welcome to <span className="text-color-primary">Psybotic</span>
+            </h1>
+            <div className="container-xs">
+              <p className="m-0 mb-32 reveal-from-bottom" data-reveal-delay="400">
+
+                </p>
+              <div className="reveal-from-bottom" data-reveal-delay="600">
+                <ButtonGroup>
+                  <GoogleLogin
+                      clientId="206287057539-g5ao42ofpsllimed99hflbeqjgmf5jdo.apps.googleusercontent.com"
+                      buttonText="Login"
+                      onSuccess={responseGoogle}
+                      onFailure={responseGoogle}
+                      cookiePolicy={'single_host_origin'}
+                  />
+                  <Button
+                      onClick={(() => {
+                        history.push("/Mainmenu")
+                      })}
+                      tag="a" color="dark" wideMobile href="#0">
+                    Try As Guest
+                  </Button>
+                </ButtonGroup>
+              </div>
+            </div>
+          </div>
+          <div className="hero-figure reveal-from-bottom illustration-element-01" data-reveal-value="20px" data-reveal-delay="800">
+*/
 
 
     return (
