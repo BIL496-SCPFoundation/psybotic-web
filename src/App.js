@@ -21,8 +21,7 @@ import PsychologistPanelPage from "./views/PsychologistPanelPage";
 import ManagePsychologists from "./components/sections/Psybotic/ManagePsychologists";
 import QuizDisplay from "./views/QuizDisplay";
 
-import MainMenu from "./components/sections/Psybotic/MainMenu";
-
+import MainMenu from "./views/MainMenuDisplay";
 import ChatPageDisplay from "./views/ChatPageDisplay";
 import SelectPsychologist from "./components/sections/Psybotic/SelectPsychologist";
 import PsychologistProfile from "./components/sections/Psybotic/PsychologistProfile";
