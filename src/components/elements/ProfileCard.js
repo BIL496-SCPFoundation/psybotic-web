@@ -25,7 +25,6 @@ const ProfileCard = ({
                      }) => {
 
     const currentUser = getUser();
-    console.log(currentUser);
     return (
         <>
             <div className="profile-container">

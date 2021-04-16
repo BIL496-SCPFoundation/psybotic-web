@@ -28,7 +28,6 @@ const   Chat = ({type, receiver, psy}) => {
     const incoming_query = messagesRef.orderBy('date');
     const [messages] = useCollectionData(incoming_query, {idField: 'id'});
 
-    console.log(psy);
 
     const messageList = (typeof messages === "undefined") ? [] : getMessages([...messages], senderId, currentUser, type, psy);
 
@@ -44,7 +43,7 @@ const   Chat = ({type, receiver, psy}) => {
             message: formValue,
             date: firebase.firestore.FieldValue.serverTimestamp(),
             senderId: currentUser.googleId,
-            receiverId: type,
+            receiverId: receiverId,
             senderFirstName: currentUser.firstName,
             senderLastName: currentUser.lastName,
         })
@@ -98,6 +97,7 @@ const   Chat = ({type, receiver, psy}) => {
 }
 
 function getMessages(messages, senderId, currentUser, type, psy) {
+    console.log(psy);
 
     let messageList = [];
     messages.forEach((data) => {
@@ -115,8 +115,8 @@ function getMessages(messages, senderId, currentUser, type, psy) {
                 position: (data.senderId === senderId) ? "left" : "right",
                 type: 'text',
                 text: data.message,
-                avatar: (data.senderId === senderId) ? currentUser.imageUrl : psy.imageUrl,
-                title: (data.senderId === senderId) ? "You" : psy.firstName + psy.lastName ,
+                avatar: (data.senderId === senderId) ? currentUser.imageUrl : psy.imageURL,
+                title: (data.senderId === senderId) ? "You" : data.senderFirstName +" "+ data.senderLastName ,
                 date: (data.date === null) ? new Date() : data.date.toDate(),
         })
         }
