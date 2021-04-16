@@ -100,7 +100,7 @@ const MainMenu = ({
                             >
                                 Apply as a Psychologist
                             </Button>
-                            {user.isAdmin && <Button
+                            {user.admin && <Button
                                 onClick={(() => {
                                     history.push("/admin", {user})
                                 })}
