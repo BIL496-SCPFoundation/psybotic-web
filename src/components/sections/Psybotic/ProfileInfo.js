@@ -5,6 +5,8 @@ import SectionHeader from '../partials/SectionHeader';
 import {useHistory} from "react-router-dom";
 import UserService from "../../../utils/data/axios/services/UserService";
 import getUser from '../../../utils/GetUser'
+import Button from "../../elements/Button";
+import {ButtonGroup} from "react-bootstrap";
 
 
 const propTypes = {
@@ -49,7 +51,6 @@ const ProfileInfo = ({
     );
 
 
-
     const history = useHistory();
 
     const [user, setUser] = useState({});
@@ -65,7 +66,7 @@ const ProfileInfo = ({
 
     const userService = new UserService();
 
-    if (Object.keys(OAuthUser).length !== 0 && Object.keys(user).length === 0 )  {
+    if (Object.keys(OAuthUser).length !== 0 && Object.keys(user).length === 0) {
         userService.findById(OAuthUser.googleId).then((response) => {
             if (JSON.stringify(response.data) !== JSON.stringify(user))
                 setUser(response.data);
@@ -79,88 +80,98 @@ const ProfileInfo = ({
         })
     }
 
-        return (
-            <section
-                {...props}
-                className={outerClasses}
-            >
-                <div className="container">
-                    <div className={innerClasses}>
-                        <SectionHeader data={sectionHeader} className="center-content"/>
-                        <div className={tilesClasses}>
+    return (
+        <section
+            {...props}
+            className={outerClasses}
+        >
+            <div className="container">
+                <div className={innerClasses}>
 
-                            <div className="tiles-item reveal-from-right" data-reveal-delay="200">
-                                <div className="tiles-item-inner">
-                                    <div className="testimonial-item-content">
-                                        <h4>Personal Info</h4>
-                                        <p className="text-sm mb-0">
-                                            <b className="text-color-high">First Name:</b> {user.firstName} <br/>
-                                            <b className="text-color-high">Last Name:</b> {user.lastName} <br/>
-                                            <b className="text-color-high">E-Mail: </b> {user.email} <br/>
-                                            <b className="text-color-high">Gender: </b> {user.gender} <br/>
-                                            <b className="text-color-high">City: </b> {user.city} <br/>
-                                            <b className="text-color-high">Martial Status: </b> {user.maritalStatus}
-                                            <br/>
-                                        </p>
-                                    </div>
-                                    <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
+                    <SectionHeader data={sectionHeader} className="center-content"/>
+                    <div style={{"textAlign": "center"}} className="container-xs">
+                        <h3>Mental State Score: <span
+                            className="text-color-primary">{Math.floor(user.mentalState)}%</span></h3>
+                        <Button className="button-primary" onClick={()=>{
+                            history.push("/mentalState/test");
+                        }}>Take the Test</Button>
+                    </div>
+                    <br/>
+                    <br/>
+
+                    <div className={tilesClasses}>
+                        <div className="tiles-item reveal-from-right" data-reveal-delay="200">
+                            <div className="tiles-item-inner">
+                                <div className="testimonial-item-content">
+                                    <h4>Personal Info</h4>
+                                    <p className="text-sm mb-0">
+                                        <b className="text-color-high">First Name:</b> {user.firstName} <br/>
+                                        <b className="text-color-high">Last Name:</b> {user.lastName} <br/>
+                                        <b className="text-color-high">E-Mail: </b> {user.email} <br/>
+                                        <b className="text-color-high">Gender: </b> {user.gender} <br/>
+                                        <b className="text-color-high">City: </b> {user.city} <br/>
+                                        <b className="text-color-high">Martial Status: </b> {user.maritalStatus}
+                                        <br/>
+                                    </p>
+                                </div>
+                                <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
                   <span className="testimonial-item-link">
                     <a style={{cursor: "pointer"}} onClick={(() => {
                         history.push("/table/profileData/submit", {user, prevPath: history.location.pathname})
                     })}>Edit</a>
                   </span>
-                                    </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div className="tiles-item reveal-from-bottom">
-                                <div className="tiles-item-inner">
-                                    <div className="testimonial-item-content">
-                                        <h4>Family Member Info</h4>
-                                        <p className="text-sm mb-0">
-                                            You have <b className="text-color-high"> {familyMemberCount} </b> family
-                                            member(s) saved to your profile. Please click the <span
-                                            className="testimonial-item-link">Edit</span> button to see and edit them
-                                        </p>
-                                    </div>
-                                    <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
+                        <div className="tiles-item reveal-from-bottom">
+                            <div className="tiles-item-inner">
+                                <div className="testimonial-item-content">
+                                    <h4>Family Member Info</h4>
+                                    <p className="text-sm mb-0">
+                                        You have <b className="text-color-high"> {familyMemberCount} </b> family
+                                        member(s) saved to your profile. Please click the <span
+                                        className="testimonial-item-link">Edit</span> button to see and edit them
+                                    </p>
+                                </div>
+                                <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
                   <span className="testimonial-item-link">
                     <a href="#0" onClick={(() => {
                         history.push("/table/familyMember")
                     })}>Edit</a>
                   </span>
-                                    </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div className="tiles-item reveal-from-left" data-reveal-delay="200">
-                                <div className="tiles-item-inner">
-                                    <div className="testimonial-item-content">
-                                        <h4>Emergency Contact</h4>
-                                        <p className="text-sm mb-0">
-                                            You have <b
-                                            className="text-color-high"> {emergencyContactCount} </b> emergency
-                                            contact(s) saved to your profile. Please click the <span
-                                            className="testimonial-item-link">Edit</span> button to see and edit them
-                                        </p>
-                                    </div>
-                                    <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
+                        <div className="tiles-item reveal-from-left" data-reveal-delay="200">
+                            <div className="tiles-item-inner">
+                                <div className="testimonial-item-content">
+                                    <h4>Emergency Contact</h4>
+                                    <p className="text-sm mb-0">
+                                        You have <b
+                                        className="text-color-high"> {emergencyContactCount} </b> emergency
+                                        contact(s) saved to your profile. Please click the <span
+                                        className="testimonial-item-link">Edit</span> button to see and edit them
+                                    </p>
+                                </div>
+                                <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
                   <span className="testimonial-item-link">
                     <a href="#0" onClick={(() => {
                         history.push("/table/emergencyContact")
                     })}>Edit</a>
                   </span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-        );
-    }
+            </div>
+        </section>
+    );
+}
 
-    ProfileInfo.propTypes = propTypes;
-    ProfileInfo.defaultProps = defaultProps;
+ProfileInfo.propTypes = propTypes;
+ProfileInfo.defaultProps = defaultProps;
 
-    export default ProfileInfo;
+export default ProfileInfo;

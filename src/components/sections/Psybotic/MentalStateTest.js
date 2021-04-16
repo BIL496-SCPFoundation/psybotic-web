@@ -9,7 +9,6 @@ import {Test, QuestionGroup, Question, Option} from 'react-multiple-choice';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ButtonGroup from "../../elements/ButtonGroup";
 import Button from "../../elements/Button";
-import PathNameOperations from "../../../utils/PathNameOperations";
 
 const propTypes = {
     ...SectionTilesProps.types
@@ -74,6 +73,8 @@ const MentalStateTest = ({
         })
     }
 
+    console.log(user);
+
     const questions = [
         "Little interest or pleasure in doing things",
         "Feeling down, depressed, or hopeless",
@@ -101,6 +102,30 @@ const MentalStateTest = ({
         )
     }
 
+    const calculateScore = () => {
+        let score = 0;
+        const max_score = 3 * questions.length;
+        for(let i = 0; i < questions.length; i++){
+            let currentOption = selectedOptions[i]
+            if(typeof currentOption === "undefined"){
+                alert("Please answer all questions before submitting.")
+                return;
+            }
+            console.log(currentOption);
+            score += parseInt(currentOption);
+        }
+
+        score = 100 - ((score * 100)/max_score)
+
+        let newUser = {...user}
+        newUser.mentalState = score
+        userService.update(newUser).then(() => {
+            setUser(newUser);
+        })
+        alert("Your mental state score is: " + Math.floor(score) + "%. (Higher the better)");
+        history.push("/Profile")
+    }
+
     // https://www.psycom.net/depression-test/
     return (
         <section
@@ -115,7 +140,7 @@ const MentalStateTest = ({
 
                         <ButtonGroup className="footer-bottom">
                             <Button type="button" className="button-dark" onClick={() => {
-                                history.push("/Mainmenu");
+                                history.push("/Profile");
                             }}>Return</Button>
                         </ButtonGroup>
                     </div>
@@ -132,9 +157,10 @@ const MentalStateTest = ({
 
                     <ButtonGroup className="footer-bottom">
                         <Button type="button" className="button-secondary" onClick={() => {
+                            calculateScore()
                         }}>Submit</Button>
                         <Button type="button" className="button-dark" onClick={() => {
-                            history.push("/Mainmenu");
+                            history.push("/Profile");
                         }}>Return</Button>
                     </ButtonGroup>
                     </div>
