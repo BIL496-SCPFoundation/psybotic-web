@@ -10,6 +10,7 @@ import 'firebase/analytics';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 import getUser from '../../utils/GetUser'
 import ChatMessageService from "../../utils/data/axios/services/ChatMessageService";
+import FirebaseService from "../../utils/data/axios/services/FirebaseService";
 
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
@@ -28,7 +29,7 @@ const   Chat = ({type, receiver, psy}) => {
     const messagesRef = firestore.collection('chats/'+ type + '/' + id);
     const incoming_query = messagesRef.orderBy('date');
     const [messages] = useCollectionData(incoming_query, {idField: 'id'});
-    const chatMessageService = new ChatMessageService();
+    const firebaseService = new FirebaseService();
 
     const messageList = (typeof messages === "undefined") ? [] : getMessages([...messages], senderId, currentUser, type, psy);
 
@@ -59,14 +60,15 @@ const   Chat = ({type, receiver, psy}) => {
             senderLastName: currentUser.lastName,
         });
 
-        chatMessageService.insert({
-            message: formValue,
-            date: new Date(),
-            chatRoomId: id,
-            senderId: currentUser.googleId,
-            receiverId: receiverId,
-            senderFirstName: currentUser.firstName,
-            senderLastName: currentUser.lastName,
+        firebaseService.sendMessage({
+            data: {
+                    message: formValue,
+                    chatRoomId: id,
+                    senderId: currentUser.googleId,
+                    receiverId: receiverId,
+                    senderFirstName: currentUser.firstName,
+                    senderLastName: currentUser.lastName,
+                }
         }).then((res)=>{
             console.log(res);
             setFormValue('');
