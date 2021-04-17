@@ -100,6 +100,14 @@ const MainMenu = ({
                             >
                                 Apply as a Psychologist
                             </Button>
+                            <Button
+                                onClick={(() => {
+                                    history.push("/LearnMore", {user})
+                                })}
+                                variant="dark" size="lg" block
+                            >
+                                Learn More Related To Your Age
+                            </Button>
                             {user.isAdmin && <Button
                                 onClick={(() => {
                                     history.push("/admin", {user})
