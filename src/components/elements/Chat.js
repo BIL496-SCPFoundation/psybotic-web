@@ -9,6 +9,7 @@ import 'firebase/auth';
 import 'firebase/analytics';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 import getUser from '../../utils/GetUser'
+import ChatMessageService from "../../utils/data/axios/services/ChatMessageService";
 
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
@@ -27,7 +28,7 @@ const   Chat = ({type, receiver, psy}) => {
     const messagesRef = firestore.collection('chats/'+ type + '/' + id);
     const incoming_query = messagesRef.orderBy('date');
     const [messages] = useCollectionData(incoming_query, {idField: 'id'});
-
+    const chatMessageService = new ChatMessageService();
 
     const messageList = (typeof messages === "undefined") ? [] : getMessages([...messages], senderId, currentUser, type, psy);
 
@@ -39,6 +40,7 @@ const   Chat = ({type, receiver, psy}) => {
 
 
     const sendMessage = async () => {
+        /*
         await messagesRef.add({
             message: formValue,
             date: firebase.firestore.FieldValue.serverTimestamp(),
@@ -46,10 +48,30 @@ const   Chat = ({type, receiver, psy}) => {
             receiverId: receiverId,
             senderFirstName: currentUser.firstName,
             senderLastName: currentUser.lastName,
-        })
+        })*/
+        console.log({
+            message: formValue,
+            date: firebase.firestore.FieldValue.serverTimestamp(),
+            chatRoomId: id,
+            senderId: currentUser.googleId,
+            receiverId: receiverId,
+            senderFirstName: currentUser.firstName,
+            senderLastName: currentUser.lastName,
+        });
 
-        setFormValue('');
-        scrollToBottom();
+        chatMessageService.insert({
+            message: formValue,
+            date: new Date(),
+            chatRoomId: id,
+            senderId: currentUser.googleId,
+            receiverId: receiverId,
+            senderFirstName: currentUser.firstName,
+            senderLastName: currentUser.lastName,
+        }).then((res)=>{
+            console.log(res);
+            setFormValue('');
+            scrollToBottom();
+        })
     }
 
     useEffect(scrollToBottom);
@@ -97,8 +119,6 @@ const   Chat = ({type, receiver, psy}) => {
 }
 
 function getMessages(messages, senderId, currentUser, type, psy) {
-    console.log(psy);
-
     let messageList = [];
     messages.forEach((data) => {
         if(type === "chatbot") {

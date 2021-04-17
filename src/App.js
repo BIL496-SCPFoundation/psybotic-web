@@ -15,6 +15,7 @@ import EmergencyContactSubmit from './components/sections/Psybotic/submitForms/E
 import ProfileData from './views/ProfileData';
 import ArticleSubmitView from "./views/ArticleSubmitView";
 import AdminPage from './views/AdminPage.js';
+import ChatListView from './views/ChatListView.js';
 
 import UserPanelPage from './views/UserPanelPage.js';
 import PsychologistPanelPage from "./views/PsychologistPanelPage";
@@ -57,6 +58,7 @@ const App = () => {
                     <AppRoute exact path="/SelectPsychologist" component={SelectPsychologist} layout={LayoutDefault}/>
                     <AppRoute exact path="/PsychologistProfile/:id" component={PsychologistProfile} layout={LayoutDefault}/>
                     <AppRoute exact path="/Chat/Psychologist/:id" component={PsychologistChat} layout={LayoutDefault}/>
+                    <AppRoute exact path="/Chat/ChatList" component={ChatListView} layout={LayoutDefault}/>
 
                     <AppRoute exact path="/ApplyPsy" component={ApplyPsy} layout={LayoutDefault}/>
 
