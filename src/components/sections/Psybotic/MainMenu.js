@@ -107,13 +107,14 @@ const MainMenu = ({
                                 variant="dark" size="lg" block>
                                 Admin Page
                             </Button>}
-                            {true && <Button
+                            {user.psychologist && <Button
                                 onClick={(() => {
                                     history.push("/Chat/ChatList", {user})
                                 })}
                                 variant="dark" size="lg" block>
                                 Chat With Clients
                             </Button>}
+
                         </div>
                     </div>
 

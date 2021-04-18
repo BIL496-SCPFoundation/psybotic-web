@@ -11,6 +11,7 @@ import {useCollectionData} from 'react-firebase-hooks/firestore';
 import getUser from '../../utils/GetUser'
 import ChatMessageService from "../../utils/data/axios/services/ChatMessageService";
 import FirebaseService from "../../utils/data/axios/services/FirebaseService";
+import PathNameOperations from "../../utils/PathNameOperations"
 
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
@@ -22,7 +23,12 @@ const   Chat = ({type, receiver, psy}) => {
 
     const receiverId = receiver;
     const senderId = currentUser.googleId;
-    const id = senderId + receiverId
+
+    let id;
+    if(type === "chatbot")
+        id = senderId + receiverId
+    else
+        id = PathNameOperations.chatIdCalculate(receiverId, (typeof senderId === "undefined") ? "0": senderId)
 
     const messagesEndRef = useRef(null);
 
