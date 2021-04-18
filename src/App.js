@@ -29,6 +29,11 @@ import SelectPsychologist from "./components/sections/Psybotic/SelectPsychologis
 import PsychologistProfile from "./components/sections/Psybotic/PsychologistProfile";
 import ApplyPsy from "./components/sections/Psybotic/ApplyPsy.js";
 import PsychologistChat from "./components/sections/Psybotic/PsychologistChat"
+import LearnMore from "./components/sections/Psybotic/LearnMore.js";
+import ArticleChild from './components/elements/ArticleChild';
+import ArticleYoungAdult from './components/elements/ArticleYoungAdult';
+import ArticleAdult from './components/elements/ArticleAdult';
+import ArticleOld from './components/elements/ArticleOld';
 
 
 const App = () => {
@@ -64,6 +69,11 @@ const App = () => {
                     <AppRoute exact path="/Chat/ChatList" component={ChatListView} layout={LayoutDefault}/>
 
                     <AppRoute exact path="/ApplyPsy" component={ApplyPsy} layout={LayoutDefault}/>
+                    <AppRoute exact path="/LearnMore" component={LearnMore} layout={LayoutDefault}/>
+                    <AppRoute exact path="/Article/YoungAdult" component={ArticleYoungAdult} layout={LayoutDefault}/>
+                    <AppRoute exact path="/Article/Adult" component={ArticleAdult} layout={LayoutDefault}/>
+                    <AppRoute exact path="/Article/Child" component={ArticleChild} layout={LayoutDefault}/>
+                    <AppRoute exact path="/Article/Old" component={ArticleOld} layout={LayoutDefault}/>
 
                     <AppRoute exact path="/table/emergencyContact" component={ProfileEmergencyContact}
                               layout={LayoutDefault}/>
