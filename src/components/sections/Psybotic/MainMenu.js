@@ -114,6 +114,14 @@ const MainMenu = ({
                                 variant="dark" size="lg" block>
                                 Chat With Clients
                             </Button>}
+                            <Button
+                                onClick={(() => {
+                                    history.push("/LearnMore", {user})
+                                })}
+                                variant="dark" size="lg" block
+                            >
+                                Learn More Related To Your Age
+                            </Button>
 
                         </div>
                     </div>
