@@ -131,7 +131,7 @@ function getMessages(messages, senderId, currentUser, type, psy) {
     messages.forEach((data) => {
         if(type === "chatbot") {
             messageList.push({
-                position: (data.senderId === senderId) ? "left" : "right",
+                position: (data.senderId === senderId) ? "right" : "left",
                 type: 'text',
                 text: data.message,
                 avatar: (data.senderId === senderId) ? currentUser.imageUrl : 'https://image.flaticon.com/icons/svg/327/327779.svg',
@@ -140,7 +140,7 @@ function getMessages(messages, senderId, currentUser, type, psy) {
             });
         } else {
             messageList.push({
-                position: (data.senderId === senderId) ? "left" : "right",
+                position: (data.senderId === senderId) ? "right" : "left",
                 type: 'text',
                 text: data.message,
                 avatar: (data.senderId === senderId) ? currentUser.imageUrl : psy.imageURL,
